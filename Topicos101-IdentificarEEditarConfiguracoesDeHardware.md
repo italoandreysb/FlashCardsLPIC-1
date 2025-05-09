@@ -33,7 +33,7 @@ Portanto, uma das primeiras coisas é olhar se o SO está detectando o dispositi
 Mostra dispositivos conectados ao barramento PCI 
 
 ### lsusb (Universal Serial Bus)
-Mostra os dispositivos USBs conectados.
+Mostra os dispositivos exclusivamente USBs conectados.
 
 Qual a função do módulo do Kernel?
 Controlar o dispositivo existente. O módulo do Kernel pode fazer parte do kernel ou ser adicionado depois.
@@ -41,28 +41,48 @@ Controlar o dispositivo existente. O módulo do Kernel pode fazer parte do kerne
 - Os modulos de kernel do linux relacionados a hardware também são chamados de drivers.
 - Geralmente precisam do sudo
 
-Execute o lspci
-```
-$ lspci
 
-04:02.0 Network controller: Ralink corp. RT2561/RT61 802.11g PCI
+Resumo de atributos lspci, que podem ser combinadas:
 ```
-Para **mais detalhes**, copie o endereço do dispositivo PCI (Hexadecimais no início) e adicione as flags -s -v:
+lspci                    >> listagem crua das lspcis
+lspci -s 01:00.0         >> Listando com um source/origem diferente
+lspci -s 01:00.0 -v      >> Verbose + detalhes
+lspci -s 01:00.0 -k      >> Kernel - Verifica qual o módulo do kernel está sendo utilizado (versões mais recentes)
+lspci -s 01:00.0 -t      >> Tree - Árvore
+```
+Resumos lsusb
+```
+lsusb
+lsusb -s 01:20
+lsusb -v -d 1781:0c9f   >> Verbose + DeviceID
+lsusb -v -t             >> Mostra os mapeamentos de forma hierarquica. Quando existe um módulo correspondente, seu nome aparece no final da linha do dispositivo, como em Driver=btusb
+```
+
+## Pacote kmod
+
+Um conjunto de ferramentas para realizar tarefas comuns com os módulos do kernel Linux, como inserir, remover, listar, perificar propriedades, resolver dependências e aliases.
+
+### lsmod
+Mostra todos os módulos carregados no momento
 
 ```
-$ lspci -s 04:02.0 -v
+$ lsmod
 
-04:02.0 Network controller: Ralink corp. RT2561/RT61 802.11g PCI
-Subsystem: Linksys WMP54G v4.1
-Flags: bus master, slow devsel, latency 32, IRQ 21
-Memory at e3100000 (32-bit, non-prefetchable) [size=32K]
-Capabilities: [40] Power Management version 2
-kernel driver in use: rt61pci
+root@bktools:/home/bktadmin# lsmod
+Module                  Size  Used by
+ufs                    81920  0
+qnx4                   16384  0
+hfsplus               110592  0
+hfs                    61440  0
+minix                  36864  0
+...(resumido)
 ```
-O módulo do kernel pode ser localizado na linha "kernel driver in use"
+Coluna size: mostra a RAM utilizada pelos módulos em bytes.
+Coluna Used by: Mostra módulos dependentes para que o módulo principal (na coluna nome) funcione.
 
-Para identificar os drivers do kernel, use o **-k**:
+### modprobe 
+Descarrega e recarrega módulos que não estão em uso
 
 ```
-lspci -s 01:00.0 -k
+modprobe -r snd-hda-intel
 ```
