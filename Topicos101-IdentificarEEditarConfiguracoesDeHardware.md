@@ -86,3 +86,17 @@ Descarrega e recarrega módulos que não estão em uso
 ```
 modprobe -r snd-hda-intel
 ```
+
+
+# 101.2 - Inicialização do sistema
+
+O é o GRUB?
+
+- O carregador de inicialização mais popular para linux na arquitetura x86, ele exibe uma lista de sistemas operacionais disponiveis para inicializar.
+
+
+
+Caso o GRUB não mostre a lista dos sistemas, como invoca-la em um sistema com BIOS e em um sistema com UEFI?
+
+- Na bios: **tecla shift**  
+- Nos sistemas UEFI: **Tecla ESC**
