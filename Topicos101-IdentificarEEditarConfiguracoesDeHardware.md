@@ -95,8 +95,31 @@ O é o GRUB?
 - O carregador de inicialização mais popular para linux na arquitetura x86, ele exibe uma lista de sistemas operacionais disponiveis para inicializar.
 
 
-
 Caso o GRUB não mostre a lista dos sistemas, como invoca-la em um sistema com BIOS e em um sistema com UEFI?
 
-- Na bios: **tecla shift**  
-- Nos sistemas UEFI: **Tecla ESC**
+- Na bios: tecla shift
+- Nos sistemas UEFI: Tecla ESC
+
+No menu do grub é possível escolhqer qual dos kernels instalados deve ser carregado e passar novos parâmetros para ele, cite alguns dos principais.
+
+- acpi (Advanced Configuration and Power Interface): Habilita suporte ao gerenciamento de energia. Ex: "acpi=off".
+
+- init: define um iniciador de sistema alternativo. EX: "init=/bin/bash" que inicializará uma sessão do shell após o kernel.
+
+- systemd.unit: define o destino do systemd a ser ativado, ex: "systemd.unit=graphical.target" ou "5" (runlevel do SysV).
+
+- mem: Define a quantidade de ram disponível para o sistema, por exemplo de um convidado. Ex: "mem=512M" que limita a 512MB.
+
+- maxcpus: Limita o numero de processadores visíveis ao sistema de máquinas, ex: "maxcpus=2".
+
+- quiet: Oculta a maior parte das mensagens das mensagens de inicialização.
+
+- vga: seleciona o modo de vídeo, ex: "vga=ask" que mostra uma lista dos modos disponiveis.
+
+- root: define a partição raiz diferente da que está no boot loader, ex: "root=/dev/sda3/".
+
+- rootflags: Opção de montagem.
+
+- ro: permite leitura montagem inicial do arquivo raiz.
+
+- rw: permite escrever montagem inicial do arquivo raiz.
