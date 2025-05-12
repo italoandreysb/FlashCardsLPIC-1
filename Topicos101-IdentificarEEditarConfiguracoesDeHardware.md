@@ -123,3 +123,23 @@ No menu do grub é possível escolhqer qual dos kernels instalados deve ser carr
 - ro: permite leitura montagem inicial do arquivo raiz.
 
 - rw: permite escrever montagem inicial do arquivo raiz.
+
+
+
+Geralmente é comum alterar os parametros do kernel? qual a localização do arquivo de grub?
+
+- Não, mas pode ser util para detectar e resolver problemas.
+- Localizado em /etc/default/grub, para persistir, insira na linha GRUB_CMDLINE_LINUX
+
+
+É necessário gerar um novo arquivo de Configuração para o carregador de inicialização a cada vez que /etc/default/grub é alterado.
+Qual o comando?
+
+- mkconfig -o /boot/grub/grub.cfg
+
+Quando o sistema operacional estiver rodando, os
+parâmetros do kernel usados para carregar a sessão ficam disponíveis para leitura no arquivo
+/proc/cmdline.
+
+
+# Parei em inicialização do sistema
