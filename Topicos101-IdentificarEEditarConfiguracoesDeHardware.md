@@ -142,4 +142,164 @@ parâmetros do kernel usados para carregar a sessão ficam disponíveis para lei
 /proc/cmdline.
 
 
-# Parei em inicialização do sistema
+# ============================= ADICIOANR AO ANKI ================================================
+## Inicialização do sistema 
+
+Quando começa a iniclização do sistema operacional?
+- Quando o o carregador de inicialização(bootloader) carrega o kernel na RAM, então o kernel assume o controle da CPU, carrega a parte fundamental (conf. básica de harware eo endereçamento de memória.)
+
+O que é e para que serve o initramfs?
+- Intial RAM filesystem, é um arquivo que contém um sistema de arquivos raiz temporário usado na inicialização. O objetivo dele é fornecer os módulos para kernel acessar o arquivos raiz
+
+Qual o primeiro programa executado pelo kenel? para que serve? existem outros "primeiros programas?"
+- init, responsável por iniciar todos os scripts de inicialização e os daemons do sistema.
+
+Existem outras implementações: systemd e o upstart
+
+
+
+Resumo:
++------------------------+
+| Bootloader             |
+| (Carrega o kernel)     |
++-----------+------------+
+            |
+            v
++------------------------+
+| Kernel na RAM          |
+| - Assume CPU           |
+| - Configura hardware   |
+| - Endereçamento memória|
++-----------+------------+
+            |
+            v
++------------------------+
+| Carregamento do        |
+| initramfs              |
+| - Sistema raiz temp.   |
+| - Módulos necessários  |
++-----------+------------+
+            |
+            v
++------------------------+
+| Acesso ao sistema      |
+| de arquivos raiz real  |
++-----------+------------+
+            |
+            v
++------------------------+
+| Montagem de sistemas   |
+| de arquivos (/etc/fstab)|
++-----------+------------+
+            |
+            v
++------------------------+
+| Execução do processo   |
+| init (ou systemd, etc.)|
+| - Scripts e daemons    |
++-----------+------------+
+            |
+            v
++------------------------+
+| Remoção do initramfs   |
+| da RAM                 |
++------------------------+
+
+Fale um pouco sobre os sistemas de Inicialização (init systems): SysVinit, Upstart e systemd
+
+## 🧱 SysVinit (System V Init) (1983)
+
+- **Origem**: Baseado no Unix System V.
+- **Funcionamento**: Utiliza scripts shell localizados em `/etc/init.d/` e links simbólicos em diretórios como `/etc/rc.d/` ou `/etc/rcX.d/`.
+- **Sequência Linear**: Serviços iniciam em série, com base em uma ordem numérica.
+- **Runlevels**: Define diferentes estados do sistema (modo multiusuário, gráfico, etc.).
+- **Desvantagens**:
+  - Não paraleliza a inicialização.
+  - Gerenciamento de dependências é limitado.
+
+---
+
+## ⚙️ Upstart (2006)
+
+- **Origem**: Desenvolvido pela Canonical para Ubuntu.
+- **Funcionamento**: Baseado em eventos (ex: "start serviço X quando a rede estiver ativa").
+- **Mais dinâmico que SysV**: Responde a eventos do sistema como adição de hardware.
+- **Local dos scripts**: `/etc/init/`
+- **Desvantagens**:
+  - Melhor que SysV, mas ainda possui limitações em dependências complexas.
+  - Substituído pelo systemd nas distros modernas.
+
+---
+
+## 🚀 systemd (2010)
+
+- **Origem**: Desenvolvido pela Red Hat; padrão atual em muitas distribuições Linux.
+- **Funcionamento**: Utiliza *unit files* (serviços, montagens, dispositivos, sockets etc.) em `/etc/systemd/system/`.
+- **Paralelismo**: Inicia serviços em paralelo com base em dependências.
+- **Substitui Runlevels**: Utiliza *targets* para representar estados do sistema.
+- **Comando principal**: `systemctl` (ex: `systemctl start nginx.service`)
+- **Recursos**:
+  - Log integrado com `journald`
+  - *Socket activation*
+  - Uso de *cgroups* para controle de processos
+  - Substitui cron com *timers*
+
+- **Críticas**:
+  - Considerado por alguns como complexo e "monolítico", contrariando o princípio Unix de simplicidade.
+
+
+## Inspeção da inicialização
+
+Como é chamado o espaço de memória que o kernel armazena suas mensagens, incluindo mensagens de inicialização? como visualizar? e quando e como as mensagens são apagadas?
+- Buffer de anel do kernel.
+- As mensagens são mantidas mesmo que não sejam exibidas na inicialização (quando trocada por uma animação)
+- As mensagens podem ser lidas com o comando: dmesg
+- As mensagens são apagadas quando o sistema é desligado ou quando executado o "dmesg --clear".
+
+
+A linha abaixo contém a saída do comando "dmesg", o que significam os números no início?
+[ 5.705468] parport0: PC-style at 0x378 (0x778), irq 7, dma 3
+- É a quantidade de segundos desde o início do kernel.
+
+
+Nos sistemas baseados no systemd, o comando journalctl mostra as mensagens de inicialização. Quais são os parâmetros que podemos usar junto? onde ficam salvos estes logs?
+- -b, --boot, -k, --dmesg
+
+
+
+Suponha que temos um problema com inicialização que não impediu a inicialização, e queiramos checar os logs do boot atual, mas também dos anteriores, como podemos fazer?
+
+Listar todos os boots ()
+- journalctl --list-boots
+
+Checar os logs de inicialização anteriores:
+- journalctl -b 0  ("-b 1" também pode ser usado)
+
+
+Caso haja um problema sério e o servidor não inicialize, podemos acessar os logs de inicialização através de outras mídias? Se sim, em qual diretório?
+- Sim, /var/log/journal
+
+Caso esteja em outro diretório diferente do parão, utilize o parâmetro -D ou --directory
+
+
+
+Qual é o diretório padrão das mensagens de log do systemd, posso simplesmente ler o texto plano?
+- /var/log/journal/
+- Não, as mensgens de log do sistema não são armazenadas em texto puro, o comando journalctl é necessário para que fiquem legíveis.
+
+
+
+Em uma máquina equipada com firmware BIOS, onde está localizado o binário do bootstrap?
+- No MBR do primeiro dispositivo de armazenamento
+
+O firmware UEFI suporta recursos estendidos fornecidos por programas externos, chamados
+aplicativos EFI. Esses aplicativos, no entanto, têm seu próprio local especial. Em que lugar do
+sistema localizam-se os aplicativos?
+
+- são armazenados na EFI System Partition (ESP), localizada em qualquer
+bloco de armazenamento disponível com um sistema de arquivos compatível (geralmente um
+sistema de arquivos FAT32).
+
+
+## parei na página 33 (comece a ler e coletar as respostas dos exercicios guiados)
+
