@@ -141,12 +141,13 @@ Quando o sistema operacional estiver rodando, os
 parâmetros do kernel usados para carregar a sessão ficam disponíveis para leitura no arquivo
 /proc/cmdline.
 
-
-# ============================= ADICIOANR AO ANKI ================================================
+--- 
+# Adicionar ao anki:
+---
 ## Inicialização do sistema 
 
 Quando começa a iniclização do sistema operacional?
-- Quando o o carregador de inicialização(bootloader) carrega o kernel na RAM, então o kernel assume o controle da CPU, carrega a parte fundamental (conf. básica de harware eo endereçamento de memória.)
+- Quando o o carregador de inicialização(bootloader) carrega o kernel na RAM, então o kernel assume o controle da CPU, carrega a parte fundamental (conf. básica de harware eo endereçamento de memória).
 
 O que é e para que serve o initramfs?
 - Intial RAM filesystem, é um arquivo que contém um sistema de arquivos raiz temporário usado na inicialização. O objetivo dele é fornecer os módulos para kernel acessar o arquivos raiz
@@ -159,6 +160,7 @@ Existem outras implementações: systemd e o upstart
 
 
 Resumo:
+```
 +------------------------+
 | Bootloader             |
 | (Carrega o kernel)     |
@@ -204,7 +206,7 @@ Resumo:
 | Remoção do initramfs   |
 | da RAM                 |
 +------------------------+
-
+```
 Fale um pouco sobre os sistemas de Inicialização (init systems): SysVinit, Upstart e systemd
 
 ## 🧱 SysVinit (System V Init) (1983)
@@ -258,7 +260,9 @@ Como é chamado o espaço de memória que o kernel armazena suas mensagens, incl
 
 
 A linha abaixo contém a saída do comando "dmesg", o que significam os números no início?
+```
 [ 5.705468] parport0: PC-style at 0x378 (0x778), irq 7, dma 3
+```
 - É a quantidade de segundos desde o início do kernel.
 
 
@@ -269,17 +273,16 @@ Nos sistemas baseados no systemd, o comando journalctl mostra as mensagens de in
 
 Suponha que temos um problema com inicialização que não impediu a inicialização, e queiramos checar os logs do boot atual, mas também dos anteriores, como podemos fazer?
 
-Listar todos os boots ()
+1. Listar todos os boots ()
 - journalctl --list-boots
 
-Checar os logs de inicialização anteriores:
+2. Checar os logs de inicialização anteriores:
 - journalctl -b 0  ("-b 1" também pode ser usado)
 
 
 Caso haja um problema sério e o servidor não inicialize, podemos acessar os logs de inicialização através de outras mídias? Se sim, em qual diretório?
 - Sim, /var/log/journal
-
-Caso esteja em outro diretório diferente do parão, utilize o parâmetro -D ou --directory
+- Caso esteja em outro diretório diferente do parão, utilize o parâmetro -D ou --directory
 
 
 
@@ -288,18 +291,17 @@ Qual é o diretório padrão das mensagens de log do systemd, posso simplesmente
 - Não, as mensgens de log do sistema não são armazenadas em texto puro, o comando journalctl é necessário para que fiquem legíveis.
 
 
-
 Em uma máquina equipada com firmware BIOS, onde está localizado o binário do bootstrap?
-- No MBR do primeiro dispositivo de armazenamento
+- No MBR do primeiro dispositivo de armazenamento.
 
 O firmware UEFI suporta recursos estendidos fornecidos por programas externos, chamados
 aplicativos EFI. Esses aplicativos, no entanto, têm seu próprio local especial. Em que lugar do
 sistema localizam-se os aplicativos?
 
-- são armazenados na EFI System Partition (ESP), localizada em qualquer
+- São armazenados na EFI System Partition (ESP), localizada em qualquer
 bloco de armazenamento disponível com um sistema de arquivos compatível (geralmente um
 sistema de arquivos FAT32).
 
 
-## parei na página 33 (comece a ler e coletar as respostas dos exercicios guiados)
+## Parei na página 33 (comece a ler e coletar as respostas dos exercicios guiados)
 
