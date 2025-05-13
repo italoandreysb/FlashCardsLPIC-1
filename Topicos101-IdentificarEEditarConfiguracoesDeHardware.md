@@ -316,3 +316,12 @@ Um disco rígido contendo todo o sistema de arquivos de uma máquina offline foi
 - Com os comandos **journalctl -D /mnt/hd/var/log/journal** ou  **journalctl --directory=/mnt/hd/var/log/journal**
 
 # 101.3 - Alternar runlevels/boot targets, desligar e reiniciar o sistema
+
+O que são daemons?
+- Também são chamados de serviços.
+- Também são responsáveis pelos recursos estendido subjacentes (servidor http, compartilhamento de arquivos, email..)
+
+Qual o primeiro programa lançado pelo kenel durante a inicialização e que recebe sempre o PID 1?
+- O gerenciador de serviços
+
+# Parei na página 38
