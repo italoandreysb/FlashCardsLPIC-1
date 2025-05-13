@@ -141,9 +141,6 @@ Quando o sistema operacional estiver rodando, os
 parâmetros do kernel usados para carregar a sessão ficam disponíveis para leitura no arquivo
 /proc/cmdline.
 
---- 
-# Adicionar ao anki:
----
 ## Inicialização do sistema 
 
 Quando começa a iniclização do sistema operacional?
@@ -280,10 +277,9 @@ Suponha que temos um problema com inicialização que não impediu a inicializa�
 - journalctl -b 0  ("-b 1" também pode ser usado)
 
 
-Caso haja um problema sério e o servidor não inicialize, podemos acessar os logs de inicialização através de outras mídias? Se sim, em qual diretório?
+Caso haja um problema e o servidor não inicialize, podemos acessar os logs de inicialização através de outras mídias? Se sim, em qual diretório?
 - Sim, /var/log/journal
 - Caso esteja em outro diretório diferente do parão, utilize o parâmetro -D ou --directory
-
 
 
 Qual é o diretório padrão das mensagens de log do systemd, posso simplesmente ler o texto plano?
@@ -291,15 +287,12 @@ Qual é o diretório padrão das mensagens de log do systemd, posso simplesmente
 - Não, as mensgens de log do sistema não são armazenadas em texto puro, o comando journalctl é necessário para que fiquem legíveis.
 
 
-Em uma máquina equipada com firmware BIOS, onde está localizado o binário do bootstrap?
+Em uma máquina equipada com firmware BIOS, onde está o binário do bootstrap?
 - No MBR do primeiro dispositivo de armazenamento.
 
-O firmware UEFI suporta recursos estendidos fornecidos por programas externos, chamados
-aplicativos EFI. Esses aplicativos, no entanto, têm seu próprio local especial. Em que lugar do
-sistema localizam-se os aplicativos?
+O firmware UEFI suporta recursos estendidos fornecidos por programas externos, chamados aplicativos EFI. Esses aplicativos, no entanto, têm seu próprio local especial. Em que lugar do sistema localizam-se os aplicativos?
 
-- São armazenados na EFI System Partition (ESP), localizada em qualquer
-bloco de armazenamento disponível com um sistema de arquivos compatível (geralmente um
+- São armazenados na EFI System Partition (ESP), localizada em qualquer bloco de armazenamento disponível com um sistema de arquivos compatível (geralmente um
 sistema de arquivos FAT32).
 
 
