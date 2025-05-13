@@ -296,5 +296,23 @@ O firmware UEFI suporta recursos estendidos fornecidos por programas externos, c
 sistema de arquivos FAT32).
 
 
-## Parei na página 33 (comece a ler e coletar as respostas dos exercicios guiados)
+Os gerenciadores de inicialização permitem a passagem de parâmetros personalizados do kernel antes de carregá-lo. Suponha que o sistema não possa inicializar devido a uma localização incorreta do sistema de arquivos raiz. Como o sistema de arquivos  raiz correto, localizado em /dev/sda3, seria fornecido como parâmetro para o kernel?
+- O parâmetro root deve ser usado, como em root=/dev/sda3.
 
+
+O carregador de inicialização apresenta uma lista de sistemas operacionais a escolher quando houver mais de um sistema operacional instalado na máquina. No entanto, um sistema operacional recém-instalado pode sobrescrever o MBR do disco rígido, apagando o primeiro estágio do gerenciador de inicialização e tornando o outro sistema operacional inacessível. Por que isso não aconteceria em uma máquina equipada com um firmware UEFI?
+
+- As máquinas UEFI não usam o MBR do disco rígido para armazenar o primeiro estágio do gerenciador de inicialização.
+
+Qual é uma consequência comum de se instalar um kernel personalizado sem fornecer uma imagem initramfs apropriada?
+- O sistema de arquivos raiz pode ficar inacessível se seu tipo tiver sido compilado como um módulo externo do kernel.
+
+
+O log de inicialização tem centenas de linhas, portanto a saída do comando dmesg é frequentemente canalizada para um comando de paginação — como o comando less — para facilitar a leitura. Qual opção do dmesg faz automaticamente a paginação da saída, eliminando a necessidade de usar explicitamente um comando de paginação?
+- Os comandos dmesg -H ou dmesg --human habilitam a paginação por padrão.
+
+Um disco rígido contendo todo o sistema de arquivos de uma máquina offline foi removido e conectado a uma máquina operacional como drive secundário. Supondo que seu ponto de montagem seja /mnt/hd, como o journalctl seria usado para inspecionar o conteúdo dos arquivos de diário localizados em /mnt/hd/var/log/journal/?
+
+- Com os comandos **journalctl -D /mnt/hd/var/log/journal** ou  **journalctl --directory=/mnt/hd/var/log/journal**
+
+# 101.3 - Alternar runlevels/boot targets, desligar e reiniciar o sistema
