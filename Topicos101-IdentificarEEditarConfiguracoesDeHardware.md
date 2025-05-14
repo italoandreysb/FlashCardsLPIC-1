@@ -321,7 +321,110 @@ O que são daemons?
 - Também são chamados de serviços.
 - Também são responsáveis pelos recursos estendido subjacentes (servidor http, compartilhamento de arquivos, email..)
 
+
 Qual o primeiro programa lançado pelo kenel durante a inicialização e que recebe sempre o PID 1?
 - O gerenciador de serviços
 
-# Parei na página 38
+
+Por muitos anos o método de gerenciamento de serviços implementado pelo SystemV foi o mais utilizado, ainda permanece assim?
+- Não, atualmente os gerenciadores de serviços são baseados no systemd (implementado pelo systemd e upstart).
+
+
+Sobre o sysVinit, como funcionam os níveis de execução (runlevels)?
+- São numerados de 0 a 6, geralmente atribuidos às finalidades:
+
+- Nível de execução 0
+Encerramento do sistema.
+- Nível de execução 1, s ou single
+Modo de usuário único, sem rede e outros recursos não-essenciais (modo de manutenção).
+- Nível de execução 2, 3 ou 4
+Modo multiusuário. Os usuários podem se logar via console ou pela rede. Os níveis de execução 2 e 4 não são usados com frequência.
+- Nível de execução 5
+Modo multiusuário. Equivale ao nível 3, mais o login em modo gráfico.
+- Nível de execução 6
+Reinicialização do sistema.
+
+
+Porque alterar o runlevel(níveis de execução)?
+Isso ativa/paralisa serviços dinamicamente, sem reiniciar
+- Para depurar o sistema sem interface gráfica.
+- Para inicializar um servidor sem serviços desnecessários.
+- Para manter um ambiente enxuto e seguro.
+
+usando o sysVinit:
+sudo init 3    # Vai para o modo texto com rede
+sudo init 5    # Volta para o modo gráfico
+
+
+[Sobre SystemV] Qual é o nome e onde fica o programa responsável pelo gerenciamento dos niveis de execução (runlevels) e daemons/serviços? 
+Também pode ser definido no kernel ou em um arquivo, onde fica localizado este arquivo?
+- /sbin/init (Responsável pelo gerenciamento dos runlevels e daemons/serviços)
+- /etc/inittab (onde pode ser ajustado)
+
+[Sobre SystemV]  Cada nível de execução(runlevel) pode ter diversos arquivos de serviço associados, geralmente scripts, onde ficam?
+- /etc/init.d/
+
+[Sobre SysV] Podemos personalizar os runlevels através do arquivo: /etc/inittab, como é a sintaxe utilizada?
+- id:runlevels:action:process
+```
+id: nome genérico de até 4 caracteres, identifica a entrada.
+runlevel: lista de números do runlevel
+action: define como o init executará o processo
+process: Pode escolher entre (boot, bootwait, sysinit, wait, respawn e ctrlaltdel)
+```
+
+[Sobre Sysv] Ao personalizarmos o runlevel através do arquivo /etc/inittab utilizamos a sintaxe: "id:runlevels:action:process" como podemos utilizar o campo action?
+- boot: O processo será executado durante a inicialização do sistema. O campo runlevels é ignorado.
+- bootwait: O processo será executado durante a inicialização do sistema e o init aguardará sua conclusão
+- para continuar. O campo runlevels é ignorado.
+- sysinit: O processo será executado após a inicialização do sistema, qualquer que seja o nível de execução. O campo runlevels é ignorado.
+- wait: O processo será executado nos níveis de execução dados e init aguardará sua conclusão para continuar.
+- respawn: O processo será reiniciado caso seja encerrado.
+- ctrlaltdel: O processo será executado quando o processo init receber o sinal SIGINT, disparado quando o atalho de teclado Ctrl + Alt + Del for pressionado.
+
+[Sobre o SysV] O que aconteceria se não escolhermos um nível de execução/runlevel no arquivo /etc/inittab, linha "id:x:initdefault" e alterarmos o "x" para 0 ou 6?
+- O nível de execução/runlevel padrão seria escolhido e após iniciar o sistema ele desligaria ou reiniciaria.
+- Exemplo de um /etc/inittab:
+```
+# Default runlevel
+id:3:initdefault:
+# Configuration script executed during boot
+si::sysinit:/etc/init.d/rcS
+# Action taken on runlevel S (single user)
+~:S:wait:/sbin/sulogin
+# Configuration for each execution level
+l0:0:wait:/etc/init.d/rc 0
+l1:1:wait:/etc/init.d/rc 1
+l2:2:wait:/etc/init.d/rc 2
+l3:3:wait:/etc/init.d/rc 3
+l4:4:wait:/etc/init.d/rc 4
+l5:5:wait:/etc/init.d/rc 5
+l6:6:wait:/etc/init.d/rc 6
+# Action taken upon ctrl+alt+del keystroke
+ca::ctrlaltdel:/sbin/shutdown -r now
+# Enable consoles for runlevels 2 and 3
+1:23:respawn:/sbin/getty tty1 VC linux
+2:23:respawn:/sbin/getty tty2 VC linux
+3:23:respawn:/sbin/getty tty3 VC linux
+4:23:respawn:/sbin/getty tty4 VC linux
+# For runlevel 3, also enable serial
+# terminals ttyS0 and ttyS1 (modem) consoles
+S0:3:respawn:/sbin/getty -L 9600 ttyS0 vt320
+S1:3:respawn:/sbin/mgetty -x0 -D ttyS1
+```
+[Sobre SystemV] Depois de alterar o arquivo /etc/inittab, o que precisa ser feito?
+- Execute o comando "telinit q" ou "telinit Q" (mesma coisa) para checar sintaxe do arquivo e aplicar as configurações sem reiniciar. Evita falha na inicialização por erro de sintaxe.
+
+
+[Sobre SystemV]Os scripts utilizados pelo init, localizados em /etc/rc0.d/, /etc/rc1.d/... são links simbólicos para o diretório /etc/init.d/? [S/N]
+- Sim, Pois o mesmo script (Ex: /etc/rc0.d/) pode ser usado em diferentes níveis de execução
+
+[Sobre SystemV] Um nome de arquivo iniciado com a letra K determina que o serviço será encerrado ao entrar no nível de execução (kill). Se começar com a letra S, o serviço será iniciado ao ingressar no nível de execução (start). O diretório /etc/rc1.d/, por exemplo, terá muitos links para scripts de rede iniciados com a letra K, considerando que o nível de execução 1 é o nível do usuário único, sem conectividade de rede.[Verdadeiro ou falso]?
+- Verdadeiro.
+
+[Sobre SystemV] Como posso, ver o runlevel atual? como posso alterar o runlevel sem precisar reiniciar?
+$ runlevel
+N 3
+- O "N" significa que o runlevel não foi alterado
+- Alterando o runlevel sem precisar reiniciar: os comandos "telinit 1", "telinit s" ou "telinit S" mudarão o sistema para o nível de execução 1.
+
