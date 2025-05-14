@@ -426,5 +426,39 @@ S1:3:respawn:/sbin/mgetty -x0 -D ttyS1
 $ runlevel
 N 3
 - O "N" significa que o runlevel não foi alterado
-- Alterando o runlevel sem precisar reiniciar: os comandos "telinit 1", "telinit s" ou "telinit S" mudarão o sistema para o nível de execução 1.
+- Alterando o runlevel sem precisar reiniciar: os comandos "telinit 1", "telinit s" ou "telinit S"llllcd ll mudarão o sistema para o nível de execução 1.
 
+## Systemd 
+
+[systemd] Qual o nome do conjunto de ferramentas mais usado para gerenciar os recursos dos serviços dos sistemas? e como são chamados eses serviços (ex: httd.service)?
+- Systemd
+- São chamados de unitis
+
+[Systemd] Quantos e quais são os tipos de unidades do systemd?
+
+- Service: tipo mais comum, recursos do SO que podem ser iniciados, parados, reiniciados..
+- Socket: Pode ser socket de sistem a ou socket de rede.
+- device: uma unidade de dispositivo associada ao hardware, precisa ter uma regra udev!
+- mount: unidade de montagem, semelhante a entrada no /etc/fstab.
+- automount: unidade de montagem automatica.
+- target: agrupamento de unidades gerenciadas como uma única unidade.
+- snapshot: é um stado salvo do gerenciador do systemd (não disponível em todas as distros).
+
+[Systemd] Qual o principal comando do systemd para executar relacionadas a ativação, desativação, execução, interrupção e monitoramento da unidade, para uma unidade chamada unit.service?
+- systemctl start unit.service
+- systemctl stop unit.service
+- systemctl restart unit.service 
+- systemctl status unit.service (Exibe status do unit)
+- systemctl is-active unit.service (Exibe se o unit estiver rodando)
+- systemctl enable unit.service (habilita o uniti na inicialização)
+- systemctl disable unit.service (desabilita o unit na inicialização)
+- systemctl is-enabled unit.service (verifica se o unit está habilitado 0: inicia, 1; Não, as mais recentes mostram "enabled") 
+
+O comando systemctl também controla os destinos do sistema, a unidade multiuser.target, por exemplo, combina as unidades do ambiente multiusuário, semelhante ao nível de execução runlevel 3 do sysV (V/F)?
+- Verdadeiro
+
+O que faz o comando "systemctl isolate multi-user.target"?
+- Faz com que o sitema mude imediatamente para o TARGET "multi-user.target" (sem interface gráfica), encerrando os serviços que não fazem parte desse TARGET e iniciando os que fazem. É o equivalente a alteração no runlevel 3 do SysV.
+- Para retornar, use: **systemctl isolate graphical.target**.
+
+### Parei na pagina 43
