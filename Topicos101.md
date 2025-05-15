@@ -1,4 +1,5 @@
-# 101.1 Lição 1
+# Tpopico 101 Identificar e editar configurações de hardware
+## 101.1 Lição 1
 - BIOS (Basic Input Output System)
 - UEFI (Unified Extensible Firmware Interface) - Recursos melhores que o anterior.
 
@@ -454,10 +455,10 @@ N 3
 - systemctl disable unit.service (desabilita o unit na inicialização)
 - systemctl is-enabled unit.service (verifica se o unit está habilitado 0: inicia, 1; Não, as mais recentes mostram "enabled") 
 
-O comando systemctl também controla os destinos do sistema, a unidade multiuser.target, por exemplo, combina as unidades do ambiente multiusuário, semelhante ao nível de execução runlevel 3 do sysV (V/F)?
+### O comando systemctl também controla os destinos do sistema, a unidade multiuser.target, por exemplo, combina as unidades do ambiente multiusuário, semelhante ao nível de execução runlevel 3 do sysV (V/F)?
 - Verdadeiro
 
-O que faz o comando "systemctl isolate multi-user.target"?
+### O que faz o comando "systemctl isolate multi-user.target"?
 - Faz com que o sitema mude imediatamente para o TARGET "multi-user.target" (sem interface gráfica), encerrando os serviços que não fazem parte desse TARGET e iniciando os que fazem. É o equivalente a alteração no runlevel 3 do SysV.
 - Para retornar, use: **systemctl isolate graphical.target**.
 
