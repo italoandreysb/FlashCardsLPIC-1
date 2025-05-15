@@ -509,8 +509,7 @@ Systemctl set-default multi-user.target
 ### Qual o principal gerenciador de energia no Linux e o que ele faz?
 
 - o daemon acpid.
-- Permite ajustes mais
-refinados das ações após eventos relacionados ao consumo de energia, como fechar a tampa do laptop, bateria fraca ou níveis de carga da bateria.
+- Permite ajustes mais refinados das ações após eventos relacionados ao consumo de energia, como fechar a tampa do laptop, bateria fraca ou níveis de carga da bateria.
 
 
 ### [systemd] O que aconteceria se executasse o comando "systemctl set-default shutdown.target"?
@@ -559,7 +558,7 @@ now ou +0   # Execução imediata
 Parametros message: é o texto de aviso enviado a todas as sessões de terminal dos usuários logados.
 
 
-### [SysV] Com o systemd como reiniciar e desligar a máquina?
+### [Sysd] Com o systemd como reiniciar e desligar a máquina?
 ```
 systemctl poweroff 
 #ou 
