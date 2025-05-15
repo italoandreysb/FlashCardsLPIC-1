@@ -25,7 +25,7 @@ Se a máquina estiver com vários dispositivos de armazenamento é importante de
 
 ## Inspeção de dispositivos no Linux
 Quando um recurso de harware não está funcionando, é importante identificar onde está o problema.
-- Náo deteca no sistema operacional: provavelmente defeito na peça.
+- Náo detecta no sistema operacional: provavelmente defeito na peça.
 - Quando é detectada, mas não funciona: provável problema no lado do SO.
 
 Portanto, uma das primeiras coisas é olhar se o SO está detectando o dispositivo corretamente. Existem 2 maneiras básicas de checar isso:
@@ -36,7 +36,7 @@ Mostra dispositivos conectados ao barramento PCI
 ### lsusb (Universal Serial Bus)
 Mostra os dispositivos exclusivamente USBs conectados.
 
-Qual a função do módulo do Kernel?
+### Qual a função do módulo do Kernel?
 Controlar o dispositivo existente. O módulo do Kernel pode fazer parte do kernel ou ser adicionado depois.
 
 - Os modulos de kernel do linux relacionados a hardware também são chamados de drivers.
@@ -82,7 +82,7 @@ Coluna size: mostra a RAM utilizada pelos módulos em bytes.
 Coluna Used by: Mostra módulos dependentes para que o módulo principal (na coluna nome) funcione.
 
 ### modprobe 
-Descarrega e recarrega módulos que não estão em uso
+### Como descarrega e recarrega módulos que não estão em uso?
 
 ```
 modprobe -r snd-hda-intel
@@ -91,12 +91,12 @@ modprobe -r snd-hda-intel
 
 # 101.2 - Inicialização do sistema
 
-O é o GRUB?
+### O é o GRUB?
 
 - O carregador de inicialização mais popular para linux na arquitetura x86, ele exibe uma lista de sistemas operacionais disponiveis para inicializar.
 
 
-Caso o GRUB não mostre a lista dos sistemas, como invoca-la em um sistema com BIOS e em um sistema com UEFI?
+### Caso o GRUB não mostre a lista dos sistemas, como invoca-la em um sistema com BIOS e em um sistema com UEFI?
 
 - Na bios: tecla shift
 - Nos sistemas UEFI: Tecla ESC
@@ -127,19 +127,17 @@ No menu do grub é possível escolhqer qual dos kernels instalados deve ser carr
 
 
 
-Geralmente é comum alterar os parametros do kernel? qual a localização do arquivo de grub?
+### Geralmente é comum alterar os parametros do kernel? qual a localização do arquivo de grub?
 
 - Não, mas pode ser util para detectar e resolver problemas.
 - Localizado em /etc/default/grub, para persistir, insira na linha GRUB_CMDLINE_LINUX
 
 
-É necessário gerar um novo arquivo de Configuração para o carregador de inicialização a cada vez que /etc/default/grub é alterado.
-Qual o comando?
+### É necessário gerar um novo arquivo de Configuração para o carregador de inicialização a cada vez que /etc/default/grub é alterado. Qual o comando?
 
 - mkconfig -o /boot/grub/grub.cfg
 
-Quando o sistema operacional estiver rodando, os
-parâmetros do kernel usados para carregar a sessão ficam disponíveis para leitura no arquivo
+### Quando o sistema operacional estiver rodando, os parâmetros do kernel usados para carregar a sessão ficam disponíveis para leitura no arquivo
 /proc/cmdline.
 
 ## Inicialização do sistema 
