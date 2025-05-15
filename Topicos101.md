@@ -316,20 +316,20 @@ Um disco rígido contendo todo o sistema de arquivos de uma máquina offline foi
 
 # 101.3 - Alternar runlevels/boot targets, desligar e reiniciar o sistema
 
-O que são daemons?
+### O que são daemons?
 - Também são chamados de serviços.
 - Também são responsáveis pelos recursos estendido subjacentes (servidor http, compartilhamento de arquivos, email..)
 
 
-Qual o primeiro programa lançado pelo kenel durante a inicialização e que recebe sempre o PID 1?
-- O gerenciador de serviços
+### Qual o primeiro programa lançado pelo kenel durante a inicialização e que recebe sempre o PID 1?
+- O gerenciador de serviços ou gerenciadores de inicialização (SysV, Upstart ou Systemd)
 
 
-Por muitos anos o método de gerenciamento de serviços implementado pelo SystemV foi o mais utilizado, ainda permanece assim?
+### Por muitos anos o método de gerenciamento de serviços implementado pelo SystemV foi o mais utilizado, ainda permanece assim?
 - Não, atualmente os gerenciadores de serviços são baseados no systemd (implementado pelo systemd e upstart).
 
 
-Sobre o sysVinit, como funcionam os níveis de execução (runlevels)?
+### Sobre o sysVinit, como funcionam os níveis de execução (runlevels)?
 - São numerados de 0 a 6, geralmente atribuidos às finalidades:
 
 - Nível de execução 0
@@ -344,8 +344,7 @@ Modo multiusuário. Equivale ao nível 3, mais o login em modo gráfico.
 Reinicialização do sistema.
 
 
-Porque alterar o runlevel(níveis de execução)?
-Isso ativa/paralisa serviços dinamicamente, sem reiniciar
+### Porque alterar o runlevel(níveis de execução)? Possibilita ativar/paralisar serviços sem precisar reiniciarIsso ativa/paralisa serviços dinamicamente, sem reiniciar
 - Para depurar o sistema sem interface gráfica.
 - Para inicializar um servidor sem serviços desnecessários.
 - Para manter um ambiente enxuto e seguro.
@@ -355,15 +354,15 @@ sudo init 3    # Vai para o modo texto com rede
 sudo init 5    # Volta para o modo gráfico
 
 
-[Sobre SystemV] Qual é o nome e onde fica o programa responsável pelo gerenciamento dos niveis de execução (runlevels) e daemons/serviços? 
-Também pode ser definido no kernel ou em um arquivo, onde fica localizado este arquivo?
-- /sbin/init (Responsável pelo gerenciamento dos runlevels e daemons/serviços)
-- /etc/inittab (onde pode ser ajustado)
+### [Sobre SystemV] Qual é o nome e onde fica o programa responsável pelo gerenciamento dos niveis de execução (runlevels) e daemons/serviços? E Também pode ser definido no kernel ou em um arquivo, onde fica localizado este arquivo?
+- Programa: init
+- Localização padrão: /sbin/init
+- Pode ser ajustado no: /etc/inittab
 
-[Sobre SystemV]  Cada nível de execução(runlevel) pode ter diversos arquivos de serviço associados, geralmente scripts, onde ficam?
+### [Sobre SystemV]  Cada nível de execução(runlevel) pode ter diversos arquivos de serviço associados, geralmente scripts, onde ficam?
 - /etc/init.d/
 
-[Sobre SysV] Podemos personalizar os runlevels através do arquivo: /etc/inittab, como é a sintaxe utilizada?
+### [Sobre SysV] Podemos personalizar os runlevels através do arquivo: /etc/inittab, como é a sintaxe utilizada?
 - id:runlevels:action:process
 ```
 id: nome genérico de até 4 caracteres, identifica a entrada.
@@ -372,7 +371,7 @@ action: define como o init executará o processo
 process: Pode escolher entre (boot, bootwait, sysinit, wait, respawn e ctrlaltdel)
 ```
 
-[Sobre Sysv] Ao personalizarmos o runlevel através do arquivo /etc/inittab utilizamos a sintaxe: "id:runlevels:action:process" como podemos utilizar o campo action?
+### [Sysv] Ao personalizarmos o runlevel através do arquivo /etc/inittab utilizamos a sintaxe: "id:runlevels:action:process" como podemos utilizar o campo action?
 - boot: O processo será executado durante a inicialização do sistema. O campo runlevels é ignorado.
 - bootwait: O processo será executado durante a inicialização do sistema e o init aguardará sua conclusão
 - para continuar. O campo runlevels é ignorado.
@@ -381,7 +380,7 @@ process: Pode escolher entre (boot, bootwait, sysinit, wait, respawn e ctrlaltde
 - respawn: O processo será reiniciado caso seja encerrado.
 - ctrlaltdel: O processo será executado quando o processo init receber o sinal SIGINT, disparado quando o atalho de teclado Ctrl + Alt + Del for pressionado.
 
-[Sobre o SysV] O que aconteceria se não escolhermos um nível de execução/runlevel no arquivo /etc/inittab, linha "id:x:initdefault" e alterarmos o "x" para 0 ou 6?
+### [Sobre o SysV] O que aconteceria se não escolhermos um nível de execução/runlevel no arquivo /etc/inittab, linha "id:x:initdefault" e alterarmos o "x" para 0 ou 6?
 - O nível de execução/runlevel padrão seria escolhido e após iniciar o sistema ele desligaria ou reiniciaria.
 - Exemplo de um /etc/inittab:
 ```
@@ -411,6 +410,8 @@ ca::ctrlaltdel:/sbin/shutdown -r now
 S0:3:respawn:/sbin/getty -L 9600 ttyS0 vt320
 S1:3:respawn:/sbin/mgetty -x0 -D ttyS1
 ```
+
+
 [Sobre SystemV] Depois de alterar o arquivo /etc/inittab, o que precisa ser feito?
 - Execute o comando "telinit q" ou "telinit Q" (mesma coisa) para checar sintaxe do arquivo e aplicar as configurações sem reiniciar. Evita falha na inicialização por erro de sintaxe.
 
@@ -427,13 +428,21 @@ N 3
 - O "N" significa que o runlevel não foi alterado
 - Alterando o runlevel sem precisar reiniciar: os comandos "telinit 1", "telinit s" ou "telinit S"llllcd ll mudarão o sistema para o nível de execução 1.
 
+### [Sysv] No sysv como impedir que os usuários reiniciem a máquina através do ctrl+alt+del? 
+1. Acesse o arquivo /etc/inittab e adicione o "-a":
+```
+ca::ctrlaltdel:/sbin/shutdown -a -t3 -r now
+```
+Os usuários no arquivo /etc/shutdown.allow estarão habilitados
+
+
 ## Systemd 
 
-[systemd] Qual o nome do conjunto de ferramentas mais usado para gerenciar os recursos dos serviços dos sistemas? e como são chamados eses serviços (ex: httd.service)?
+### [systemd] Qual o nome do conjunto de ferramentas mais usado para gerenciar os recursos dos serviços dos sistemas? e como são chamados eses serviços (ex: httd.service)?
 - Systemd
 - São chamados de unitis
 
-[Systemd] Quantos e quais são os tipos de unidades do systemd?
+### [Systemd] Quantos e quais são os tipos de unidades do systemd?
 
 - Service: tipo mais comum, recursos do SO que podem ser iniciados, parados, reiniciados..
 - Socket: Pode ser socket de sistem a ou socket de rede.
@@ -482,32 +491,19 @@ Systemctl set-default multi-user.target
 
 
 ### [Systemd] Como posso listar todas as unidades, somente ativas  e filtrar por tipo service ou tipo target?
-```
-# Exibe todas as Unidades:
-systemctl list-unit-files
+- Exibe todas as Unidades:
+```systemctl list-unit-files```
 
-#Filtra por tipo service, altere para "target" se preferir: 
-systemctl list-unit-files --type=service   
-```
+- Filtra por tipo service, altere para "target" se preferir: ```systemctl list-unit-files --type=service```.
+
 
 ### [Systemd] Qual o comandos mais usados para gerenciar eventos relacionados a consumo de energia (suspender e hibernar) e qual o local do arquivo? posso usar junto do de outro gerenciador de energia?
 
 - Coloca o sistema em baixo consumo de energia mantendo os dados atuais na memória:
-```
-systemctl suspend
-```
+```systemctl suspend```
 
-- Copia os dados da memória para o disco, para que o estado atual do sistema possa ser recuperado após desligamento.
-```
-systemctl hibernate
-```
-- Local do arquivo:
-```
-/etc/systemd/logind.conf
-
-Ou para arquivos separados em:
-/etc/systemd/logind.conf.d/
-```
+- Copia os dados da memória para o disco, para que o estado atual do sistema possa ser recuperado após desligamento. ```systemctl hibernate```
+- Local do arquivo: ```/etc/systemd/logind.conf```. Arquivos separados ficam em ```/etc/systemd/logind.conf.d/```.
 - Não pode ser usado junto de outro gerenciador de energia (acpid)
 
 ### Qual o principal gerenciador de energia no Linux e o que ele faz?
@@ -515,6 +511,7 @@ Ou para arquivos separados em:
 - o daemon acpid.
 - Permite ajustes mais
 refinados das ações após eventos relacionados ao consumo de energia, como fechar a tampa do laptop, bateria fraca ou níveis de carga da bateria.
+
 
 ### [systemd] O que aconteceria se executasse o comando "systemctl set-default shutdown.target"?
 
@@ -552,12 +549,69 @@ Sintaxe:
 shutdown [option] time [message]
 ```
 
-Parametros time:  
 Somente o "time" é parametro obrigatório.
+
 ```
 hh:mm   # Especifica quantos minutos esperar
 +m   # Aguardar x minutos antes de desigar
 now ou +0   # Execução imediata
 ```
-
 Parametros message: é o texto de aviso enviado a todas as sessões de terminal dos usuários logados.
+
+
+### [SysV] Com o systemd como reiniciar e desligar a máquina?
+```
+systemctl poweroff 
+#ou 
+systemctl shutdown
+```
+Algumas distros vinculam poweroff e reboot ao systemctl como comandos individuais:
+```
+$ sudo which poweroff
+/usr/sbin/poweroff
+$ sudo ls -l /usr/sbin/poweroff
+lrwxrwxrwx 1 root root 14 Aug 20 07:50 /usr/sbin/poweroff -> /bin/systemctl
+```
+
+### [Systemd] Caso precisemos enviar um comando para todos os usuários logados, como seria?
+Útil antes de reiniciara máquina.
+
+```
+wall <mensagem>
+
+Ex:
+wall Desligarei o servidor em breve
+```
+
+### Como o comando telinit pode ser usado para reiniciar o sistema?
+-  O comando telinit 6 alterna para o nível de execução 6, ou seja, reinicia o sistema.
+
+### O que acontece com os serviços relacionados ao arquivo /etc/rc1.d/K90network quando o sistema entra no nível de execução 1?
+- Como mostra a letra K no início do nome do arquivo, os serviços relacionados serão
+interrompidos.
+
+
+### Usando o comando systemctl, como um usuário pode verificar se a unidade sshd.service está em execução?
+-  systemctl status sshd.service
+ ou
+- systemctl is-active sshd.service
+
+
+### Em um sistema baseado em systemd, qual comando deve ser executado para ativar a unidade sshd.service durante a inicialização do sistema?
+- O comando systemctl enable sshd.service, executado pelo root.
+
+
+### Em um sistema baseado em SysV, suponha que o nível de execução padrão definido em/etc/inittab seja 3, mas o sistema sempre inicia no nível de execução 1. Qual é a causa provável disso?
+- Os parâmetros 1 ou S podem estar presentes na lista de parâmetros do kernel.
+
+
+### Embora o arquivo /sbin/init possa ser encontrado nos sistemas baseados em systemd, ele é apenas um link simbólico para outro arquivo executável. Nesses sistemas, qual o arquivo apontado por /sbin/init?
+- O binário principal do systemd: /lib/systemd/systemd.
+
+
+### Como se verifica o destino padrão do sistema em um sistema baseado em systemd?
+- O link simbólico /etc/systemd/system/default.target aponta para o arquivo da unidade definido como destino padrão. Também é possível usar o comando systemctl get-default.
+
+
+### Como poderíamos cancelar uma reinicialização do sistema programada com o comando shutdown?
+- Usaríamos o comando shutdown -c.
