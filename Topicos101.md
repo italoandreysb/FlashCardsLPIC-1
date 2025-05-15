@@ -412,24 +412,24 @@ S1:3:respawn:/sbin/mgetty -x0 -D ttyS1
 ```
 
 
-[Sobre SystemV] Depois de alterar o arquivo /etc/inittab, o que precisa ser feito?
+## [Sobre SystemV] Depois de alterar o arquivo /etc/inittab, o que precisa ser feito?
 - Execute o comando "telinit q" ou "telinit Q" (mesma coisa) para checar sintaxe do arquivo e aplicar as configurações sem reiniciar. Evita falha na inicialização por erro de sintaxe.
 
 
-[Sobre SystemV]Os scripts utilizados pelo init, localizados em /etc/rc0.d/, /etc/rc1.d/... são links simbólicos para o diretório /etc/init.d/? [S/N]
+## [Sobre SystemV]Os scripts utilizados pelo init, localizados em /etc/rc0.d/, /etc/rc1.d/... são links simbólicos para o diretório /etc/init.d/? [S/N]
 - Sim, Pois o mesmo script (Ex: /etc/rc0.d/) pode ser usado em diferentes níveis de execução
 
-[Sobre SystemV] Um nome de arquivo iniciado com a letra K determina que o serviço será encerrado ao entrar no nível de execução (kill). Se começar com a letra S, o serviço será iniciado ao ingressar no nível de execução (start). O diretório /etc/rc1.d/, por exemplo, terá muitos links para scripts de rede iniciados com a letra K, considerando que o nível de execução 1 é o nível do usuário único, sem conectividade de rede.[Verdadeiro ou falso]?
+## [SystemV] Um nome de arquivo iniciado com a letra K determina que o serviço será encerrado ao entrar no nível de execução (kill). Se começar com a letra S, o serviço será iniciado ao ingressar no nível de execução (start). O diretório /etc/rc1.d/, por exemplo, terá muitos links para scripts de rede iniciados com a letra K, considerando que o nível de execução 1 é o nível do usuário único, sem conectividade de rede.[Verdadeiro ou falso]?
 - Verdadeiro.
 
-[Sobre SystemV] Como posso, ver o runlevel atual? como posso alterar o runlevel sem precisar reiniciar?
-$ runlevel
-N 3
+## [SystemV] Como posso, ver o runlevel atual? como posso alterar o runlevel sem precisar reiniciar?
+runlevel
+Retorna: "N 3"
 - O "N" significa que o runlevel não foi alterado
-- Alterando o runlevel sem precisar reiniciar: os comandos "telinit 1", "telinit s" ou "telinit S"llllcd ll mudarão o sistema para o nível de execução 1.
+- Alterando o runlevel sem precisar reiniciar: os comandos "telinit 1", "telinit s" ou "telinit S" mudarão o sistema para o nível de execução 1.
 
 ### [Sysv] No sysv como impedir que os usuários reiniciem a máquina através do ctrl+alt+del? 
-1. Acesse o arquivo /etc/inittab e adicione o "-a":
+Acesse o arquivo /etc/inittab e adicione o "-a" a linha:
 ```
 ca::ctrlaltdel:/sbin/shutdown -a -t3 -r now
 ```
@@ -468,7 +468,7 @@ Os usuários no arquivo /etc/shutdown.allow estarão habilitados
 ### O que faz o comando "systemctl isolate multi-user.target"?
 - Faz com que o sitema mude imediatamente para o TARGET "multi-user.target" (sem interface gráfica), encerrando os serviços que não fazem parte desse TARGET e iniciando os que fazem. É o equivalente a alteração no runlevel 3 do SysV.
 - Para retornar, use: **systemctl isolate graphical.target**.
-- OBS: Esse ajuste não fica salvo, apenas enquanto está em operação
+- OBS: Esse ajuste não fica salvo persistentemente, retorna no reinicio.
 
 ### O systemd utiliza o /etc/initab para alterar o destino padrão do sistema? [S/N]
 - Não, quem utiliza é o SysV
