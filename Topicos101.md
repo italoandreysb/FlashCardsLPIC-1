@@ -459,5 +459,105 @@ N 3
 ### O que faz o comando "systemctl isolate multi-user.target"?
 - Faz com que o sitema mude imediatamente para o TARGET "multi-user.target" (sem interface gráfica), encerrando os serviços que não fazem parte desse TARGET e iniciando os que fazem. É o equivalente a alteração no runlevel 3 do SysV.
 - Para retornar, use: **systemctl isolate graphical.target**.
+- OBS: Esse ajuste não fica salvo, apenas enquanto está em operação
 
-### Parei na pagina 43
+### O systemd utiliza o /etc/initab para alterar o destino padrão do sistema? [S/N]
+- Não, quem utiliza é o SysV
+
+### [systemd] Existem 2 formas de alterar o destino padrão no systemd, fazendo com que os targets persistam mesmo após o reinício, quais são? (use multi-user.target como exemplo)
+
+- 1ª forma: Adicionanfo o parâmetro abaixo à lista de parâmetros do kernel (em /etc/default/grub), porém esse arquivo é um modelo, sendo necessário atualizar a configuração real do GRUB executando "sudo update-grub" que é um wrapper para "grub-mkconfig -o /boot/grub/grub.cfg"
+```
+GRUB_CMDLINE_LINUX="rhgb quiet systemd.unit=multi-user.target"
+```
+wraper = invólucro, um programa que embrulha outro programa para facilitar o uso.
+
+- 2ª forma: Modificando o link simbólico /etc/systemd/system/default.target para que ele aponte o destino desejado:
+```
+Systemctl set-default multi-user.target
+```
+
+### [Systemd] Onde ficam os arquivos associados a cada unidade(unit)?
+- /lib/systemd/system/
+
+
+### [Systemd] Como posso listar todas as unidades, somente ativas  e filtrar por tipo service ou tipo target?
+```
+# Exibe todas as Unidades:
+systemctl list-unit-files
+
+#Filtra por tipo service, altere para "target" se preferir: 
+systemctl list-unit-files --type=service   
+```
+
+### [Systemd] Qual o comandos mais usados para gerenciar eventos relacionados a consumo de energia (suspender e hibernar) e qual o local do arquivo? posso usar junto do de outro gerenciador de energia?
+
+- Coloca o sistema em baixo consumo de energia mantendo os dados atuais na memória:
+```
+systemctl suspend
+```
+
+- Copia os dados da memória para o disco, para que o estado atual do sistema possa ser recuperado após desligamento.
+```
+systemctl hibernate
+```
+- Local do arquivo:
+```
+/etc/systemd/logind.conf
+
+Ou para arquivos separados em:
+/etc/systemd/logind.conf.d/
+```
+- Não pode ser usado junto de outro gerenciador de energia (acpid)
+
+### Qual o principal gerenciador de energia no Linux e o que ele faz?
+
+- o daemon acpid.
+- Permite ajustes mais
+refinados das ações após eventos relacionados ao consumo de energia, como fechar a tampa do laptop, bateria fraca ou níveis de carga da bateria.
+
+### [systemd] O que aconteceria se executasse o comando "systemctl set-default shutdown.target"?
+
+Configuraria o sistema para tentar iniciar no modo shutdown.target POR PADRÃO, **o que é um grande problema**. Na próxima vez que tentar iniciar o sistema, ele vai travar e tentar desligar. Corresponde ao runlevel 0 do SysV
+
+## Upstart
+
+### [Upstart] Onde ficam os scripts de inicialização utilizados pelo Upstart? e como lista-los (mesmo com detalhes)?
+
+-  /etc/init/
+-  initctl list
+
+### [Upstart] Como gerenciar serviços no Upstart?
+```
+start tty6   # Inicia 6º terminal
+status tty5   # Coleta status
+stop tty6   # para o serviço
+```
+
+### [Upstart] O Upstart reconhece os comandos "runlevel" e "telinit", então utiliza os arquivos /etc/inittab?
+
+Apesar desses comandos poderem ser utilizados para verificar e alternar os nívels de execução (runlevel), o upstart não utiliza o inittab, quem utiliza é o SysV.
+
+### [Upstart] Quem criou o Upstart, e quando parou?
+O Upstart foi desenvolvido para a distribuição Ubuntu Linux para facilitar a inicialização paralela dos processos. O Ubuntu parou de usar o Upstart em 2015, quando migrou do Upstart para o systemd.
+
+### [Upstart] Como funciona o comando shutdown?
+É um comando intermediário nos procedimentos do SysV ou Systemd. Após o comando ser executado todos os programas recebem o sinal SIGTERM, seguido pelo sinal SIGKILL e o sistema é encerrado ou muda seu nível de execução.
+
+### [Upstart] o comando shutdown possui uma sintaxe e alguns parametros, quais são?
+
+
+Sintaxe:
+```
+shutdown [option] time [message]
+```
+
+Parametros time:  
+Somente o "time" é parametro obrigatório.
+```
+hh:mm   # Especifica quantos minutos esperar
++m   # Aguardar x minutos antes de desigar
+now ou +0   # Execução imediata
+```
+
+Parametros message: é o texto de aviso enviado a todas as sessões de terminal dos usuários logados.
