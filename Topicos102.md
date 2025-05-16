@@ -11,7 +11,7 @@
 
 
 ### Qual o principal objetivo do LVM?
--  O LVM é útil em situações em que é necessário adicionar mais espaço a uma partição sem precisar migrar os dados para um dispositivo maior
+- O LVM é útil em situações em que é necessário adicionar mais espaço a uma partição sem precisar migrar os dados para um dispositivo maior
 
 
 ## Pontos de montagem
@@ -48,12 +48,97 @@
 - No linux, costuma ser o GRUB2, nos mais antigos, o GRUB Legacy
 
 
-### A PARTIÇÃO /boot é necessária? Mas seria recomendado instalar separado?
+### Uma partição para o /boot é necessária? Mas seria recomendado instalar separado?
 - Tecnicamente não é necessária, pois na maioria dos casos o GRUB pode montar o /boot na partição raiz (/boot).
 - Pode ser interessante, em caso de falha no sistema de arquivos raiz, ou se usar um método não suportado de criptografia ou compactação
 
-### Porque deixar a partição de inicialização localizada no início do disco terminando antes do cilindro 1024 (528 MB)?
-- Porque a IBM PC BIOS Original exigia um tamanho máximo de cilindros, caeças e setores resultando em um tamnho de 528MB. Deixar a partição locaizada no início faz com que independente do que aconteça a máquina consegue iniciar o kernel.
-
 
 ## A partição do sistema EFI (ESP)
+
+### O que você sabe sobre a partição do sistema EFI (Partição ESP)? Qual o sistem de arquivos utilizado? é obrigatório ser no início?
+- A partição do sistema EFI (ESP) é utilizada por máquinas baseadas na UEFI.
+- Armazena gerenciadores de inicialização e imagens do kernel para SO.
+- Utiliza sistema de arquivos baseado em FAT.
+- Em disco particionado com tabela GUID, ela possui o identificador global único  C12A7328-F81F-11D2-BA4B-00A0C93EC93B, se for formatado no esquema de particionamento do MBR, o Id seria 0xEF.
+- Em máquinas windows a costuma sera primeira partição do disco, embora isso não seja obrigatório
+
+### Após a instalação do sistema operacional, onde os arquivos da partição ESP são criados ou preenchidos em um sistema Linux?
+- /boot/efi
+
+## /home
+
+### O que se sabe sobre a partição /home?
+- Principal local de criação de usuários padrões
+- O diretório do usuário root não é esse, é o /root.
+- Alguns serviços do sistema por der usuários associados com diretórios pessoais em outros lugares.
+
+## /var
+
+### O que se tem no diretório /var?
+Contém "dados variáveis", arquivos e diretórios que o sitema deve poder escrever durante a opraçao: Ex:
+- /var/log
+- /var/temp
+- /var/cache
+- /var/www/html (padrão apache web server) e 
+- /var/lib/mysql (padrão banco de dados)
+
+### Qual seria uma boa razão para colocar o /var em uma partição separada?
+- Estabilidade, um processo defeituoso poderia encher os logs /var/log.
+- Se /var estiver em /, poderia disparar um kernel panic e corromper o sistema de arquivos, o que seria muito ruim de resolver.
+- Em um sistema crítico é interessante colocar o /var em um disco diferente adicionando uma camada extra de proteção.
+
+## SWAP
+
+### O que sabe sobre a partição swap ou partição de troca? Qual o utilitário utilizado?
+- É usada para passar as páginas da memória RAM para o disco confome o necessário.
+- Pode ser usado tanto partição SWAP, quanto ARQUIVOS SWAPs (pode ser 1 ou vários)
+- No caso de partição, é de um tipo específico, configurada com o utilitário "mkswap"
+- No caso de arquivos, serve para aumentar rapidamento o espaço  útil quando necessário.
+
+### Qual a "Regra da memória SWAP"?
+- Controversa. A regra antiga nem sempre se aplica (R. Antiga: 2x a quantidade de RAM)
+- A quantidade, depende da carga de trabaho, O ideal, é que se o serviço for crítico, verificar na documentação do serviço.
+- Mas A Red Hat tem um modelo:
+(anexei ao anki)
+
+## LVM
+
+### O que seria o LVM? e qual sua estrutura base?
+É uma forma de virtualizar o armazenamento, mais flexível que o particionamento tradicional.
+
+- LV = Logical Volumes: Similar às partições, mas com flexibilidade.
+    - LE: Logical Extensions
+- VG = Volumes Groups: Vistos como um único dispositivo lógico.    
+- PV = Phisical Volumes: Dispositivo de bloco.
+    - PE = Phisical Extensions
+
+Cada extensão lógica (LE) de forma geral é mapeada para uma extensão física (PE), mas pode ser alterado quando usado espelhamento de disco.
+
+
+### Como podemos aumentar o LV (volume lógico) em uma estrutura de LVM?
+- Basta adicionar mais extensões do pool disponível no Grupo de Volumes. Da mesmaforma, as extensões podem ser removidas para reduzir o LV.
+- Volume lógico = PE (4MB por padrão) * LE
+
+### Após a criação do LV (volume lógico), é correto afirmar que será visto pelo sistema operacional como um dispositivo de bloco normal. Um dispositivo será criado em /dev, com o nome /dev/VGNAME/LVNAME, em que VGNAME é o nome do Grupo de Volumes e LVNAME o nome do Volume Lógico?
+- Verdadeiro
+
+### Como os discos LV podem ser montados? (Resposta teórica)
+- Podem ser formatados com o sistema de arquivos desejado usando utilitários padrão (como o mkfs.ext4, por exemplo) e montados com os métodos usuais, seja manualmente, com o comando mount, ou automaticamente, adicionando-os ao arquivo /etc/fstab.
+
+### Onde deve estar a partição de inicialização para garantir que um PC seja capaz de carregar o kernel?
+- Antes do cilindro 1024.
+
+### Onde a partição EFI costuma ser montada?
+- Em /boot/efi
+
+### Qual a menor unidade dentro de um Grupo de Volumes?
+- Os Grupos de Volumes são subdivididos em extensões
+
+### Como se define o tamanho de um Volume Lógico?
+- Pelo tamanho das extensões físicas multiplicado pelo número de extensões no volume.
+
+
+### Em um disco formatado com o esquema de particionamento MBR, qual a ID da Partição do Sistema EFI?
+- A ID é 0xEF
+
+# 102.2 Instalar o gerenciador de inicialização
