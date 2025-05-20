@@ -142,3 +142,36 @@ Cada extensão lógica (LE) de forma geral é mapeada para uma extensão física
 - A ID é 0xEF
 
 # 102.2 Instalar o gerenciador de inicialização
+
+## Qual o gerenciador de inicialização na maioria das distribuições linux?
+- GRUB, que carrega um kernel de um sistema operacional.
+
+## O é o grub 2? e quais as principais vantagens relacionadas ao seu antecessor?
+- Uma remodelagem completa do grub legacy (antigo), se tornou mais robusto e poderoso. Parece uma linguagem Script;
+- Pode iniciar imagens ISOs LiveCDs direto do disco rígido;
+- Suporte à temas;
+- Melhor suoporte à arquitetura não-x86;
+- suporte universal para UUIDs (ajuda a identificar discos e partições);
+
+## Quando o GRUB (legacy) parou o seu desenvolvimento?
+- Em 2005, desde então a maioria das principais distros linux vem com o GRUB 2. Mas ainda podemos encontrar sistemas usando o GRUB legacy
+
+## Onde fica o gerenciador de inicialização?
+Em um disco particionado em MBR o grub fica na partição MBR.
+
+# Quais as limitações do esquema de particionamento MBR?
+- Até 2TB
+- Originalmente máximo de 4 partições primárias, mais tarde, 3 partições primárias e 1 estendida subdividida em várias partições lógicas.
+
+
+## Os discos particionados em GPT podem ser usados em computadores com BIOS tradicional ou também com UEFI? [V/F]
+- Verdadeiro. Em máquinas com BIOS, a segunda parte do GRUB é armazenada em uma partição especial de inicialização da BIOS.
+
+
+## Em sistemas com firmware UEFI, o grub é carregado pelo firmware a partir dos arquivos grubia32.efi (para sistemas de 32 bits) ou grubx64.efi (para sistemas de 64 bits) em qual partiçã?
+- ESP (EFI System Partition)
+
+
+# A Partição /boot
+(Parei na página 70)
+
