@@ -173,5 +173,25 @@ Em um disco particionado em MBR o grub fica na partição MBR.
 
 
 # A Partição /boot
-(Parei na página 70)
+### Por que, apesar de não ser imprescindível, é aconselhável utilizar uma partição /boot separada em sistemas Linux modernos?
+- Porque a partição /boot separa os arquivos necessários para o processo de inicialização do restante do sistema de arquivos, o que pode aumentar a confiabilidade e facilitar o gerenciamento do sistema, além de garantir acesso mais fácil ao kernel e ao carregador de boot.
 
+
+### Quais são as situações específicas em que uma partição /boot separada se torna necessária para garantir o funcionamento do GRUB 2?
+- Quando a partição raiz do sistema está criptografada, compactada, ou utiliza um sistema de arquivos que o GRUB 2 não suporta, é necessário ter uma partição /boot separada, pois o GRUB precisa acessar diretamente os arquivos de inicialização.
+
+### O que sabe sobre o conteúdo da partição /boot?
+
+-  Arquivo de configuração (config-VERSION): Arquivo de configuração do kernel, este arquivo é gerado automaticamente quando um novo kernel é compilado, não deve ser editado manualmente. Ex: config-4.15.0-65-generic
+
+- Mapa do sistema (System.map-VERSION): Tabela de consulta de nomes e símbolos com sua posição correspondente na memória. Pode ser últil para resolver problemas de kernel panic. EX: System.map-4.15.0-65-generic
+
+- Kernel do Linux (vmlinux-VERSION): É o kernel propriamente dito. EX: vmlinux-4.15.0-65-generic. Também pode vir com um "z" no final (vmlinuz), que indica que o arquivo foi compactado.
+
+- Arquivos relacionados ao Gerenciador de inicialização ficam em /boot/grub/:
+ - /boot/grub/grub.cfg para o GRUB2  **ou** /boot/grub/menu.lst para o GRUB Legacy
+ - /boot/grub/i386-pc: Módulos
+ - /boot/grub/locale: arquivos de tradução
+ - /boot/grub/fonts: fontes 
+
+ # GRUB 2
