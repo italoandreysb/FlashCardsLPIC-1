@@ -44,9 +44,9 @@
 - Contém arquivos usados pelo Gerenciador de Inicialização (não são bootloaders (SysV, Upstart Sysd,)) 
 
 
-### Quais são os principais GERENCIADORES DE INICIALIZAÇÃO?
+### Quais são os principais gerenciadores de inicialização (bootloader)?
 - No linux, costuma ser o GRUB2, nos mais antigos, o GRUB Legacy
-
+- Gerenciadores de inicialização são diferentes de sistema de inicialização (init sistem: SysVinit, Upstart, Systemd)
 
 ### Uma partição para o /boot é necessária? Mas seria recomendado instalar separado?
 - Tecnicamente não é necessária, pois na maioria dos casos o GRUB pode montar o /boot na partição raiz (/boot).
@@ -196,3 +196,35 @@ Em um disco particionado em MBR o grub fica na partição MBR.
 
  # GRUB 2
  ### Qual a diferença entre "sudo su" e "sudo su -"?
+
+ ### O que fazer caso seu sistema se recuse a iniciar? (checar melhor)
+ - Será necessário iniciar a partir de um Live-CD ou um disco de recuperação, descobrir qual a partição de inicialização, monta-la, executar o utilitário grub-install para reinstalar o grub2.
+
+ ```
+fdisk -l /dev/sda     # Liste os diretórios
+mkdir /mnt/tmp     # Crie o diretório temporário
+mount /dev/sda1 /mnt/tmp    # Monte o diretório temporário
+grub-install --boot-directory=/mnt/tmp /dev/sda    # Aponte o utilitário para o dispositivo de inicialização. 
+```
+Caso não tenha uma partição de inicialização (Coluna boot com asterisco) mas possua o diretório /boot, substitua o último comando por:
+```
+grub-install --boot-directory=/boot /dev/sda
+```
+
+### Como podemos checar se o disco possui uma partição ou um diretório /boot?
+Execute o comando: "fdisk -l /dev/sda". 
+A partição de inicialização é identificada com o * na coluna boot:
+```
+Device    Boot   Start    End      Sectors    Size    Id   Type
+/dev/sda1  *     2048   2000895    1998848    976M    83   Linux
+/dev/sda2       2002942 234440703 232437762   110,9G   5   Extended
+/dev/sda5       2002944 18008063   16005120   7,6G     82  Linux swap / Solaris
+/dev/sda6       18010112 234440703 216430592 103,2G 83 Linux
+```
+Caso esteja instalando em um sistema que não possui uma partição de inicialização, possivelmente não terá um "*", mas sim uma partição chamada "BIOS Boot":
+```
+Device       Start       End   Sectors Size Type
+/dev/sda1     2048      4095      2048   1M BIOS boot
+/dev/sda2     4096   2101247   2097152   1G Linux filesystem
+/dev/sda3  2101248 157284351 155183104  74G Linux filesystem
+```
