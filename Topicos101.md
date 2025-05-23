@@ -582,8 +582,9 @@ Ex:
 wall Desligarei o servidor em breve
 ```
 
-### Como o comando telinit pode ser usado para reiniciar o sistema?
--  O comando telinit 6 alterna para o nível de execução 6, ou seja, reinicia o sistema.
+### [SystemV] Como o comando telinit (que altera o runlevel) pode ser usado para reiniciar o sistema? Só funciona no SystemV?
+- O comando telinit 6 alterna para o nível de execução 6, ou seja, reinicia o sistema.
+- Obs: O telinit também é suportado pelo Systemd apenas por compatibilidade, internamente ele traduz chamadas para comandos equivalentes no systemctl.
 
 ### O que acontece com os serviços relacionados ao arquivo /etc/rc1.d/K90network quando o sistema entra no nível de execução 1?
 - Como mostra a letra K no início do nome do arquivo, os serviços relacionados serão
