@@ -602,7 +602,7 @@ interrompidos.
 
 
 ### Em um sistema baseado em SysV, suponha que o nível de execução padrão definido em/etc/inittab seja 3, mas o sistema sempre inicia no nível de execução 1. Qual é a causa provável disso?
-- Os parâmetros 1 ou S podem estar presentes na lista de parâmetros do kernel.
+- Os parâmetros 1 ou S podem estar presentes na lista de parâmetros do kernel (em /etc/default/grub).
 
 
 ### Embora o arquivo /sbin/init possa ser encontrado nos sistemas baseados em systemd, ele é apenas um link simbólico para outro arquivo executável. Nesses sistemas, qual o arquivo apontado por /sbin/init?
