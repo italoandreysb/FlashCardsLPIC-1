@@ -195,3 +195,4 @@ Em um disco particionado em MBR o grub fica na partição MBR.
  - /boot/grub/fonts: fontes 
 
  # GRUB 2
+ ### Qual a diferença entre "sudo su" e "sudo su -"?
