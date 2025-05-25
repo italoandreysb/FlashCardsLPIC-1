@@ -196,6 +196,7 @@ Em um disco particionado em MBR o grub fica na partição MBR.
 
  # GRUB 2
  ### Qual a diferença entre "sudo su" e "sudo su -"?
+ - Enquanto o "sudo su" eleva o usuário atual para root mantendo o ambiente atual (como variáveis de ambiente e diretório de trabalho) o "sudo su" carrega o ambiente completo do root como se tivesse feito login no shell.
 
  ### O que fazer caso seu sistema se recuse a iniciar? (checar melhor)
  - Será necessário iniciar a partir de um Live-CD ou um disco de recuperação, descobrir qual a partição de inicialização, monta-la, executar o utilitário grub-install para reinstalar o grub2.
