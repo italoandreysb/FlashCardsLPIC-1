@@ -276,6 +276,4 @@ initrd /initrd.img
 
 - Comando: "ls -l /dev/disk/by-uuid/"
 
-incompleta questão anterior
-
-
+Não entendi como aplicar a configuração anterior
