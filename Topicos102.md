@@ -229,3 +229,53 @@ Device       Start       End   Sectors Size Type
 /dev/sda2     4096   2101247   2097152   1G Linux filesystem
 /dev/sda3  2101248 157284351 155183104  74G Linux filesystem
 ```
+
+## Configurando o grub2:
+Qual a localização do arquivo de configuração (.cfg) do GRUB 2? recomenda-se edita-lo manualmente? Onde fica o que podemos editar?
+
+- Localização:  "/boot/grub/grub.cfg", 
+- Não recomenda-se edita-lo manualmente pois é gerado automaticamente.
+- O que podemos editar é o "/etc/default/grub"
+
+Obs: lembre-se de sempre gerar o arquivo .cfg novo após a edição do grub com o comando: update-grub (ou "grub-mkconfig -o /boot/grub/grub.cfg).
+
+
+### Quais os principais parâmetros que podemos utilizar no /etc/default/grub para controlar o comportamento do GRUB 2 como o kernel padrão de inicialização, tempo limite, parâmetros extras da linha de comando, etc?
+
+- GRUB_DEFAULT= Define a entrada de menu padrão, pode ser numerico (0,1..) ou o nome do item, ex: debian. Tabém pode ser "saved", explicado abaixo:
+
+- GRUB_SAVEDEFAULT= se marcada como "true" e a "GRUB_DEFAULT=" como "saved" a opção padrão de inicialização será sempre a última utilizada.
+
+- GRUB_TIMEOUT= O tempo limite, em segundos, para que a entrada do menu padrão seja selecionada. Se "0", o sistema entra sem exibir o menu, se "-1" o sistema aguardará até que o usuário selecione uma opção, independente do tempo.
+
+- GRUB_CMDLINE_LINUX= Lista as opções de linha de comando que serão adicionadas às entradas do kernel do Linux.
+
+- GRUB_CMDLINE_LINUX_DEFAULT= Por padrão, duas entradas de menu são geradas para cada kernel do Linux, uma com as opções padrão e uma entrada para recuperação. Com esta opção, você pode incluir parâmetros extras que serão adicionados apenas à entrada padrão.
+
+- GRUB_ENABLE_CRYPTODISK= Se definido como "y", comandos como "grub-mkconfig", "update-grub" e "grub-install" procuram por discos criptografados e adicionam os comandos necessários para acessá-los (Habilita o suporte para discos criptografados) e desabilita o a inicialização automática (GRUB_TIMEOUT= com valor diferente de -1), o GRUB precisa ser capaz de pedir a senha para descriptografá-lo antes de carregar o kernel do sistema.
+
+### O que acontece quando rodamos o comando "update-grub"?
+- busca por kernels e sistemas operacionais na máquina e gera as entradas de menu correspondentes no arquivo /boot/grub/grub.cfg
+
+ É possível adicionar novas entradas manualmente aos arquivos de script dentro do diretório /etc/grub.d
+
+ ### Caso queiramos adicionar manualmete novas entradas ao grub, como faremos?
+ - Adicionando scripts de entradas no diretório "/etc/grub.d", geralmente no arquivo "40_custom".
+ - Padrão: Estes arquivos são executados em ordem numérica, 05_debian_theme executado antes de  10_linux e assim sucessivamente.
+ - Sintaxe básica:
+```
+menuentry "Default OS" {
+set root=(hd0,1)
+linux /vmlinuz root=/dev/sda1 ro quiet splash
+initrd /initrd.img
+}
+```
+- No exemplo acima, o sistema de arquivos raiz está localizado no primeiro disco (hd0), primeira partição (,1) ou sda1.
+
+### Caso queiramos adicionar entradas manualmente ao grub 2, podemos editar os arquivos em /etc/grub.d, geralmente o arquivo "40_custom", e inseri-lo baseado em um modelo. Mas caso queiramos inserir baseado no UUID  (Universally Unique Identifier) do disco, qual o comando para checar esses identificadores? 
+
+- Comando: "ls -l /dev/disk/by-uuid/"
+
+incompleta questão anterior
+
+
