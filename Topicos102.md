@@ -303,3 +303,6 @@ linha initrd aponta para o disco de RAM inicial;
 Aparecerá um prompt de comando como este: grub >
 
 - Lembre-se de que esse menu não aparecerá se GRUB_TIMEOUT estiver definido com 0 em /etc/default/grub
+
+### Caso exista uma configuração incorreta em uma entrada de menu que cause falha na inicialização, como podemos resolve?
+- 1. Acesse o shell do grub pressionando "C" no menu, ou "control + c" na janela de edição. Verá um "grub >".
