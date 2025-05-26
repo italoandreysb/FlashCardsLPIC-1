@@ -275,5 +275,31 @@ initrd /initrd.img
 ### Caso queiramos adicionar entradas manualmente ao grub 2, podemos editar os arquivos em /etc/grub.d, geralmente o arquivo "40_custom", e inseri-lo baseado em um modelo. Mas caso queiramos inserir baseado no UUID  (Universally Unique Identifier) do disco, qual o comando para checar esses identificadores? 
 
 - Comando: "ls -l /dev/disk/by-uuid/"
+- Inserindo no arquivo /etc/grub.d/40_custom:
+```
+menuentry 'Meu Linux com UUID' {
+    insmod ext2
+    search --no-floppy --fs-uuid --set=root f3a5e2b0-5c4f-4b9e-94e7-9c749f412345
+    linux /boot/vmlinuz-linux root=UUID=f3a5e2b0-5c4f-4b9e-94e7-9c749f412345 ro quiet
+    initrd /boot/initramfs-linux.img
+}
+```
+linha linux: aponta para o kernel do sistema (vmlinuz);  
+linha initrd aponta para o disco de RAM inicial;  
+--no-floppy = ignore disquetes;  
+--set=root
 
-Não entendi como aplicar a configuração anterior
+## Interagindo com o GRUB 2
+
+### Como podemos interagir com o GRUB 2, quando não mostra o menu de opções de ações ao ligar o servidor?
+- Pressione shift (se for UEFI).
+- Para editar uma opção selecione com as setas e pressione "E"
+- Será aberto o conteúdo da menuentry, como definido na /boot/grub/grub.cfg. Ao finalizar salve com F10.
+
+# Inicialização a partir do shell do GRUB 2 (pag 76)
+
+### Como podemos acessar o shell do grub 2?
+- Pressione C na tela do menu (ou Ctrl + C ) na janela de edição.
+Aparecerá um prompt de comando como este: grub >
+
+- Lembre-se de que esse menu não aparecerá se GRUB_TIMEOUT estiver definido com 0 em /etc/default/grub
