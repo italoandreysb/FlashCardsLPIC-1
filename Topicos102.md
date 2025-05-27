@@ -305,4 +305,19 @@ Aparecerá um prompt de comando como este: grub >
 - Lembre-se de que esse menu não aparecerá se GRUB_TIMEOUT estiver definido com 0 em /etc/default/grub
 
 ### Caso exista uma configuração incorreta em uma entrada de menu que cause falha na inicialização, como podemos resolve?
-- 1. Acesse o shell do grub pressionando "C" no menu, ou "control + c" na janela de edição. Verá um "grub >".
+1. Acesse o shell do grub pressionando "C" no menu, ou "control + c" na janela de edição. Verá um "grub >".
+2. Descubra onde está a partição de inicialização digitando "ls". O exemplo abaixo retorna somente um disco (hd0), com apenas uma partição. A primeira partição do hd0 é chamada msdos1 porque o disco foi particionado usando o esquema de particionamento MBR. Se ele fosse particionado usando GPT, o nome seria gpt1.
+```
+grub> ls
+(proc) (hd0) (hd0,msdos1)
+```
+3. Defina a partição de inicialização:  
+```grub> set root=(hd0,msdos1)```
+4. Carregue o kernel do Linux com o comando linux:  
+```grub> linux /vmlinuz root=/dev/sda1```
+5. Carregue o disco RAM inicial com initrd, seguido pelo caminho completo para o arquivo initrd.img:  
+```grub> initrd /initrd.img```
+
+- Obs: Os discos e partições listados serão diferentes no seu sistema. Em nosso exemplo, a primeira partição do hd0 é chamada msdos1 porque o disco foi particionado usando o esquema de particionamento MBR. Se ele fosse particionado usando GPT, o nome seria gpt1.
+
+## !!Manter a questão anterior, não entendi.
