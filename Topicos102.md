@@ -304,8 +304,8 @@ Aparecerá um prompt de comando como este: grub >
 
 - Lembre-se de que esse menu não aparecerá se GRUB_TIMEOUT estiver definido com 0 em /etc/default/grub
 
-### Caso exista uma configuração incorreta em uma entrada de menu que cause falha na inicialização, como podemos resolve?
-1. Acesse o shell do grub pressionando "C" no menu, ou "control + c" na janela de edição. Verá um "grub >".
+### Caso exista uma configuração incorreta em uma entrada de menu que cause falha na inicialização, como podemos resolve? (!Não consegui validar este procedimento em disco em gpt! Página 76)
+1. Acesse o shell do grub pressionando "C" no menu, ou "control + c" na janela de edição. Verá um "grub >". 
 2. Descubra onde está a partição de inicialização digitando "ls". O exemplo abaixo retorna somente um disco (hd0), com apenas uma partição. A primeira partição do hd0 é chamada msdos1 porque o disco foi particionado usando o esquema de particionamento MBR. Se ele fosse particionado usando GPT, o nome seria gpt1.
 ```
 grub> ls
@@ -320,4 +320,26 @@ grub> ls
 
 - Obs: Os discos e partições listados serão diferentes no seu sistema. Em nosso exemplo, a primeira partição do hd0 é chamada msdos1 porque o disco foi particionado usando o esquema de particionamento MBR. Se ele fosse particionado usando GPT, o nome seria gpt1.
 
-## !!Manter a questão anterior, não entendi.
+## O que é o shell mínimo de recuperação grub rescue> e em quais situações ele aparece?
+O "grub rescue>" é um ambiente de recuperação minimalista disponibilizado pelo GRUB (GRand Unified Bootloader) quando este não consegue localizar ou carregar sua configuração principal (grub.cfg) ou módulos necessários para a inicialização do sistema. Ele aparece geralmente após problemas como:
+
+- Exclusão ou corrupção de arquivos importantes do GRUB;
+- Alterações no esquema de partições do disco;
+- Instalação ou remoção incorreta de sistemas operacionais;
+- Falhas no disco.
+
+Esse shell oferece um conjunto muito limitado de comandos, permitindo ao usuário realizar diagnósticos básicos, localizar manualmente as partições corretas e, em alguns casos, iniciar o carregamento do sistema operacional.
+
+```
+1. Listar partições e sistemas de arquivos detectados:
+grub rescue> ls
+
+2.Definir a partição correta onde está o /boot/grub:
+grub rescue> set prefix=(hd0,msdos1)/boot/grub
+
+3.carregue os módulos normal e linux com o comando insmod:
+grub rescue> insmod normal
+grub rescue> insmod linux
+
+Após isso, se for bem-sucedido, o GRUB completo será carregado.
+```
