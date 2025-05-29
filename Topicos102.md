@@ -320,7 +320,7 @@ grub> ls
 
 - Obs: Os discos e partições listados serão diferentes no seu sistema. Em nosso exemplo, a primeira partição do hd0 é chamada msdos1 porque o disco foi particionado usando o esquema de particionamento MBR. Se ele fosse particionado usando GPT, o nome seria gpt1.
 
-## O que é o shell mínimo de recuperação grub rescue> e em quais situações ele aparece?
+### O que é o shell mínimo de recuperação grub rescue> e em quais situações ele aparece? Como localizo as partições?
 O "grub rescue>" é um ambiente de recuperação minimalista disponibilizado pelo GRUB (GRand Unified Bootloader) quando este não consegue localizar ou carregar sua configuração principal (grub.cfg) ou módulos necessários para a inicialização do sistema. Ele aparece geralmente após problemas como:
 
 - Exclusão ou corrupção de arquivos importantes do GRUB;
@@ -342,4 +342,120 @@ grub rescue> insmod normal
 grub rescue> insmod linux
 
 Após isso, se for bem-sucedido, o GRUB completo será carregado.
+```
+
+### Quando instalar o grub legacy? E como fazer isso a partir do shell do GRUB?
+- Compatibilidade com hardware antigo
+- Sistemas embarcados
+- Dualboot com sistemas antigos
+
+
+1. No shell do GRUB (digite c no menu de inicialização para acessar o prompt grub>)
+```
+grub> root (hd0,0)
+```
+
+2. Se você não souber qual dispositivo contém o diretório /boot, peça ao GRUB para procurá-lo com
+o comando find, como abaixo:
+```
+grub> find /boot/grub/stage1
+(hd0,0)
+```
+3. Defina a partição de inicialização conforme as instruções acima e use o comando
+setup para instalar o GRUB Legacy no MBR e copiar os arquivos necessários no disco:
+```
+grub> setup (hd0) 
+```
+5. Reinicie o sistema normalmente.
+
+Obs: Pode ser necessário especificar o local da imagem inicial do disco RAM para o sistema operacional
+com o parâmetro initrd: 
+
+```
+# This line is a comment
+title My Linux Distribution
+root (hd0,0)
+kernel /vmlinuz root=/dev/hda1
+initrd /initrd.img
+```
+
+### Onde ficam localizadas as entradas e configurações do menu do grub legacy? posso editar diretamente?
+- /boot/grub/menu.lst
+- Pode editar diretamente
+
+```
+# This line is a comment
+title My Linux Distribution     # Título do sistema na tela de menu
+root (hd0,0)                    # Informa o dispositivo ou partição de inicialização
+kernel /vmlinuz root=/dev/hda1  # Caminho completo para a imagem do kernel (relativo ao dispositivo em "root")
+```
+A configuração abaixo resume a configuração acima em uma linha:
+```
+kernel (hd0,0)/vmlinuz root=dev/hda1
+```
+Ambos carregam o arquivo vmlinuz a partir do diretório root (/) da primeira partição do primeiro disco (hd0,0).
+
+### Ao contrário do GRUB 2, no GRUB Legacy tanto as partições quanto os discos são numerados a partir de zero. [verdadeiro ou falso]?
+- Verdadeiro
+- Grub: (hd0,0)
+- Grub2: (hd0,1)
+
+### O parâmetro "root=/dev/hda1" após o comando kernel informa ao kernel do Linux qual partição deve ser usada como sistema de arquivos raiz. Esse comando pertence ao GRUB Legacy ou ao Kernel Linux?
+- Pertence ao Kernel Linux.
+
+### O GRUB Legacy tem um design modular, no qual módulos (geralmente armazenados como arquivos .mod em /boot/grub/i386-pc) podem ser carregados para adicionar recursos extras, como suporte a hardware incomum, sistemas de arquivos ou novos algoritmos de compactação. Qual a extensão dos arquivos de módulo? e como carregar um módulo específico?
+- Extensão .mod
+- Utilize o comando module seguido do caminho completo do módulo. Ex: module /boot/grub/i386-pc/915resolution.mod
+
+### O GRUB Legacy pode ser usado para carregar sistemas operacionais não suportado? 
+- Sim, chama-se chainloading (carregamento em cadeia)
+
+### Como seria uma entrada típica para o chainloading (carregamento em cadeia) no Grub Legacy do windows?
+
+```
+# Load Windows
+title Windows XP  
+root (hd0,1)    # Especifica a partição (segunda do primeiro disco)
+makeactive      # Indica partição ativa, funciona apenas com particoes primarias DOS.
+chainload +1    # Diz para o grub para carregar o primeiro setor, geralmente ficam os gerenciadores de inicializaçao.
+boot            # Executa o gerenciador de inicialização e carrega o sistema.
+```
+
+### Quais são as etapas necessárias para alterar as configurações do GRUB 2?
+- Efetuar as alterações no arquivo /etc/default/grub, depois atualizar a configuração com update-grub.
+
+### Em qual arquivo devem ser adicionadas as entradas de menu personalizadas do GRUB 2?
+- /etc/grub.d/40_custom
+
+###  Onde são armazenadas as entradas de menu do GRUB Legacy?
+- /boot/grub/menu.lst
+
+### Como podemos entrar no shell do GRUB a partir de um menu do GRUB 2 ou GRUB Legacy?
+- Pressionando C na tela de menu
+
+### Imagine que você tenha um disco identificado como /dev/sda com diversas partições. Que comando pode ser usado para descobrir qual a partição de inicialização em um sistema?
+- Use fdisk -l /dev/sda. A partição de inicialização estará marcada na lista com um asterisco (*).
+
+### Qual o comando para descobrir o UUID de uma partição?
+- Use ls -la /dev/disk/by-uuid/ e procure pelo UUID que aponta para a partição
+
+
+### Considere a entrada abaixo para o GRUB 2 e altere-a para que o sistema inicialize a partir de um disco com o UUID 5dda0af3-c995-481a-a6f3-46dcd3b6998d:
+```
+menuentry "Default OS" {
+set root=(hd0,1)
+linux /vmlinuz root=/dev/sda1 ro quiet splash
+initrd /initrd.img
+}
+```
+
+Altere a linha: ```search --set=root --fs-uuid 5dda0af3-c995-481a-a6f3-46dcd3b6998d```
+
+### Como configurar o GRUB 2 para aguardar 10 segundos antes de inicializar a entrada de menu padrão?
+- Adicionando o parâmetro GRUB_TIMEOUT=10 a /etc/default/grub.
+
+### Em um shell do GRUB Legacy, quais são os comandos para instalar o GRUB na primeira partição do segundo disco?
+```
+grub> root (hd1,0)
+grub> setup (hd1)
 ```
