@@ -101,7 +101,7 @@ modprobe -r snd-hda-intel
 - Na bios: tecla shift
 - Nos sistemas UEFI: Tecla ESC
 
-No menu do grub é possível escolhqer qual dos kernels instalados deve ser carregado e passar novos parâmetros para ele, cite alguns dos principais.
+### No menu do GRUB, configurado via /etc/default/grub, é possível escolher qual dos kernels instalados será carregado usando GRUB_DEFAULT. Além disso, é possível passar parâmetros adicionais ao kernel com GRUB_CMDLINE_LINUX. Quais são estes parâmetros?
 
 - acpi (Advanced Configuration and Power Interface): Habilita suporte ao gerenciamento de energia. Ex: "acpi=off".
 

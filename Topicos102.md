@@ -146,11 +146,11 @@ Cada extensão lógica (LE) de forma geral é mapeada para uma extensão física
 ## Qual o gerenciador de inicialização na maioria das distribuições linux?
 - GRUB, que carrega um kernel de um sistema operacional.
 
-## O é o grub 2? e quais as principais vantagens relacionadas ao seu antecessor?
+## O que é o grub 2? e quais as principais vantagens relacionadas ao seu antecessor?
 - Uma remodelagem completa do grub legacy (antigo), se tornou mais robusto e poderoso. Parece uma linguagem Script;
 - Pode iniciar imagens ISOs LiveCDs direto do disco rígido;
 - Suporte à temas;
-- Melhor suoporte à arquitetura não-x86;
+- Melhor suporte à arquitetura não-x86;
 - suporte universal para UUIDs (ajuda a identificar discos e partições);
 
 ## Quando o GRUB (legacy) parou o seu desenvolvimento?
@@ -168,7 +168,7 @@ Em um disco particionado em MBR o grub fica na partição MBR.
 - Verdadeiro. Em máquinas com BIOS, a segunda parte do GRUB é armazenada em uma partição especial de inicialização da BIOS.
 
 
-## Em sistemas com firmware UEFI, o grub é carregado pelo firmware a partir dos arquivos grubia32.efi (para sistemas de 32 bits) ou grubx64.efi (para sistemas de 64 bits) em qual partiçã?
+## Em sistemas com firmware UEFI, o grub é carregado pelo firmware a partir dos arquivos grubia32.efi (para sistemas de 32 bits) ou grubx64.efi (para sistemas de 64 bits) em qual partição?
 - ESP (EFI System Partition)
 
 
@@ -196,7 +196,7 @@ Em um disco particionado em MBR o grub fica na partição MBR.
 
  # GRUB 2
  ### Qual a diferença entre "sudo su" e "sudo su -"?
- - Enquanto o "sudo su" eleva o usuário atual para root mantendo o ambiente atual (como variáveis de ambiente e diretório de trabalho) o "sudo su" carrega o ambiente completo do root como se tivesse feito login no shell.
+ - Enquanto o "sudo su" eleva o usuário atual para root mantendo o ambiente atual (como variáveis de ambiente e diretório de trabalho) o "sudo su -" carrega o ambiente completo do root como se tivesse feito login no shell.
 
  ### O que fazer caso seu sistema se recuse a iniciar? (checar melhor)
  - Será necessário iniciar a partir de um Live-CD ou um disco de recuperação, descobrir qual a partição de inicialização, monta-la, executar o utilitário grub-install para reinstalar o grub2.
@@ -231,7 +231,8 @@ Device       Start       End   Sectors Size Type
 ```
 
 ## Configurando o grub2:
-Qual a localização do arquivo de configuração (.cfg) do GRUB 2? recomenda-se edita-lo manualmente? Onde fica o que podemos editar?
+
+### Qual a localização do arquivo de configuração (.cfg) do GRUB 2? recomenda-se edita-lo manualmente? Onde fica o que podemos editar?
 
 - Localização:  "/boot/grub/grub.cfg", 
 - Não recomenda-se edita-lo manualmente pois é gerado automaticamente.
@@ -321,7 +322,7 @@ grub> ls
 - Obs: Os discos e partições listados serão diferentes no seu sistema. Em nosso exemplo, a primeira partição do hd0 é chamada msdos1 porque o disco foi particionado usando o esquema de particionamento MBR. Se ele fosse particionado usando GPT, o nome seria gpt1.
 
 ### O que é o shell mínimo de recuperação grub rescue> e em quais situações ele aparece? Como localizo as partições?
-O "grub rescue>" é um ambiente de recuperação minimalista disponibilizado pelo GRUB (GRand Unified Bootloader) quando este não consegue localizar ou carregar sua configuração principal (grub.cfg) ou módulos necessários para a inicialização do sistema. Ele aparece geralmente após problemas como:
+O "grub rescue>" é um ambiente de recuperação minimalista disponibilizado pelo GRUB (Grand Unified Bootloader) quando este não consegue localizar ou carregar sua configuração principal (grub.cfg) ou módulos necessários para a inicialização do sistema. Ele aparece geralmente após problemas como:
 
 - Exclusão ou corrupção de arquivos importantes do GRUB;
 - Alterações no esquema de partições do disco;
