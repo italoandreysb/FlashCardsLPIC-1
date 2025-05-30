@@ -156,8 +156,9 @@ Cada extensão lógica (LE) de forma geral é mapeada para uma extensão física
 ## Quando o GRUB (legacy) parou o seu desenvolvimento?
 - Em 2005, desde então a maioria das principais distros linux vem com o GRUB 2. Mas ainda podemos encontrar sistemas usando o GRUB legacy
 
-## Onde fica o gerenciador de inicialização?
-Em um disco particionado em MBR o grub fica na partição MBR.
+## Em discos com esquemas de particionamento MBR (Master Boot Record) e GPT (GUID Partition Table) onde fica o bootloader (gerenciador de inicialização)?
+- MBR: No setor MBR (primeiros 512 bytes)
+- GPT: No arquivo .EFI na partição ESP (geralmente FAT32)
 
 # Quais as limitações do esquema de particionamento MBR?
 - Até 2TB
@@ -460,3 +461,52 @@ Altere a linha: ```search --set=root --fs-uuid 5dda0af3-c995-481a-a6f3-46dcd3b69
 grub> root (hd1,0)
 grub> setup (hd1)
 ```
+---
+---
+---
+# 102.3 Controle de bibliotecas compartilhadas
+
+### O que são bibliotecas compartilhadas (ou objetos compartilhados)?
+- Assim como as bibliotecas físicas permitem que os livros sejam compartilhados por várias pessoas, as bibliotecas de software são coleções de código que podem ser usadas pro vários programas diferentes.
+
+### Cite as 2 etapas importantes na criação de um arquivo executável a partir do código fonte e os 2 métodos possíveis de serem usados:
+1. Compilador transforma o código fonte em código de máquina (armazenado no chamados "arquivos-objeto")
+2. O Vinculador (linker) combina os arquivo-objeto e os vinculas às bibliotecas para gerar o arquivo final.
+
+- Métodos Estáticos ou dinâmicos.
+
+### Explique sobre os 2 métodos usados no processo de compilação de um executável a partir do método fonte:
+- Método estático ou dinâmico.
+
+- Bibliotecas Estáticas: Uma biblioteca é mesclada com o programa no momento do vínculo, uma cópia do código é incorporada no programa. Torna o programa independente, porém mais pesado.
+
+- Bibliotecas Compartilhadas (ou dinâmicas): O programa faz a referência às bibliotecas, no entanto, nenhum código da biblioteca permanece no programa, logo, a bibliteca deve estar disponível em tempo de execução. É uma abordagem mais econômica, apenas uma cópia da biblioteca é carregada na RAM, mesmo se usada por vários programas.
+
+### Como é o padrão de nomenclatura de uma biblioteca estática e compartilhada?
+
+- Bibliotecas estáticas: Terminam em ".a", Ex: libthread.a
+
+- Bibliotecas Compartilhadas: Nome da biblioteca (normalmente com prefixo "lib"), seguido de "so", de "shared object", seguido da versão da biblioteca. Ex: libpthread.so.0
+
+### É verdade que a maioria dos sistemas linux já possuem todas as bibliotecas estáticas e dinâmicas?
+- A maioria dos sistemas linux já contém as bibliotecas compartilhadas/dinâmicas, porém, as bibliotecas estáticas podem não estar presentes pois são usadas em arquivos dedicados.
+
+### A biblioteca compartilhada glibc (GNU C) de arquivo libc.so.6 fica onde? é o nome real?
+
+
+```
+$ ls -l /lib/x86_64-linux-gnu/libc.so.6
+lrwxrwxrwx 1 root root 12 feb
+ 6 22:17 /lib/x86_64-linux-gnu/libc.so.6 -> libc-2.24.so
+ ```
+
+- Usar nomes de arquivos mais gerais para fazer referência a arquivos de bibliotecas compartilhadas nomeados por uma versão específica é uma prática comum.
+
+### Onde geralmente estão localizadas as bibliotecas compartilhadas em um sistema Linux?
+
+- /lib
+- /lib32
+- /lib64
+- /usr/lib
+- /usr/local/lib
+
