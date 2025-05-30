@@ -141,6 +141,13 @@ Cada extensão lógica (LE) de forma geral é mapeada para uma extensão física
 ### Em um disco formatado com o esquema de particionamento MBR, qual a ID da Partição do Sistema EFI?
 - A ID é 0xEF
 
+---
+---
+---
+---
+---
+---
+
 # 102.2 Instalar o gerenciador de inicialização
 
 ## Qual o gerenciador de inicialização na maioria das distribuições linux?
@@ -461,6 +468,9 @@ Altere a linha: ```search --set=root --fs-uuid 5dda0af3-c995-481a-a6f3-46dcd3b69
 grub> root (hd1,0)
 grub> setup (hd1)
 ```
+---
+---
+---
 ---
 ---
 ---
