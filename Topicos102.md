@@ -520,3 +520,84 @@ lrwxrwxrwx 1 root root 12 feb
 - /usr/lib
 - /usr/local/lib
 
+### O arquivo ld.so.conf é um arquivo de configuração do linker dinâmico no Linux, ele define caminhos adicionais de bibliotecas para o carregador dinâmico (ld.so ou ld-linux.so). Qual a localização dele?
+
+```
+$ cat /etc/ld.so.conf
+include /etc/ld.so.conf.d/*.conf
+```
+
+### O que faz o /etc/ld.so.conf e o que tem dentro dele?
+- Ele define caminhos adicionais de bibliotecas para o carregador dinâmico.
+- Esse arquivo invoca todos os .conf do /etc/ld.so.conf.d/.
+
+### Qual comando deve ser executado sempre que alteramos ou adicionamos arquivos de configuração das bibliotecas compartilhadas, para que ele leia esses arquivos, crie os links simbólicos necessários, atualize o cache em /etc/ld.so.cache e facilite a localização das bibliotecas pelo sistema?
+
+- $ sudo ldconfig
+
+- Sempre rodar com sudo, pois exige aceso de escrita ao /etc/ld.so.cache
+
+### Quais o principais parametros do ldconf?
+
+- sudo ldconfig -v
+- sudo ldconfig -p  (ou --print-cache) # exibe armazenamento no cache atual
+
+Note como a cache emprega o soname completo dos vínculos:
+```
+$ sudo ldconfig -p |grep libfuse
+libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
+```
+
+### Além da estrutura do ldconf, como posso adicionar tempoarariamene os caminhos para bibliotecas compartilhadas? E como checar? Use /user/local/mylib como exemplo.
+
+- Através da variável LD_LIBRARY_PATH;
+- É composto de um conjunto de diretórios serparados por ":" onde as bibliotecas são buscadas.
+- Adicionando: LD_LIBRARY_PATH=/user/local/mylib
+
+- Checando: echo $LD_LIBRARY_PATH. Deve retornar o valor.
+
+### 1. Como posso adicionar /usr/local/mylib ao caminho da biblioteca na sessão atual do shell e exportá-lo para todos os processos secundários originados desse shell? 2. Como remover a variável de ambiente? 3. Como posso torna-las permanentes?
+
+1. $ export LD_LIBRARY_PATH=/usr/local/mylib
+2. $ unset LD_LIBRARY_PATH
+3. Adicione a seguinte linha ao /etc/bash.bashrc ou ~/.bashrc: export LD_LIBRARY_PATH=/usr/local/mylib
+
+### É correto dizer que: LD_LIBRARY_PATH está para as bibliotecas compartilhadas como PATH está para os executáveis[Sim / Não]? 
+- Sim
+
+### 1. Qual o comando usado para buscar as bibliotecas compartilhadas requeridas por um programa específico? 2.Posso procurar dependência de objetos compartilhados?
+
+1. ldd <caminho_absoluto>
+- Ex: ldd /usr/bin/git
+
+2. Sim, $ ldd /lib/x86_64-linux-gnu/libc.so.6
+- Com a opção -u (ou --unused), o ldd imprime as dependências diretas não utilizadas (se existirem)
+
+### Porque que existem dependências não utilizadas? 
+- Isso está relacionado ao vinculador no momento da criação do binário.
+- Embora o programa não precise de uma biblioteca não utilizada ela fica vinculada e rotulada como "NEEDED" nas informações sobre arquivo-objeto.
+- Podemos checar isso utilizando o readelf ou objdump.
+
+###  Você desenvolveu um programa e deseja adicionar um novo diretório de biblioteca compartilhada em seu sistema (/opt/lib/mylib). Você escreve o caminho absoluto em um arquivo chamado mylib.conf. 
+1. Em que diretório deve ser armazenado esse arquivo?
+2. Qual comando deve ser executado para que as alterações sejam totalmente efetivas?
+3. Qual comando você usaria para listar as bibliotecas compartilhadas exigidas por kill?
+
+1. /etc/ld.so.conf.d
+2. ldconfig
+3. ldd /bin/kill
+
+### Qual o comando que exibe informações sobre o objeto? e como usar?
+- objdump
+- objdump -p /lib/x86_64-linux-gnu/libc.so.6 | grep NEEDED
+- objdump -p /lib/x86_64-linux-gnu/libc.so.6 | grep SONAME     # Filtrando para exibir o soname 
+- objdump -p /bin/bash | grep NEEDED
+
+
+---
+---
+---
+---
+---
+
+# 102.4 Utilização do sistema de pacotes Debian
