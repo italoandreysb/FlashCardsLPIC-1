@@ -633,3 +633,55 @@ libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 ```# dpkg-query -S /usr/bin/unrar-nonfree```
 
 ## Reconfigurando os pacotes instalados
+
+### Caso necessite restaurar as configurações iniciais de um programa, como se fosse "novo", instalado do zero, como fazer com o dpkg?
+
+```dpkg-reconfigure PACKAGENAME```
+
+- Isso faz um backup dos arquivos antigos, descompacta os novos nos diretórios corretos e executa o script de pós instalação fornecido pelo pacote.
+
+## Ferramenta de pacotes avançada (apt)
+
+### O apt (Advanced Package Tool) é um substituto para o dpkg? S/N
+- Não, o apt está mais para um "front end", simplificando as operaçoes.
+
+### É verdade que além de repositórios remotos, o apt permite instalação de softwares em servidores locais ou remotos e até de disco CD/ROM?
+- Verdadeiro.
+- As distribuições Linux, como Debian e Ubuntu, mantêm seus próprios repositórios. Outros repositórios podem ser  mantidos por desenvolvedores ou grupos de usuários para fornecer software que não está disponível nos principais repositórios de distribuição.
+
+### Além do utilitário amigável apt, Quais são os outros utilitários que interagem com o apt?
+
+- apt-get: usado para baixar, instalar, atualizar ou remover pacotes do sistema.
+- apt-cache: usado para executar operações, como pesquisas, no índice do pacote.
+- apt-file: usado para buscar arquivos dentro de pacotes.
+
+Muitos dos comandos de apt são os mesmos de apt-get, de forma que eles são intercambiáveis em diversos casos. Porém, como o apt pode não estar instalado em um sistema, é recomendável aprender a usar o apt-get e o apt-cache.
+
+### Qual o comando utilizado para atualizar o índice dos pacotes para recuperar informações sobre pacotes novos e atualizados?
+``` apt-get update``` ou ```apt update```
+
+- Posteriormente pode-se instalar o pacote com: ```apt-get install <PACKAGE>```
+
+### ao instalar ou remover pacotes, o APT executará a resolução automática de dependências. Assim, todos os pacotes adicionais necessários para o pacote que você está instalando também serão instalados, e os pacotes que dependem do pacote que você está removendo também serão removidos [V/F]?
+- Verdadeiro
+
+### Como posso remover os pacotes instalados com apt e dpkg junto com seus arquivos de configuração?
+
+ - ```# apt-get remove --purge p7zip``` ou ```# apt-get purge p7zip```
+ - ```# dpkg --purge p7zip``` ou ```# sudo dpkg -P nome-do-pacote```
+
+### O que são dependências quebradas em um sistema? Como corrigir?
+-  significa que um ou mais dos pacotes instalados dependem de outros pacotes que não foram instalados ou não estão mais presentes. Isso pode ocorrer devido a um erro do APT ou a um pacote instalado manualmente.
+- Utilize ```apt-get install -f``` ou ```apt install -f``` para corrigir, o argumento significa --fix-broken
+
+### Quais comandos para atualizar o índice do pacote e depois atualizar automaticamente todos os pacotes?
+- ```# apt-get update```
+- ```# apt-get upgrade```
+
+### Quando instalamos ou atualizamos um pacote, o arquivo .deb correspondente é baixado em um diretório de cache local antes do pacote ser instalado. Por padrão, esse diretório é /var/cache/apt/archives. Onde ficam os arquivos parcialmente baixados? e como recuperar o espaço em cache?
+- Os parciais ficam em "/var/cache/apt/archives/partial/"
+- Utilize o comando ```apt clean``` ou ```apt-get clean```
+
+
+
+Parei em "Buscando pacotes", pagina 113
