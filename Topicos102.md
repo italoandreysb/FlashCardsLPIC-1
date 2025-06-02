@@ -485,7 +485,7 @@ grub> setup (hd1)
 
 - Métodos Estáticos ou dinâmicos.
 
-### Explique sobre os 2 métodos usados no processo de compilação de um executável a partir do método fonte:
+### Explique os 2 métodos usados no processo de compilação de um executável a partir do método fonte:
 - Método estático ou dinâmico.
 
 - Bibliotecas Estáticas: Uma biblioteca é mesclada com o programa no momento do vínculo, uma cópia do código é incorporada no programa. Torna o programa independente, porém mais pesado.
@@ -601,3 +601,35 @@ libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 ---
 
 # 102.4 Utilização do sistema de pacotes Debian
+
+### Antes da existência dos gerenciadores de pacotes, como eram distribuidos os softwares?
+- Em um arquivo comprimido (geralmente um .tar.gz) com um código fonte que o usuário precisava descomprimir e compilar.
+
+### Quais as principais ferramentas de gerenciamento de pacotes presentes no debian e alguns derivados?
+
+- dpkg: 
+- apt - Advanced package tool
+
+### Quais os comandos para instalar e remover um pacote .deb baixado?
+```# dpkg -i PACKAGENAME```
+```# dpkg -r PACKAGENAME```
+
+### Quando utilizo o comando "dpkg -r PACKAGENAME.deb" para remover o pacote também removo os arquivos de configuração? se não, como removo?
+- Não, se a ideia for remover tudo que esteja associado ao pacote, use a opção -P (purge) em vez de -r.
+
+### Podemos forçar o dpkg a instalar ou remover um pacote, mesmo que as dependências não sejam atendidas, adicionando o parâmetro --force como em "dpkg -i --force PACKAGENAME". Mas quais as consequências?
+- isso provavelmente deixará o pacote, ou mesmo o sistema, em um estado de falha. Não use --force, a menos que tenha certeza absoluta do que está fazendo.
+
+### Como posso inspecionar um pacote com o dpkg para ver informações de arquitetura, mantenedor, dependências...?
+- Utilize o -I (maiúsculo)
+```dpkg -I google-chrome-stable_current_amd64.deb```
+
+### (dpkg) Como posso obter uma lista de todos os programas instalados? e uma lista de todos os arquivos instalados por um pacote especídico:
+```dpkg --get-selections```  
+```dpkg -L PACKAGENAME```
+
+### Como podemos descobrir qual pacote possui um arquivo específico no sistema?
+- Utilizando o dpkg-query
+```# dpkg-query -S /usr/bin/unrar-nonfree```
+
+## Reconfigurando os pacotes instalados
