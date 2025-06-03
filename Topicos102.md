@@ -607,18 +607,18 @@ libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 
 ### Quais as principais ferramentas de gerenciamento de pacotes presentes no debian e alguns derivados?
 
-- dpkg: 
-- apt - Advanced package tool
+- dpkg: Debian package 
+- apt: Advanced package tool
 
 ### Quais os comandos para instalar e remover um pacote .deb baixado?
-```# dpkg -i PACKAGENAME```
+```# dpkg -i PACKAGENAME```  
 ```# dpkg -r PACKAGENAME```
 
 ### Quando utilizo o comando "dpkg -r PACKAGENAME.deb" para remover o pacote também removo os arquivos de configuração? se não, como removo?
 - Não, se a ideia for remover tudo que esteja associado ao pacote, use a opção -P (purge) em vez de -r.
 
 ### Podemos forçar o dpkg a instalar ou remover um pacote, mesmo que as dependências não sejam atendidas, adicionando o parâmetro --force como em "dpkg -i --force PACKAGENAME". Mas quais as consequências?
-- isso provavelmente deixará o pacote, ou mesmo o sistema, em um estado de falha. Não use --force, a menos que tenha certeza absoluta do que está fazendo.
+- Isso provavelmente deixará o pacote, ou mesmo o sistema, em um estado de falha. Não use --force, a menos que tenha certeza absoluta do que está fazendo.
 
 ### Como posso inspecionar um pacote com o dpkg para ver informações de arquitetura, mantenedor, dependências...?
 - Utilize o -I (maiúsculo)
@@ -662,7 +662,7 @@ Muitos dos comandos de apt são os mesmos de apt-get, de forma que eles são int
 
 - Posteriormente pode-se instalar o pacote com: ```apt-get install <PACKAGE>```
 
-### ao instalar ou remover pacotes, o APT executará a resolução automática de dependências. Assim, todos os pacotes adicionais necessários para o pacote que você está instalando também serão instalados, e os pacotes que dependem do pacote que você está removendo também serão removidos [V/F]?
+### Ao instalar ou remover pacotes, o APT executará a resolução automática de dependências. Assim, todos os pacotes adicionais necessários para o pacote que você está instalando também serão instalados, e os pacotes que dependem do pacote que você está removendo também serão removidos [V/F]?
 - Verdadeiro
 
 ### Como posso remover os pacotes instalados com apt e dpkg junto com seus arquivos de configuração?
