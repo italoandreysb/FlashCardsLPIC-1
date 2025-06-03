@@ -685,8 +685,8 @@ Muitos dos comandos de apt são os mesmos de apt-get, de forma que eles são int
 ## Buscando pacotes
 
 ### Como podemos executar operações no índice dos pacotes, como por exemplo, buscar um pacote específico ou listar quais pacotes tem um arquivo determinado? Como podemos mostrar informações completas do pacote?
-- Buscar um pacote específico: # apt-cache search p7zip  ou (apt show)
-- Mostrar informações completas do pacote: # apt-cache show liblzma5 ou (apt search)
+- Buscar um pacote específico: # apt-cache search p7zip  ou (apt search)
+- Mostrar informações completas do pacote: # apt-cache show liblzma5 ou (apt show)
 
 É possível usar expressões regulares com o padrão de pesquisa (não abordaremos aqui).
 
@@ -719,4 +719,58 @@ das versões estáveis do Debian é bastante longo (cerca de dois anos), garanti
 2. Recarregue o índice: apt-get update ou apt update.
 3. Estarão disponíveis para instalar com o: apt-get install ou apt install.
 
-## Listando o conteúdo dos pacotes e buscando arquivos
+## o que faz a ferramenta apt-file?
+- Pode ser usado para executar mais operações no índice do pacote, como listar o conteúdo de um pacote ou localizar um pacote que contenha um arquivo específico. Provavelmente precise reinstala-lo.
+
+```
+# apt-get install apt-file
+# apt-file update    # Atualizando cache do pacote usado para o apt-file
+# apt-file list unrar   # Listando conteudo de um pacote
+```
+
+### Qual a diferença entre apt-file search e  dpkg-query?
+- O "# apt-file search" também busca por pacotes não instalados.
+
+### Qual seria o comando para instalar um pacote chamado package.deb usando dpkg?
+```# dpkg -i package.deb```
+
+### Usando dpkg-query, descubra qual pacote contém um arquivo chamado 7zr.1.gz.
+```# dpkg-query -S 7zr.1.gz```
+
+### É possível remover um pacote chamado unzip do sistema usando dpkg -r unzip se o pacote file-roller depender dele? Se não, qual seria o jeito correto de fazer isso?
+- Não. O dpkg não resolve dependências e não permite remover um pacote se outro pacote instalado depender dele. neste exemplo, podemos primeiro remover file-roller (pressupondo que nada depende dele) e em seguida remover unzip, ou remover os dois ao mesmo tempo com:
+
+```dpkg -r unzip file-roller```
+
+### Usando o utilitário apt-file, como podemos descobrir qual pacote contém o arquivo /usr/bin/unrar?
+- Use o parâmetro search seguido pelo caminho (ou nome de arquivo):
+```apt-file search /usr/bin/unrar```
+
+### Usando o apt-cache, qual seria o comando para exibir informações para o pacote gimp?
+- Use o parâmetro show seguido pelo nome do pacote:
+``` # apt-cache show gimp```
+
+### Considere um repositório com pacotes de fontes Debian para a distribuição xenial, hospedado em http://us.archive.ubuntu.com/ubuntu/ e com pacotes para o componente universe. Qual seria a linha correspondente a adicionar a /etc/apt/sources.list?
+- Os pacotes fonte são do tipo deb-src, então a linha deve ser:
+``` deb-src http://us.archive.ubuntu.com/ubuntu/ xenial universe```
+
+- Essa linha também poderia ser adicionada a um arquivo.list fem /etc/apt/sources.list.d/. Ela pode ter qualquer nome, mas é melhor que seja descritivo, algo como xenial_sources.list.
+
+###  Ao compilar um programa, aparece uma mensagem de erro reclamando que o arquivo de cabeçalho zzip-io.h não está presente no seu sistema. Como você pode descobrir qual pacote fornece esse arquivo?
+- Use apt-file search para descobrir qual pacote contém um arquivo que não está presente
+no sistema:
+```# apt-file search zzip-io.h```
+
+###  Como podemos ignorar um aviso de dependência e remover um pacote usando dpkg, mesmo que haja pacotes que dependam dele no sistema?
+- O parâmetro --force poderia ser usado, mas isso jamais deve ser feito a menos que se saiba exatamente o que se está fazendo, já que existe um risco enorme de que o sistema seja deixado em um estado inconsistente ou “quebrado”.
+
+
+###  Como é possível pode obter mais informações sobre um pacote chamado midori usando apt?
+- Use apt-cache show seguido pelo nome do pacote:
+```# apt-cache show midori```
+
+### Antes de instalar ou atualizar pacotes com o apt, qual comando deve ser usado para garantir que o índice do pacote esteja atualizado?
+- apt-get update deve ser usado. Ele baixa os índices mais recentes do pacote dos repositórios descritos no arquivo /etc/apt/sources.list ou no diretório /etc/apt/sources.list.d/.
+
+
+## 102.5 Utilização do sistema de pacotes RPM e YUM
