@@ -682,6 +682,41 @@ Muitos dos comandos de apt são os mesmos de apt-get, de forma que eles são int
 - Os parciais ficam em "/var/cache/apt/archives/partial/"
 - Utilize o comando ```apt clean``` ou ```apt-get clean```
 
+## Buscando pacotes
 
+### Como podemos executar operações no índice dos pacotes, como por exemplo, buscar um pacote específico ou listar quais pacotes tem um arquivo determinado? Como podemos mostrar informações completas do pacote?
+- Buscar um pacote específico: # apt-cache search p7zip  ou (apt show)
+- Mostrar informações completas do pacote: # apt-cache show liblzma5 ou (apt search)
 
-Parei em "Buscando pacotes", pagina 113
+É possível usar expressões regulares com o padrão de pesquisa (não abordaremos aqui).
+
+### O APT usa uma lista de fontes para saber de onde obter pacotes. Esta lista é armazenada no arquivo sources.list, onde está localizado?
+- /etc/apt
+
+###  O APT usa uma lista de fontes para saber de onde obter pacotes. Esta lista é armazenada no arquivo sources.list, que exibe: "deb http://us.archive.ubuntu.com/ubuntu/ disco main restricted universe multiverse" o que significam os componentes após o a versão do ubuntu 19 (disco dingo)?
+
+- Cada componente representa um conjunto de pacotes. Esses componentes podem ser diferentes nas diversas distribuições Linux. Por exemplo, no Ubuntu e derivados, eles são:
+
+- main: Contém pacotes de código aberto oficialmente suportados.
+- restricted: contém software de código fechado oficialmente suportado, como drivers de dispositivo
+para placas gráficas, por exemplo.
+- universe: contém software de código aberto mantido pela comunidade.
+
+- multiverse: contém software não suportado, de código fechado ou protegido por patente.
+No Debian, os principais componentes são:
+- main: consiste em pacotes compatíveis com as Debian Free Software Guidelines (DFSG), que não
+dependem de software externos a essa área para operar. Os pacotes incluídos aqui são
+considerados parte da distribuição Debian.
+- contrib: contém pacotes compatíveis com DFSG, mas que dependem de outros pacotes que não estão
+no main.
+- non-free: contém pacotes que não são compatíveis com o DFSG.
+- security: contém atualizações de segurança.
+- backports: contém versões mais recentes dos pacotes que estão em main. O ciclo de desenvolvimento
+das versões estáveis do Debian é bastante longo (cerca de dois anos), garantindo que os usuários possam obter os pacotes mais atualizados sem precisar modificar o repositório principal main.
+
+### Como faço para adicionar um novo repositório para obter novos pacotes?
+1. Altere o arquivo /etc/apt/sources.list
+2. Recarregue o índice: apt-get update ou apt update.
+3. Estarão disponíveis para instalar com o: apt-get install ou apt install.
+
+## Listando o conteúdo dos pacotes e buscando arquivos
