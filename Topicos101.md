@@ -286,7 +286,7 @@ Qual é o diretório padrão das mensagens de log do systemd, posso simplesmente
 - Não, as mensgens de log do sistema não são armazenadas em texto puro, o comando journalctl é necessário para que fiquem legíveis.
 
 
-Em uma máquina equipada com firmware BIOS, onde está o binário do bootstrap?
+Em uma máquina equipada com firmware BIOS, em que parte do disco encontra-se o binário do bootstrap (processo de inicialização do sistema)?
 - No MBR do primeiro dispositivo de armazenamento.
 
 O firmware UEFI suporta recursos estendidos fornecidos por programas externos, chamados aplicativos EFI. Esses aplicativos, no entanto, têm seu próprio local especial. Em que lugar do sistema localizam-se os aplicativos?

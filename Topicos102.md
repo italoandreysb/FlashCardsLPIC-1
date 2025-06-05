@@ -220,7 +220,7 @@ Caso não tenha uma partição de inicialização (Coluna boot com asterisco) ma
 grub-install --boot-directory=/boot /dev/sda
 ```
 
-### Como podemos checar se o disco possui uma partição ou um diretório /boot?
+### Como podemos checar com o fdisk se o disco possui uma partição ou um diretório /boot?
 Execute o comando: "fdisk -l /dev/sda". 
 A partição de inicialização é identificada com o * na coluna boot:
 ```
