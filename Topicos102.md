@@ -41,7 +41,17 @@
 - Para questões de desempenho, pode querer manter uma partição "/" em um SSD e um "/home" ou "/var" em um disco mais lento.
 
 ### O que há na partição /boot?
-- Contém arquivos usados pelo Gerenciador de Inicialização (não são bootloaders (SysV, Upstart Sysd,)) 
+- Contém arquivos usados pelo bootloader/Gerenciador de Inicialização (GRUB).
+
+Também possui arquivos como:
+| config-6.8.0-60-generic       | Arquivo de configuração do kernel com as opções usadas na compilação. 
+| grub/                         | Diretório do GRUB, o carregador de boot do sistema.                   
+| initrd.img -> initrd.img-6.8.0-60-generic | Link simbólico para a imagem initramfs usada na inicialização.       
+| initrd.img-6.8.0-60-generic   | Imagem initramfs que contém drivers e scripts usados no boot.        
+| lost+found/                   | Diretório usado pelo sistema de arquivos para recuperação de dados.  
+| System.map-6.8.0-60-generic   | Mapeamento de endereços de funções e símbolos do kernel.             
+| vmlinuz -> vmlinuz-6.8.0-60-generic | Link simbólico para o kernel Linux.                              
+| vmlinuz-6.8.0-60-generic      | Kernel Linux propriamente dito.        
 
 
 ### Quais são os principais gerenciadores de inicialização (bootloader)?
