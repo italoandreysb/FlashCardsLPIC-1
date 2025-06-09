@@ -782,5 +782,51 @@ no sistema:
 ### Antes de instalar ou atualizar pacotes com o apt, qual comando deve ser usado para garantir que o índice do pacote esteja atualizado?
 - apt-get update deve ser usado. Ele baixa os índices mais recentes do pacote dos repositórios descritos no arquivo /etc/apt/sources.list ou no diretório /etc/apt/sources.list.d/.
 
+---
+---
+--- 
+---
+---
 
 ## 102.5 Utilização do sistema de pacotes RPM e YUM
+
+### É verdade que o fato de várias distribuições trabalharem com os formatos de pacotes (rpm, o yum, o dnf e o zypper) faz com que não precisemos procurar uma versão específica para a distribuição desejada?
+- Não
+
+### Qual a ferramenta essencial para gerenciar pacotes de software em sistemas baseados/derivados no Red Hat?
+- RPM Package Manager (rpm) 
+
+### Como instalar pacotes em sistemas derivados/baseados no Radhat?
+- rpm -i <pacote>
+
+### Nos sistemas derivados/baseados no RadHat, como posso atualizar um pacote já existente, mas baseados em uma outra versão?
+- rpm -U <package>
+
+- Obs: se não houver uma versão do pacote instalada, uma versão será instalada. Caso não queira instalar, apenas utilizar, utilize o parâmetro "-F".
+
+### Os comandos "rpm -i -v -h" são o mesmo que "rpm -ivh"?
+- Sim
+
+### Como podemos apagar um pacote? 
+-  rpm -e wget    (erase)
+
+- Se tiver alguma dependência, poderá gerar um erro:
+```
+# rpm -e unzip
+error: Failed dependencies:
+/usr/bin/unzip is needed by (installed) file-roller-3.28.1-2.el7.x86_64
+```
+- Podemos passar vários nomes de pacotes para o rpm -e para remover vários pacotes de uma só vez.
+
+### Muitas vezes, um pacote pode depender de outros para funcionar como pretendido. O que acontece se um pacote rpm necessitar de uma dependência inexistente no seu computador/servidor?
+- O rpm verifica se essas dependências estão instaladas em seu sistema; se não estiverem, ele não conseguirá instalar o pacote. Nesse caso, o rpm lista os pacotes faltantes. No entanto, ele não pode resolver dependências sozinho, Cabe ao usuário encontrar os pacotes .rpm com as dependências correspondentes e instalá-los.
+
+- Mostrará algo como:
+```
+# rpm -i gimp-2.8.22-1.el7.x86_64.rpm
+error: Failed dependencies:
+    babl(x86-64) >= 0.1.10 is needed by gimp-2:2.8.22-1.el7.x86_64
+    gegl(x86-64) >= 0.2.0 is needed by gimp-2:2.8.22-1.el7.x86_64
+    gimp-libs(x86-64) = 2:2.8.22-1.el7 is needed by gimp-2:2.8.22-1.el7.x86_64
+```
+- 
