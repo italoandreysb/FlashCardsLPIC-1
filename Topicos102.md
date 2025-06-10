@@ -853,4 +853,71 @@ error: Failed dependencies:
 
 ## YellowDog Updater Modified (YUM)
 
+### O que é o YellowDog Updater Modified (YUM)?
+O yum foi originalmente desenvolvido como Yellow Dog Updater (YUP), uma ferramenta para gerenciamento de pacotes na distribuição Linux Yellow Dog. Com o tempo, evoluiu para gerenciar pacotes em outros sistemas baseados em RPM, como Fedora, CentOS, Red Hat Enterprise Linux e Oracle Linux. Em termos de funcionalidade, ele é semelhante ao utilitário apt dos sistemas baseados em Debian, sendo capaz de buscar, instalar, atualizar e remover pacotes, além de gerir automaticamente as dependências. O yum pode ser usado para instalar um único pacote ou para atualizar um sistema inteiro de uma vez só. 
 
+### Utilizando o YellowDog Updater Modified (YUM), como poesquisar por um pacote? atualizar um pacote?
+- Pesqusando: ```# yum search 7zip```
+- Instalando: ```# yum update wget```
+
+### Utilizando o YUM, como podemos  verificar se há uma atualização disponível para um pacote específico?
+- ```# yum check-update PACKAGENAME```
+
+### Utilizando o YUM, como posso atualizar todos os pacotes no sistema para os quais existam atualizações?
+- ```# yum update```
+
+### Utilizando o YUM, se uma tentativa de instalação de um pacote falha por conta de dependência de uma biblioteca, o rpm mostra quais arquivos estão faltando, mas como checar os pacotes que o fornecem estes arquivos? Utilize a lib "libgimpui-2.0.so.0" como exemplo.
+```
+# yum whatprovides libgimpui-2.0.so.0
+Loaded plugins: fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+* base: mirror.ufscar.br
+* epel: mirror.globo.com
+* extras: mirror.ufscar.br
+* updates: mirror.ufscar.br
+2:gimp-libs-2.8.22-1.el7.i686 : GIMP libraries
+Repo
+ : base
+Matched from:
+Provides
+ : libgimpui-2.0.so.0
+```
+- A resposta é gimp-libs-2.8.22-1.el7.i686. Em seguida podemos instalar o pacote com o comando yum install gimp-libs
+
+- Isso também funciona para arquivos já existentes no seu sistema. Por exemplo, para saber de
+onde o arquivo /etc/hosts veio, você pode usar: yum whatprovides /etc/hosts
+
+#### Utilizando o YUM, como fazer para saber de onde o arquivo /etc/hosts?
+- ```# yum whatprovides /etc/hosts```
+
+
+### Utilizando o YUM, como fazemos para obter informações sobre um pacote, como versão, arquitetura, descrição, tamanho e mais? utilize o firefox como exemplo.
+- ```# yum info firefox```
+
+
+
+## Administrando os repositórios de software
+
+
+
+### Para o Yum, em qual diretório ficam listados os "repos"?
+- Para o yum, os “repos” estão listados no diretório /etc/yum.repos.d/. Cada repositório é representado por um arquivo .repo, como CentOS-Base.repo.
+- Repositórios adicionais podem ser incluídos pelo usuário acrescentando um arquivo .repo no diretório mencionado acima, ou no final de /etc/yum.conf. No entanto, a maneira recomendada de adicionar ou gerenciar repositórios é usar a ferramenta yum-config-manager. Para adicionar um repositório, use o parâmetro --add-repo, seguido da URL para um arquivo .repo. 
+- Ex: ```# yum-config-manager --add-repo https://rpms.remirepo.net/enterprise/remi.repo```
+
+
+### Utilizando o YUM, como obter uma lista de todos os repositórios disponíveis?
+- ```# yum repolist all```
+
+- Os repositórios disabled (desabilitados) serão ignorados ao instalar ou atualizar o software. Para habilitar ou desabilitar um repositório, use o utilitário yum-config-manager, seguido pelo ID do repositório.
+
+
+### Utilizando o YUM, como desabilitar e habilitar os updates?
+- Desabilitando: ```# yum-config-manager --disable updates```
+- Habilitadno: ```# yum-config-manager --enable updates```
+
+### O Yum armazena os pacotes baixados e os metadados associados em um diretório de cache (geralmente /var/cache/yum). À medida que o sistema é atualizado e novos pacotes são instalados, essa cache pode ficar bem grande, qual comando utilizamos para limpar o cache e recuperar o espaço em disco?
+- ```# yum clean packages``` exclui os pacotes baixados e matadata (yum clean metadata)
+
+
+## DNF - pg 137
