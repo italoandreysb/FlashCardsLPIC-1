@@ -829,4 +829,22 @@ error: Failed dependencies:
     gegl(x86-64) >= 0.2.0 is needed by gimp-2:2.8.22-1.el7.x86_64
     gimp-libs(x86-64) = 2:2.8.22-1.el7 is needed by gimp-2:2.8.22-1.el7.x86_64
 ```
-- 
+
+### utilizando o rpm, como podemos listar todos os pacotes?
+- ```# rpm -qa```
+- "-qa" vem de query all
+
+### utilizando o rpm, como podemos obter informações sobre um pacote?
+- ```# rpm -qi unzip```
+- "-qi" vem de query info. Se quiser a lista de arquivos de um programa que não for instalado, insira a opção "-p": ```# rpm -qip PACKAGENAME```
+
+### utilizando o rpm, como podemos ver uma lista dos arquivos que estão dentro de um pacote instalado?
+- ```# rpm -ql unzip```
+- "ql" de query list. Se quiser a lista de arquivos de um programa que não for instalado, insira a opção "-p": ```# rpm -qlp atom.x86_64.rpm```
+
+### utilizando o rpm, como podemos saber qual pacote possui um arquivo em específico?
+```
+# rpm -qf /usr/bin/unzip
+    unzip-6.0-19.el7.x86_64
+```
+- No exemplo acima, o arquivo /usr/bin/unzip pertence ao pacote unzip-6.0-19.el7.x86_64.
