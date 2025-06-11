@@ -921,3 +921,33 @@ onde o arquivo /etc/hosts veio, você pode usar: yum whatprovides /etc/hosts
 
 
 ## DNF - pg 137
+
+### O que é o dnf?
+- É uma ferramenta de gerenciamento de pacotes usada no Fedora, é um fork do yum, então muitos comandos são semelhantes.
+
+### Cite alguns dos principais comandos do dnf.
+- Busca de pacotes:  
+dnf search PATTERN, onde PATTERN é aquilo que você está buscando. Por exemplo, dnf search unzip mostra todos os pacotes que contêm a palavra unzip no nome ou descrição.
+
+- Obter informações sobre um pacote:  
+dnf info PACKAGENAME
+
+- Instalar pacotes:  
+dnf install PACKAGENAME, onde PACKAGENAME é o nome do pacote que se deseja instalar.
+Para encontrar o nome, faça uma busca.
+
+- Remover pacotes:  
+dnf remove PACKAGENAME
+
+- Atualizar pacotes:  
+dnf upgrade PACKAGENAME para atualizar um só pacote. Omita o nome do pacote para
+atualizar todos os pacotes do sistema.
+
+- Descobrir qual pacote fornece um arquivo específico:  
+dnf provides FILENAME
+
+- Obter uma lista de todos os pacotes instalados no sistema:  
+dnf list --installed
+
+- Listar o conteúdo de um pacote:  
+dnf repoquery -l PACKAGENAME
