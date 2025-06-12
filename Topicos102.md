@@ -547,7 +547,7 @@ include /etc/ld.so.conf.d/*.conf
 
 - Sempre rodar com sudo, pois exige aceso de escrita ao /etc/ld.so.cache
 
-### O comando ldconfig é utilizado em sistemas Linux para configurar a ligação dinâmica de bibliotecas compartilhadas. Ele atualiza o cache das bibliotecas compartilhadas localizadas em diretórios específicos. Quais o principais parametros do ldconfg?
+### O comando ldconfig é utilizado em sistemas Linux para configurar a ligação dinâmica de bibliotecas compartilhadas. Ele atualiza o cache das bibliotecas compartilhadas localizadas em diretórios específicos. Quais o principais parametros do ldconfig?
 
 - sudo ldconfig -v
 - sudo ldconfig -p  (ou --print-cache) # exibe armazenamento no cache atual
@@ -558,7 +558,7 @@ $ sudo ldconfig -p |grep libfuse
 libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 ```
 
-### Além da estrutura do ldconf, como posso adicionar tempoarariamene os caminhos para bibliotecas compartilhadas? E como checar? Use /user/local/mylib como exemplo.
+### Além da estrutura do ldconf, como posso adicionar tempoarariamente os caminhos para bibliotecas compartilhadas? E como checar? Use /user/local/mylib como exemplo.
 
 - Através da variável LD_LIBRARY_PATH;
 - É composto de um conjunto de diretórios serparados por ":" onde as bibliotecas são buscadas.
@@ -951,3 +951,18 @@ dnf list --installed
 
 - Listar o conteúdo de um pacote:  
 dnf repoquery -l PACKAGENAME
+
+## Zypper - PG 139
+
+### O que é o Zyper?
+- Ferramenta de gerenciamento de pacotes usada no SUSE Linux e OpenSUSE. Emtermos de recursos, é semelhante ao apt e ao yum, sendo capaz de instalar, atualizar e remover pacotes de um sistema, com resolução automática de dependências.
+
+### Utilizando o zyper, como podemos fazer a atualização dos pacotes e matadados contidos nos repositórios dele?
+```
+# zypper refresh
+Repository 'Non-OSS Repository' is up to date.
+Repository 'Main Repository' is up to date.
+Repository 'Main Update Repository' is up to date.
+Repository 'Update Repository (Non-Oss)' is up to date.
+All repositories have been refreshed.
+```
