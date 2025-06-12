@@ -547,7 +547,7 @@ include /etc/ld.so.conf.d/*.conf
 
 - Sempre rodar com sudo, pois exige aceso de escrita ao /etc/ld.so.cache
 
-### Quais o principais parametros do ldconf?
+### O comando ldconfig é utilizado em sistemas Linux para configurar a ligação dinâmica de bibliotecas compartilhadas. Ele atualiza o cache das bibliotecas compartilhadas localizadas em diretórios específicos. Quais o principais parametros do ldconfg?
 
 - sudo ldconfig -v
 - sudo ldconfig -p  (ou --print-cache) # exibe armazenamento no cache atual
