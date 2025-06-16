@@ -970,3 +970,26 @@ Repository 'Main Update Repository' is up to date.
 Repository 'Update Repository (Non-Oss)' is up to date.
 All repositories have been refreshed.
 ```
+### É verdade que utilizando o Zypper, podemos habilitar a função de atualização automática caso a caso? ou seja, atualizando alguns repositórios automaticamente antes da consulta ou da instalação de um pacote, e outros atualizados manualmente?
+- Verdadeiro
+
+### Utilizando o Zypper, como podemos procurar um pacote (no repositório, não em instalados) pelo nome ou obter uma lista de todos os pacotes instalados no sistema?
+- Procurando pelo nome: ```# zyper se gnumeric```. Pode-se utilizar o "se" ou search.
+- listando instalados: ```# zyper se -i```.
+
+
+### Utilizando o Zypper, como checar se um pacote específico está instalado?
+- ```# zypper se -i firefox```
+- Para pesquisar apenas nos pacotes não-instalados, adicione o parâmetro "-u" ao operador se
+
+
+### O Zypper também pode instalar pacotes RPM, como podemos fazer isso?
+- ```# zypper in /home/jhon/newpackage.rpm```
+
+### Utilizando o Zypper, como podemos atualizar os pacotes instalados no sistema?
+- ```# zypper update```
+
+- Obs: Se quiser listar apenas as atualizações disponíveis, sem instalar nada, use zypper list-updates.
+
+### Utilizando o Zypper, como podemos remover?
+- ```# zypper rm <unrar>``` Ou utilize "remove" no lugar de "rm".
