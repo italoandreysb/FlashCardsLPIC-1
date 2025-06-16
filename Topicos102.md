@@ -638,9 +638,13 @@ libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 ```dpkg --get-selections```  
 ```dpkg -L PACKAGENAME```
 
+- Exemplo prático: gerar lista via dpkg --get-selections > packages.list e depois restaurar em outra máquina com dpkg --set-selections.
+
 ### Como podemos descobrir qual pacote possui um arquivo específico no sistema?
 - Utilizando o dpkg-query
 ```# dpkg-query -S /usr/bin/unrar-nonfree```
+
+Sempre utilizar o caminho completo do arquivo.
 
 ## Reconfigurando os pacotes instalados
 
