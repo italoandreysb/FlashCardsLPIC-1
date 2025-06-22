@@ -634,7 +634,7 @@ libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 - Utilize o -I (maiúsculo)
 ```dpkg -I google-chrome-stable_current_amd64.deb```
 
-### (dpkg) Como posso obter uma lista de todos os programas instalados? e uma lista de todos os arquivos instalados por um pacote especídico:
+### (dpkg) Como posso obter uma lista de todos os programas instalados? e uma lista de todos os arquivos instalados por um pacote específico:
 ```dpkg --get-selections```  
 ```dpkg -L PACKAGENAME```
 
@@ -980,7 +980,7 @@ All repositories have been refreshed.
 
 ### Utilizando o Zypper, como checar se um pacote específico está instalado?
 - ```# zypper se -i firefox```
-- Para pesquisar apenas nos pacotes não-instalados, adicione o parâmetro "-u" ao operador se
+- Para pesquisar apenas nos pacotes não-instalados, adicione o parâmetro "-u" ao operador "se"
 
 
 ### O Zypper também pode instalar pacotes RPM, como podemos fazer isso?
@@ -993,3 +993,13 @@ All repositories have been refreshed.
 
 ### Utilizando o Zypper, como podemos remover?
 - ```# zypper rm <unrar>``` Ou utilize "remove" no lugar de "rm".
+
+- Lembre-se de que a remoção de um pacote também remove outros pacotes que dependem dele.
+- Obs: Para ver quais pacotes contêm um arquivo específico, use o operador de pesquisa seguido pelo parâmetro --provides e o nome do arquivo (ou o caminho completo para ele)
+
+### Utilizando o Zypper, Como podemos obter informações sobre metadados associados a um pacote?
+
+- ```# zypper info gimp```
+
+### O zypper também pode ser usado para gerenciar repositórios de software, como podemos ver uma lista de todos os repositórios atualmente registrados no seu sistema?
+- ```# zypper repos```
