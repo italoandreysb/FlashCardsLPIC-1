@@ -1003,3 +1003,49 @@ All repositories have been refreshed.
 
 ### O zypper também pode ser usado para gerenciar repositórios de software, como podemos ver uma lista de todos os repositórios atualmente registrados no seu sistema?
 - ```# zypper repos```
+
+- Na coluna Enabled vemos alguns repositorios ativados ou não, para alterar utilizer o modifyrepo com -e (enable) ou -d (disable).
+- ```# zypper modifyrepo -d repo-non-oss```
+
+### É verdade que o zypper possui um recurso de atualização automática que pode ser ativado caso a caso nos repositórios. Quando ativado, esse sinalizador faz com que o zypper execute uma operação de atualização (como se executássemos zypper refresh) antes de trabalhar com o repositório especificado?
+
+- Sim, O processo pode ser controlado com os parâmetros -f e -F do operador modifyrepo:
+- ```# zypper modifyrepo -F repo-non-oss```
+- ```# zypper modifyrepo -f repo-non-oss```
+
+### Como podemos adicionar ou remover um repositprio utilizando o zypper?
+- ```# zypper addrepo http://packman.inode.at/suse/openSUSE_Leap_15.1/ packman```
+- ``` # zypper removerepo packman```
+
+## Respostas aos exercicios
+
+### Usando o rpm em um sistema Red Hat Enterprise Linux, como você instalaria o pacote file-roller-3.28.1-2.el7.x86_64.rpm de maneira a exibir uma barra de progresso durante a instalação?
+- Use o parâmetro -i para instalar um pacote e a opção -h para habilitar os “sinais de hash” mostrando o progresso da instalação. 
+- R: ```# rpm -ih file-roller-3.28.1-2.el7.x86_64.rpm.```
+
+### Usando o rpm, descubra qual pacote contém o arquivo /etc/redhat-release.
+- Estamos solicitando informações sobre um arquivo, por isso usamos o parâmetro -qf: rpm -qf /etc/redhat-release
+
+### Como você usaria o yum para procurar atualizações para todos os pacotes do sistema?
+- Use a operação check-update sem um nome de pacote: yum check-update.
+
+### Usando o zypper, como desabilitaríamos um repositório chamado repo-extras?
+- Use a operação modifyrepo para alterar os parâmetros de um repositório, e o parâmetro -d para desabilitá-lo: zypper modifyrepo -d repo-extras.
+
+### Se tivermos um arquivo .repo descrevendo um novo repositório, onde esse arquivo deve ser colocado para poder ser reconhecido pelo DNF?
+- Os arquivos .repo para o DNF devem ser postos no mesmo local usado pelo YUM, dentro de /etc/yum.repos.d/.
+
+### Como usar o zypper para descobrir qual pacote possui o arquivo /usr/sbin/swapon?
+- zypper se --provides /usr/sbin/swapon.
+
+###  Como obter uma lista de todos os pacotes instalados no sistema usando o dnf?
+- ```#  dnf list --installed```
+
+### Usando o dnf, qual o comando para adicionar um repositório localizado  em https://www.example.url/home:reponame.repo ao sistema?
+- O trabalho com repositórios é uma “mudança de configurações”, por isso use o config-manager e o parâmetro --add_repo: dnf config-manager --add_repo https://www.example.url/home:reponame.repo.
+
+### Como podemos usar o zypper para conferir se o pacote unzip está instalado?
+- ```# Precisamos fazer uma busca (se) nos pacotes instalados (-i): zypper se -i unzip.```
+
+### Usando o yum, descubra qual pacote fornece o arquivo /bin/wget.
+- Para descobrir quem fornece um arquivo, use whatprovides e o nome do arquivo: yum whatprovides /bin/wget.
