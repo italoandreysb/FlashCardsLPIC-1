@@ -1049,3 +1049,9 @@ All repositories have been refreshed.
 
 ### Usando o yum, descubra qual pacote fornece o arquivo /bin/wget.
 - Para descobrir quem fornece um arquivo, use whatprovides e o nome do arquivo: yum whatprovides /bin/wget.
+
+---
+---
+--- 
+---
+---
