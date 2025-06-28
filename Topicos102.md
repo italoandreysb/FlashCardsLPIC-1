@@ -891,7 +891,7 @@ Provides
 - Isso também funciona para arquivos já existentes no seu sistema. Por exemplo, para saber de
 onde o arquivo /etc/hosts veio, você pode usar: yum whatprovides /etc/hosts
 
-#### Utilizando o YUM, como fazer para saber de onde o arquivo /etc/hosts?
+#### Utilizando o YUM, como fazer para saber quem provê arquivo /etc/hosts?
 - ```# yum whatprovides /etc/hosts```
 
 
@@ -920,8 +920,11 @@ onde o arquivo /etc/hosts veio, você pode usar: yum whatprovides /etc/hosts
 - Desabilitando: ```# yum-config-manager --disable updates```
 - Habilitadno: ```# yum-config-manager --enable updates```
 
+Depois de desabilitado, nenhum pacote desse repositório será listado nem instalado em operações como yum install, yum update ou yum upgrade.
+Útil quando você quer evitar que o sistema busque atualizações daquela fonte (por exemplo, para manter versões congeladas, usar só mirror alternativo, ou depurar conflitos).
+
 ### O Yum armazena os pacotes baixados e os metadados associados em um diretório de cache (geralmente /var/cache/yum). À medida que o sistema é atualizado e novos pacotes são instalados, essa cache pode ficar bem grande, qual comando utilizamos para limpar o cache e recuperar o espaço em disco?
-- ```# yum clean packages``` exclui os pacotes baixados e matadata (yum clean metadata)
+- ```# yum clean packages``` exclui os pacotes baixados e metadata (yum clean metadata)
 
 
 ## DNF - pg 137
@@ -931,30 +934,30 @@ onde o arquivo /etc/hosts veio, você pode usar: yum whatprovides /etc/hosts
 
 ### Cite alguns dos principais comandos do dnf.
 - Busca de pacotes:  
-dnf search PATTERN, onde PATTERN é aquilo que você está buscando. Por exemplo, dnf search unzip mostra todos os pacotes que contêm a palavra unzip no nome ou descrição.
+$ dnf search PATTERN, onde PATTERN é aquilo que você está buscando. Por exemplo, dnf search unzip mostra todos os pacotes que contêm a palavra unzip no nome ou descrição.
 
 - Obter informações sobre um pacote:  
-dnf info PACKAGENAME
+$ dnf info PACKAGENAME
 
 - Instalar pacotes:  
-dnf install PACKAGENAME, onde PACKAGENAME é o nome do pacote que se deseja instalar.
+sudo dnf install PACKAGENAME, onde PACKAGENAME é o nome do pacote que se deseja instalar.
 Para encontrar o nome, faça uma busca.
 
 - Remover pacotes:  
-dnf remove PACKAGENAME
+sudo dnf remove PACKAGENAME
 
 - Atualizar pacotes:  
-dnf upgrade PACKAGENAME para atualizar um só pacote. Omita o nome do pacote para
+sudo dnf upgrade PACKAGENAME para atualizar um só pacote. Omita o nome do pacote para
 atualizar todos os pacotes do sistema.
 
 - Descobrir qual pacote fornece um arquivo específico:  
-dnf provides FILENAME
+$ dnf provides FILENAME
 
 - Obter uma lista de todos os pacotes instalados no sistema:  
-dnf list --installed
+$ dnf list --installed
 
 - Listar o conteúdo de um pacote:  
-dnf repoquery -l PACKAGENAME
+$ dnf repoquery -l PACKAGENAME
 
 ## Zypper - PG 139
 
