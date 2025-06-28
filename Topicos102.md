@@ -994,7 +994,7 @@ All repositories have been refreshed.
 
 - Obs: Se quiser listar apenas as atualizações disponíveis, sem instalar nada, use zypper list-updates.
 
-### Utilizando o Zypper, como podemos remover?
+### Utilizando o Zypper, como podemos remover um pacote?
 - ```# zypper rm <unrar>``` Ou utilize "remove" no lugar de "rm".
 
 - Lembre-se de que a remoção de um pacote também remove outros pacotes que dependem dele.
