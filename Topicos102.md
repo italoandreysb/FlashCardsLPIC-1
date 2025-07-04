@@ -795,12 +795,12 @@ no sistema:
 ## 102.5 Utilização do sistema de pacotes RPM e YUM
 
 ### É verdade que o fato de várias distribuições trabalharem com os formatos de pacotes (rpm, o yum, o dnf e o zypper) faz com que não precisemos procurar uma versão específica para a distribuição desejada?
-- Não
+- Não. Apesar do formato .rpm ser comum, isso não significa que qualquer pacote .rpm funcionará em qualquer distro .rpm-based. Um pacote compilado para RHEL 8 pode não funcionar corretamente no RHEL 9 (ou CentOS 7), devido a diferenças nas bibliotecas e APIs, Um pacote .rpm para x86_64 não funcionará em sistemas aarch64 (ARM), mesmo na mesma distro, O openSUSE/SUSE usa .rpm, mas seu sistema de gerenciamento (zypper) e estrutura de pacotes são diferentes, então Um .rpm feito para RHEL quase nunca será compatível com o openSUSE.
 
 ### Qual a ferramenta essencial para gerenciar pacotes de software em sistemas baseados/derivados no Red Hat?
 - RPM Package Manager (rpm) 
 
-### Como instalar pacotes em sistemas derivados/baseados no Radhat?
+### Como instalar pacotes .rpm em sistemas derivados/baseados no Radhat?
 - rpm -i <pacote>
 
 ### Nos sistemas derivados/baseados no RadHat, como posso atualizar um pacote já existente, mas baseados em uma outra versão?
