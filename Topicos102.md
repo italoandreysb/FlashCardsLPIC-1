@@ -1061,4 +1061,11 @@ All repositories have been refreshed.
 # 102.6 O Linux como máquina virtual
 
 ## O que é virtualização?
-- 
+- Tecnologia que permite que o hypervisor execute sistemas inteiramente emulados (virtuais).
+
+## Dentre os hyperviosors, cite os principais:
+- Xen: Hypervisor do tipo 1 (baremetal (que não depende de um outro sistema para funcionar))
+- Kernel Virtual Machine (KVM): Módulo linux de virtualização, Hypervisor do tipo 1 e tipo 2. As máquinas virtuais implementadas com o KVM utilizam o  daemon libvirt e utilitários de software para serem criadas e gerenciadas.
+- Virtual Box: Hypervisor do tipo 2 (necessita de um sistema operacional subjacente para ser executado)
+
+## É verdade que existem 2 tipos de migração de máquinas convidadas (VMs), migração com elas desligadas e migração com elas ligadas, tambpem conhecidas como "migração ao vivo"?
