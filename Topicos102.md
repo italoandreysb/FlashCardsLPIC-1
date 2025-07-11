@@ -1058,3 +1058,7 @@ All repositories have been refreshed.
 --- 
 ---
 ---
+# 102.6 O Linux como máquina virtual
+
+## O que é virtualização?
+- 
