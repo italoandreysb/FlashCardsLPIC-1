@@ -1080,3 +1080,7 @@ All repositories have been refreshed.
 - Convidado paravirtualizado (PVM): O convidado está ciente de que é uma VM. O convidado faz uso de um kernel modificado e drivers adicionais (drivers convidados), que ajudam o sistema convidado a utilizar os recursos de drivers e softwares o hypervisor. O desempenho deste costuma ser melhor que os convidados totalmente virtualizados, devido às vantagens oferecidas pelos drivers adicionais.
 
 - Convidado híbrido: A paravirtualização e a virtualização total podem ser combinadas para permitir que sistemas operacionais não modificados tenham um desempenho de E/S quase nativo usando drivers paravirtualizados em sistemas operacionais totalmente virtualizados.  Os drivers paravirtualizados contêm drivers de dispositivos de armazenamento e de rede com  desempenho aprimorado de E/S de disco e de rede. Os KVM utiliza drivers do projeto Virtio enquanto o Virtualbox utiliza imagem ISO com extensões de convidado.
+
+### De que é composto uma VM estruturada em KVM e gerenciada por libvirt?
+- XML: Contém as especificações de hardware, rede, recursos de exibição
+- Arquivo de imagem de disco: Associado ao XML, contendo a instalação do software
