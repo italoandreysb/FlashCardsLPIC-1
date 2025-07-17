@@ -811,7 +811,7 @@ no sistema:
 ### Os comandos "rpm -i -v -h" são o mesmo que "rpm -ivh"?
 - Sim
 
-### Como podemos apagar um pacote? 
+### Utilizando o RPM, Como podemos apagar um pacote? 
 -  rpm -e wget    (erase)
 
 - Se tiver alguma dependência, poderá gerar um erro:
@@ -934,30 +934,30 @@ Depois de desabilitado, nenhum pacote desse repositório será listado nem insta
 
 ### Cite alguns dos principais comandos do dnf.
 - Busca de pacotes:  
-$ dnf search PATTERN, onde PATTERN é aquilo que você está buscando. Por exemplo, dnf search unzip mostra todos os pacotes que contêm a palavra unzip no nome ou descrição.
+```$ dnf search PATTERN```, onde PATTERN é aquilo que você está buscando. Por exemplo, dnf search unzip mostra todos os pacotes que contêm a palavra unzip no nome ou descrição.
 
 - Obter informações sobre um pacote:  
-$ dnf info PACKAGENAME
+```$ dnf info PACKAGENAME```
 
 - Instalar pacotes:  
-sudo dnf install PACKAGENAME, onde PACKAGENAME é o nome do pacote que se deseja instalar.
+```sudo dnf install PACKAGENAME```, onde PACKAGENAME é o nome do pacote que se deseja instalar.
 Para encontrar o nome, faça uma busca.
 
 - Remover pacotes:  
-sudo dnf remove PACKAGENAME
+```sudo dnf remove PACKAGENAME```
 
 - Atualizar pacotes:  
-sudo dnf upgrade PACKAGENAME para atualizar um só pacote. Omita o nome do pacote para
+```sudo dnf upgrade PACKAGENAME``` para atualizar um só pacote. Omita o nome do pacote para
 atualizar todos os pacotes do sistema.
 
 - Descobrir qual pacote fornece um arquivo específico:  
-$ dnf provides FILENAME
+```$ dnf provides FILENAME```
 
 - Obter uma lista de todos os pacotes instalados no sistema:  
-$ dnf list --installed
+```$ dnf list --installed```
 
 - Listar o conteúdo de um pacote:  
-$ dnf repoquery -l PACKAGENAME
+```$ dnf repoquery -l PACKAGENAME```
 
 ## Zypper - PG 139
 
@@ -1060,12 +1060,17 @@ All repositories have been refreshed.
 ---
 # 102.6 O Linux como máquina virtual
 
-## O que é virtualização?
+### O que é virtualização?
 - Tecnologia que permite que o hypervisor execute sistemas inteiramente emulados (virtuais).
 
-## Dentre os hyperviosors, cite os principais:
+### Qual a diferença principal dos hypervisors tipo 1 (bare metal) e do tipo 2?
+- Hypervisor do tipo 1 não precisam de sistema operacional subjacente para funcionar.
+
+### Dentre os hyperviosors, cite os principais:
 - Xen: Hypervisor do tipo 1 (baremetal (que não depende de um outro sistema para funcionar))
 - Kernel Virtual Machine (KVM): Módulo linux de virtualização, Hypervisor do tipo 1 e tipo 2. As máquinas virtuais implementadas com o KVM utilizam o  daemon libvirt e utilitários de software para serem criadas e gerenciadas.
 - Virtual Box: Hypervisor do tipo 2 (necessita de um sistema operacional subjacente para ser executado)
 
-## É verdade que existem 2 tipos de migração de máquinas convidadas (VMs), migração com elas desligadas e migração com elas ligadas, tambpem conhecidas como "migração ao vivo"?
+### É verdade que existem 2 tipos de migração de máquinas convidadas (VMs), migração com elas desligadas e migração com elas ligadas, também conhecidas como "migração ao vivo"?
+
+### Quais os tipos de máquinas virtuais?
