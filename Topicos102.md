@@ -1064,13 +1064,19 @@ All repositories have been refreshed.
 - Tecnologia que permite que o hypervisor execute sistemas inteiramente emulados (virtuais).
 
 ### Qual a diferença principal dos hypervisors tipo 1 (bare metal) e do tipo 2?
-- Hypervisor do tipo 1 não precisam de sistema operacional subjacente para funcionar.
+- Hypervisor do tipo 1 (bare metals) não precisam de sistema operacional subjacente para funcionar.
 
 ### Dentre os hyperviosors, cite os principais:
-- Xen: Hypervisor do tipo 1 (baremetal (que não depende de um outro sistema para funcionar))
-- Kernel Virtual Machine (KVM): Módulo linux de virtualização, Hypervisor do tipo 1 e tipo 2. As máquinas virtuais implementadas com o KVM utilizam o  daemon libvirt e utilitários de software para serem criadas e gerenciadas.
+- Xen: Hypervisor do tipo 1 (baremetal (que não depende de um outro sistema para funcionar)). Ferramenta de código aberto.
+- Kernel Virtual Machine (KVM): Módulo linux de virtualização, Hypervisor do tipo 1 e tipo 2. As máquinas virtuais implementadas com o KVM utilizam o daemon libvirt e utilitários de software para serem criadas e gerenciadas.
 - Virtual Box: Hypervisor do tipo 2 (necessita de um sistema operacional subjacente para ser executado)
 
-### É verdade que existem 2 tipos de migração de máquinas convidadas (VMs), migração com elas desligadas e migração com elas ligadas, também conhecidas como "migração ao vivo"?
+### É verdade que alguns hypervisors permitem realocação dinâmica de uma máquina virtual (também conhecidas como migração ao vivo, ou seja, migrar o sistema convidado sem desliga-la)?
+- Verdadeiro.
 
-### Quais os tipos de máquinas virtuais?
+### Quais os tipos de máquinas virtuais/máquinas convidados?
+- Totalmente virtualizado: Nenhum driver de software adicional é instalado para traduzir as instruções, o convidado não sabe que é uma VM. Em máquinas X86 é necessário habilitar as extensões CPU-INTEL-VTX ou AMD-V no hypervisor, geralmente ajustado na BIOS ou UEFI.
+
+- Convidado paravirtualizado (PVM): O convidado está ciente de que é uma VM. O convidado faz uso de um kernel modificado e drivers adicionais (drivers convidados), que ajudam o sistema convidado a utilizar os recursos de drivers e softwares o hypervisor. O desempenho deste costuma ser melhor que os convidados totalmente virtualizados, devido às vantagens oferecidas pelos drivers adicionais.
+
+- Convidado híbrido: A paravirtualização e a virtualização total podem ser combinadas para permitir que sistemas operacionais não modificados tenham um desempenho de E/S quase nativo usando drivers paravirtualizados em sistemas operacionais totalmente virtualizados.  Os drivers paravirtualizados contêm drivers de dispositivos de armazenamento e de rede com  desempenho aprimorado de E/S de disco e de rede. Os KVM utiliza drivers do projeto Virtio enquanto o Virtualbox utiliza imagem ISO com extensões de convidado.
