@@ -1082,5 +1082,9 @@ All repositories have been refreshed.
 - Convidado híbrido: A paravirtualização e a virtualização total podem ser combinadas para permitir que sistemas operacionais não modificados tenham um desempenho de E/S quase nativo usando drivers paravirtualizados em sistemas operacionais totalmente virtualizados.  Os drivers paravirtualizados contêm drivers de dispositivos de armazenamento e de rede com  desempenho aprimorado de E/S de disco e de rede. Os KVM utiliza drivers do projeto Virtio enquanto o Virtualbox utiliza imagem ISO com extensões de convidado.
 
 ### De que é composto uma VM estruturada em KVM e gerenciada por libvirt?
-- XML: Contém as especificações de hardware, rede, recursos de exibição
+- XML: Contém as especificações de hardware, rede, recursos de exibição.
 - Arquivo de imagem de disco: Associado ao XML, contendo a instalação do software
+
+### Porque ao acessarmos o hypervisor e executando um ls em /var/lib/libvirt/images/rhel8 podemos ver que o disco da máquina convidado ocupa apenas 5.5 GB, mas acessando a VM e executando o comando lsblk vemos um disco de 23,3GB? 
+
+- Isso se deve ao tipo de provisionamento de disco usado para este convidado. Existem vários tipos de imagens de disco que uma máquina virtual pode usar, mas os dois principais são:
