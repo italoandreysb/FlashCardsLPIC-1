@@ -1088,3 +1088,17 @@ All repositories have been refreshed.
 ### Porque ao acessarmos o hypervisor e executando um ls em /var/lib/libvirt/images/rhel8 podemos ver que o disco da máquina convidado ocupa apenas 5.5 GB, mas acessando a VM e executando o comando lsblk vemos um disco de 23,3GB? 
 
 - Isso se deve ao tipo de provisionamento de disco usado para este convidado. Existem vários tipos de imagens de disco que uma máquina virtual pode usar, mas os dois principais são:
+- Copy-on-write (COW): Tamanho máximo da imagem do disco já predefinido, mas só aumenta quando mais dados são gravados. Ex: qcow2(QEMU COW).
+- RAW/FULL: O disco já tem todo o espaço já pré-alocado, de modo que um disco de 10 GB consumirá 10 GB. Este modelo oferece maior desempenho, pois todo o disco já está alocado e o hypervisor não precisa monitorar o crescimento do disco.
+
+### Existem Hypervisors que podem lançar mão de discos físicos como locais de armazenamento secundários para o sistema operacional de uma máquina virtual, de que forma seria?
+- SAN (Storage Area Network) – uma rede de alta velocidade que conecta servidores a dispositivos de armazenamento.
+- NAS (Network Attached Storage) – um dispositivo de armazenamento conectado à rede que permite acesso aos arquivos como se fosse um servidor de arquivos
+
+## Trabalhando com modelos de máquina virtual
+
+### No contexto de máquinas virtuais sendo clonadas, o que vem a ser o DBUS Machine ID? Qual o comando para checar?
+- É o número de identificação da máquina gerada no momento da instalação do sistema. Caso a VM tenha sido criada, um novo DBUS-Machine-ID deve ser gerado para garantir que os recursos do sistema do Hypervisor sejam direcionados ao sistema convidado correto.
+
+-  Checar se existe um D-Bus machine ID para a VM: ```# dbus-uuidgen --ensure```. Se não der erro, já existe um ID.
+-  Visualizar ID-machine: ```# dbus-uuidgen --get```
