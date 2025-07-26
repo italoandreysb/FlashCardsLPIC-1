@@ -1101,4 +1101,21 @@ All repositories have been refreshed.
 - É o número de identificação da máquina gerada no momento da instalação do sistema. Caso a VM tenha sido criada, um novo DBUS-Machine-ID deve ser gerado para garantir que os recursos do sistema do Hypervisor sejam direcionados ao sistema convidado correto.
 
 -  Checar se existe um D-Bus machine ID para a VM: ```# dbus-uuidgen --ensure```. Se não der erro, já existe um ID.
--  Visualizar ID-machine: ```# dbus-uuidgen --get```
+-  Visualizar ID-machine: 
+```
+$ dbus-uuidgen --get
+17f2e0698e844e31b12ccd3f9aa4d94a
+```
+
+### O D-Bus machine ID localiza-se em /var/lib/dbus/machine-id e está simbolicamente ligado a /etc/machine-id. Posso altera-lo alterar esse ID com o sistema em execução?
+- Não, pode acarretar instabilidades e travamentos do sistema
+
+### Como gerar um D-Bus machine ID novo?
+```
+$ sudo rm -f /etc/machine-id
+$ sudo dbus-uuidgen --ensure=/etc/machine-id
+```
+- Se por acaso /var/lib/dbus/machine-id não for um link simbólico que remete a /etc/machine-id, /var/lib/dbus/machine-id terá de ser removido.
+
+## Implementação de máquinas virtuais na nuvem
+
