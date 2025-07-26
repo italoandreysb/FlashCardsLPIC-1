@@ -1123,14 +1123,59 @@ $ sudo dbus-uuidgen --ensure=/etc/machine-id
 ## Acessando convidados na nuvem com segurança
 
 ### Considerando que o SSH é o método mais comum para se acessar um servidor remotamente, como podemos gerar a chave SSH e copiar para o servidor remoto a fim de acessa-lo remotamente?
-1. Gere as chaves pública e privada:
+1. Gere as chaves pública e privada:  
 ```$ ssh-keygen```
-- Armazenada em ~/.ssh/, arquivo *.pub 
+- Armazenada em ~/.ssh/, arquivo *.pub   
 
-2. Importe a chave pública para o servidor remoto:
+2. Importe a chave pública para o servidor remoto:  
 ```$ ssh-copy-id -i <public_key> user@cloud_server```
-- A chave pública é gravada no arquivo ~/.ssh/authorized_keys
+- A chave pública é gravada no arquivo ~/.ssh/authorized_keys  
 - "-i" significa IDENTITY FILE, se só tiver um registro, o "-i" pode ser omitido.
 
 
-- OBS: ermissões para chaves SSH devem ser 0600 para uma chave privada e 0644 para uma chave pública
+- OBS: Permissões para chaves SSH devem ser 0600 para uma chave privada e 0644 para uma chave pública
+
+## Pré-configurando sistemas em nuvem
+
+### O que é e para que serve o cloud-init?
+- Um simplificador de implementações de VM em nuvem. Utiliza arquivos YAML para implementar uma infinidade de máquinas convidados em provedores IAAS. Também pode ser usado para pré-configurar containers como por exemplo LXD.
+
+- Exemplo de uma cloud-config:
+```
+#cloud-config
+timezone: Africa/Dar_es_Salaam
+hostname: test-system
+# Update the system when it first boots up
+apt_update: true
+apt_upgrade: true
+# Install the Nginx web server
+packages:
+- nginx
+```
+
+## Contêiners:
+
+### Existem várias tecnologias de contêiners disponíveis para linux, cite algumas delas:
+- Docker, Kubnerets, LXD/LXC, system-nspawn, OpenShift e outros.
+
+### No contexto de containers, o que são os cgroups ou grupos de controle?
+- É uma forma de particionar os recursos do sistema, como memória, tempo do
+processador, bem como disco e largura de banda da rede, para um aplicativo individual. Pode-se utilizar o cgroups diretamente para definir os limites de recursos do sistema para um aplicativo ou grupo de aplicativos de um cgroup, em essência é isso que o software do container faz.
+
+# Exercicios:
+
+###  Quais extensões de CPU são necessárias em uma plataforma de hardware baseada em x86 para rodar convidados totalmente virtualizados?
+- VT-x e AMD-V são extensões de virtualização por hardware oferecidas, pelas CPUs da Intel e da AMD.
+- Antes dessas tecnologias, o hipervisor precisava "enganar" o guest para que não fizesse chamadas privilegiadas diretamente à CPU — o que gerava sobrecarga. Agora, A CPU oferece um modo especial de execução para VMs, chamado de modo VMX root/non-root (Intel) ou SVM (AMD). Isso permite que o sistema operacional convidado seja executado de forma quase nativa, com chamadas privilegiadas sendo tratadas de maneira mais direta e segura pelo hardware.
+
+
+### Uma instalação de servidor de missão crítica, que exige um desempenho mais rápido, provavelmente usará que tipo de virtualização?
+- Um sistema operacional que faz uso de paravirtualização como o Xen, pois o sistema
+operacional convidado poderá fazer melhor uso dos recursos de hardware disponíveis com
+drivers de software projetados para funcionar com o hipervisor.
+- Obs: Paravirtualização é um tipo de virtualização em que o sistema operacional convidado (guest) tem conhecimento de que está sendo executado em um ambiente virtualizado e interage diretamente com o hipervisor para executar operações privilegiadas.
+
+### Duas máquinas virtuais que foram clonadas a partir do mesmo modelo e que utilizam o D-Bus apresentam desempenho irregular. Ambas têm nomes de host e definições de configuração de rede separadas. Qual comando seria usado para determinar se cada uma das máquinas virtuais tem diferentes D-Bus Machine IDs?
+- ```dbus-uuidgen --get```
+
+# 103.1 Trabalhar na linha de comando
