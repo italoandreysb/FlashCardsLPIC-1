@@ -1118,4 +1118,19 @@ $ sudo dbus-uuidgen --ensure=/etc/machine-id
 - Se por acaso /var/lib/dbus/machine-id não for um link simbólico que remete a /etc/machine-id, /var/lib/dbus/machine-id terá de ser removido.
 
 ## Implementação de máquinas virtuais na nuvem
+- !Não anotei nada pois são conceitos bem introdutórios!
 
+## Acessando convidados na nuvem com segurança
+
+### Considerando que o SSH é o método mais comum para se acessar um servidor remotamente, como podemos gerar a chave SSH e copiar para o servidor remoto a fim de acessa-lo remotamente?
+1. Gere as chaves pública e privada:
+```$ ssh-keygen```
+- Armazenada em ~/.ssh/, arquivo *.pub 
+
+2. Importe a chave pública para o servidor remoto:
+```$ ssh-copy-id -i <public_key> user@cloud_server```
+- A chave pública é gravada no arquivo ~/.ssh/authorized_keys
+- "-i" significa IDENTITY FILE, se só tiver um registro, o "-i" pode ser omitido.
+
+
+- OBS: ermissões para chaves SSH devem ser 0600 para uma chave privada e 0644 para uma chave pública
