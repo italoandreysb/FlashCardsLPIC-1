@@ -1179,3 +1179,11 @@ drivers de software projetados para funcionar com o hipervisor.
 - ```dbus-uuidgen --get```
 
 # 103.1 Trabalhar na linha de comando
+
+### Como podemos descobrir em que diretório estamos atualmente?
+- ``` $ pwd```
+
+### Qual comando pode ser utiliado para descobrir a versão do kernel do linux atualmente carregada?
+- ``` $uname -a```
+
+### Obtendo informações sobre comandos
