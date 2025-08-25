@@ -100,3 +100,10 @@ ap/bin
 - touch "my big file"
 - Touch 'my big file"
 - touch my\ big\ file\
+
+### Ao executar comandos utilizando strings, qual a diferença entre " (áspas duplas) e ' (áspas simples) ?
+- O escape com " preserva os valores especiais do cifrão, da crase e da barra invertida. Já o escape com o ' faz com que todos os caracteres sejam interpretados literalmente.
+
+--- 
+
+## 103.2 Processar fluxos de texto usando filtros
