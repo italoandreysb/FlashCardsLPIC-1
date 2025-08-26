@@ -107,3 +107,22 @@ ap/bin
 --- 
 
 ## 103.2 Processar fluxos de texto usando filtros
+
+
+### o que significa cat e o que acontece se não designarmos nada para o cat ler, apenas executando "cat"?
+- Vem do "concatenar"
+- se você não especificar de onde cat deve ler, ele lerá a entrada padrão (o que você digitar) e produzirá o que for lido na janela do terminal (a saída padrão).
+
+### O que acontece se digitarmos "cat mytextfile > mynewtextfile", depois  "cat mynewtextfile"
+- Vai  copiar mytextfile para mynewtextfile, depois ler o arquivo mynewtextfile
+
+### Como posso comparar 2 arquivos?
+- Utilize o comando diff file1 file2
+
+### Qual a diferença dos operadores ">" e ">>"?
+- O ">" sobrescreve o conteúdo do arquivo, se o arquivo já existir, ele é apagado e substituído pela nova saída, Se não existir, ele é criado.
+- o ">>" adiciona o texto ao fim do arquivo.
+
+
+### Como poderia canalizar uma saída de um cat para um grep não case sensitive?
+- cat mytextfile | grep -i this
