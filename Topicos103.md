@@ -139,3 +139,11 @@ ap/bin
 
 ### o quefaz o comando "less" em um arquivo e o que diferencia do "more"?
 - Enquanto o "more" mostra o arquivo página por página, mas só avança para frente, o less é mais moderno e poderoso, permite rolar pra frente e para trás e também carrega o arquivo por partes, sendo mais rápido.
+
+### o que faria o comando "grep -v closed /var/log/auth.log"?
+- listará todas as correspondências que NÃO CONTIVEREM a palavra "closed" para o arquivo auth.log.
+
+### o que faz o comando "sed"?
+
+
+Parei na página 206
