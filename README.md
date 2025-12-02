@@ -7,3 +7,6 @@ Ideal para quem:
 - Está se preparando para a LPIC-1 e busca uma abordagem mais direta;
 - Quer revisar os pontos-chave antes da prova;
 - Prefere um material mais enxuto e prático..
+
+
+[Simulado examtopics](https://www.examtopics.com/exams/lpi/101-500/)

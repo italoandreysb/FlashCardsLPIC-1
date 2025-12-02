@@ -126,3 +126,16 @@ ap/bin
 
 ### Como poderia canalizar uma saída de um cat para um grep não case sensitive?
 - cat mytextfile | grep -i this
+
+### Existem alguns comandos para lidar com arquivos compactados, como por exemplo, arquivos bzip e xz e gzip. Como podemos visualizar estes arquivos sem descompacta-los?
+- bzcat para arquivos compactados bzip, 
+- xzcat para arquivos xz,
+- zcat para arquivos gzip,
+- Exemplo: zcat arquivo.txt.gz, zless arquivo.txt.gz e zgrep "palavra" arquivo.txt.gz.
+
+### Quais os programas utilizados para ler apenas o início do texto ou apenas o fim do texto?
+- head e tail.
+- ex: ```tail -n 10 <file> ou head -n 10 <file>```
+
+### o quefaz o comando "less" em um arquivo e o que diferencia do "more"?
+- Enquanto o "more" mostra o arquivo página por página, mas só avança para frente, o less é mais moderno e poderoso, permite rolar pra frente e para trás e também carrega o arquivo por partes, sendo mais rápido.
