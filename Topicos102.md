@@ -1029,7 +1029,7 @@ All repositories have been refreshed.
 ### Usando o rpm, descubra qual pacote contém o arquivo /etc/redhat-release.
 - Estamos solicitando informações sobre um arquivo, por isso usamos o parâmetro -qf: rpm -qf /etc/redhat-release
 
-### Como você usaria o yum para procurar atualizações para todos os pacotes do sistema?
+### Como você usaria o yum para procurar atualizações para todos os pacotes do sistema, mas sem instalar nada?
 - Use a operação check-update sem um nome de pacote: yum check-update.
 
 ### Usando o zypper, como desabilitaríamos um repositório chamado repo-extras?
