@@ -13,6 +13,7 @@
 
 ### Os desenvolvedores Linux escrevem arquivos man e os distribuem junto com os utilitários que criam, onde podemos acessar manuais de alguma ferramenta, por exemplo "man uname". Mas como podemos pesquisar por um programa cujo nós não lembramos o nome?
 - ```$ apropos kernel```
+- Nesse caso, serve para procurar nas páginas de manual (man pages) por qualquer comando, função ou arquivo cuja descrição contenha a palavra “kernel”.
 - Obs: caso retorne o erro "nothing appropriate", geralmente precisa-se atualizar o banco de dados: ```sudo mandb```
 
 
