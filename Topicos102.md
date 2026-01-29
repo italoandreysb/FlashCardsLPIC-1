@@ -744,10 +744,9 @@ das versões estáveis do Debian é bastante longo (cerca de dois anos), garanti
 3. Estarão disponíveis para instalar com o: apt-get install ou apt install.
 
 ## o que faz a ferramenta apt-file?
-- Pode ser usado para executar mais operações no índice do pacote, como listar o conteúdo de um pacote ou localizar um pacote que contenha um arquivo específico. Sem instalar ou remover nada.
+- Ferramenta do APT usada para descobrir quais arquivos existem dentro dos pacotes, mesmo que o pacote não esteja instalado no sistema
 
 ```
-# apt-get install apt-file
 # apt-file update    # Atualizando cache do pacote usado para o apt-file
 # apt-file list unrar   # Listando conteudo de um pacote
 ```
@@ -766,7 +765,7 @@ das versões estáveis do Debian é bastante longo (cerca de dois anos), garanti
 
 ```dpkg -r unzip file-roller```
 
-### Usando o utilitário apt-file, como podemos descobrir qual pacote contém o arquivo /usr/bin/unrar?
+### Usando o utilitário apt-file, como podemos descobrir qual pacote contém o arquivo /usr/bin/unrar, mesmo que não esteja instalado?
 - Use o parâmetro search seguido pelo caminho (ou nome de arquivo):
 ```apt-file search /usr/bin/unrar```
 
