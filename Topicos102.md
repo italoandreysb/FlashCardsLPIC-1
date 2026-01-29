@@ -658,7 +658,7 @@ Sempre utilizar o caminho completo do arquivo.
 
 ## Reconfigurando os pacotes instalados
 
-### Caso necessite restaurar as configurações iniciais de um programa, como se fosse "novo", instalado do zero, como fazer com o dpkg?
+### Caso necessite restaurar as configurações iniciais de um programa que utilize debconf, como proceder?
 
 ```dpkg-reconfigure PACKAGENAME```
 
@@ -744,7 +744,7 @@ das versões estáveis do Debian é bastante longo (cerca de dois anos), garanti
 3. Estarão disponíveis para instalar com o: apt-get install ou apt install.
 
 ## o que faz a ferramenta apt-file?
-- Pode ser usado para executar mais operações no índice do pacote, como listar o conteúdo de um pacote ou localizar um pacote que contenha um arquivo específico. Provavelmente precise reinstala-lo.
+- Pode ser usado para executar mais operações no índice do pacote, como listar o conteúdo de um pacote ou localizar um pacote que contenha um arquivo específico. Sem instalar ou remover nada.
 
 ```
 # apt-get install apt-file
