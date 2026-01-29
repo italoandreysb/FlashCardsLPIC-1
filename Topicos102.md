@@ -640,7 +640,10 @@ libfuse.so.2 (libc6,x86-64) => /lib/x86_64-linux-gnu/libfuse.so.2
 
 - Exemplo prático: gerar lista via dpkg --get-selections > packages.list e depois restaurar em outra máquina com dpkg --set-selections.
 
+- "-L" = --listfiles   
+
 Explicação detalhada:  
+
 Um selection é como uma lista de intenções/estados que o sistema mantém.
 - install → o pacote está marcado para estar instalado
 - deinstall → marcado para ser removido (mas mantendo configs)
