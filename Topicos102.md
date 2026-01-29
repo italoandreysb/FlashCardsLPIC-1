@@ -769,6 +769,9 @@ das versões estáveis do Debian é bastante longo (cerca de dois anos), garanti
 - Use o parâmetro search seguido pelo caminho (ou nome de arquivo):
 ```apt-file search /usr/bin/unrar```
 
+- apt-file search → você tem o arquivo e quer saber qual pacote o contém
+- apt-file list → você tem o pacote e quer saber quais arquivos ele instala
+
 ### Usando o apt-cache, qual seria o comando para exibir informações para o pacote gimp?
 - Use o parâmetro show seguido pelo nome do pacote:
 ``` # apt-cache show gimp```
