@@ -650,7 +650,7 @@ Um selection é como uma lista de intenções/estados que o sistema mantém.
 - purge → marcado para remoção total
 - hold → marcado para não ser atualizado
 
-### Como podemos descobrir qual pacote possui um arquivo específico no sistema?
+### Você encontrou um arquivo, mas não sabe de qual pacote ele veio, e não quer deletar manualmente para não quebrar o sistema, como prosseguir?
 - Utilizando o dpkg-query
 ```# dpkg-query -S /usr/bin/unrar-nonfree```
 
