@@ -264,5 +264,6 @@ sed  : Editor de fluxo (stream editor) muito usado para filtrar e transformar te
 - ```sed -n /:1000:[A-Z]/p /etc/passwd```
 
 
+
 ---
 # Parei no final da página 222
