@@ -412,8 +412,8 @@ S1:3:respawn:/sbin/mgetty -x0 -D ttyS1
 ```
 
 
-## [Sobre SystemV] Depois de alterar o arquivo /etc/inittab, o que precisa ser feito?
-- Execute o comando "telinit q" ou "telinit Q" (mesma coisa) para checar sintaxe do arquivo e aplicar as configurações sem reiniciar. Evita falha na inicialização por erro de sintaxe.
+## [Sobre SystemV] Depois de alterar o arquivo /etc/inittab, que era responsável por dizer ao sistema o que iniciar, quando iniciar e em qual runlevel, o que precisava ser feito?
+- Executar o comando "telinit q" ou "telinit Q" (mesma coisa) para checar sintaxe do arquivo e aplicar as configurações sem reiniciar. Evita falha na inicialização por erro de sintaxe.
 
 
 ## [Sobre SystemV]Os scripts utilizados pelo init, localizados em /etc/rc0.d/, /etc/rc1.d/... são links simbólicos para o diretório /etc/init.d/? [S/N]
