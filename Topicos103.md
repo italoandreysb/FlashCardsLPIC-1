@@ -83,7 +83,7 @@ ap/bin
 
 ## Criando novas variáveis de ambiente
 
-### Podemos criar uma variável de ambiente personalizada? Se sim, como?
+### Podemos criar uma variável local personalizada? Se sim, como?
 - Sim, exemplo:  myvar=hello
 - A string à esquerda será o nome da nova variável e a string à direita, seu valor. TUDO JUNTO, SEM ESPAÇO.
 - OBS: Criando a variável desta forma só ficará disponível localmente (nesta sessão shell), se abrir outra sessão, ou bash filho, a variável não irá junto. Para exportar para outros shells digite: $ export myvar
