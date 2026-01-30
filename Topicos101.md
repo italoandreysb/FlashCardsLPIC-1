@@ -489,6 +489,8 @@ Systemctl set-default multi-user.target
 ### [Systemd] Onde ficam os arquivos associados a cada unidade(unit)?
 - /lib/systemd/system/
 
+- /lib/systemd/system/ → unidades fornecidas pelo sistema/pacotes
+- /etc/systemd/system/ → unidades do administrador (customizações)
 
 ### [Systemd] Como posso listar todas as unidades, somente ativas  e filtrar por tipo service ou tipo target?
 - Exibe todas as Unidades:
