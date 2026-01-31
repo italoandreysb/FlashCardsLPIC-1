@@ -240,8 +240,9 @@ Esta sequência de comando fornece resultados idênticos aos do exemplo anterior
 - Filtra todos as correspondencias para a quantidade de contas de usuário no sistema que NÃO usam o Bash (/bin/bash) como shell padrão.
 
 ### O que faz o comando ```$ cut -d: -f3 /etc/passwd | wc -l```?
-- -d: → usa os dois-pontos (:) como separador de campos (padrão do arquivo /etc/passwd)
-- -f3 → pega apenas o terceiro campo de cada linha
+- cut:  → extrai parts especificas de cada de texto, geralmente colunas ou campos.
+- -d: → (delimiter) usa os dois-pontos (:) como separador de campos (padrão do arquivo /etc/passwd)
+- -f3 → (Fields) pega apenas o terceiro campo de cada linha
 ```
 O primeiro campo de qualquer linha do arquivo /etc/passwd é o nome do usuário, o segundo é tipicamente um x indicando que a senha do usuário não está armazenada aqui (ela é criptografada no arquivo /etc/shadow). O terceiro é o id do usuário (UID) e o quarto é o id do grupo (GID). Portanto, isso deve nos fornecer o número de usuários.
 ```
@@ -251,7 +252,7 @@ O primeiro campo de qualquer linha do arquivo /etc/passwd é o nome do usuário,
 ```
 Explicação:
 sed  : Editor de fluxo (stream editor) muito usado para filtrar e transformar texto
--n  : Silencia a saída automática. Sem o -n, o sed imprimiria todas as linhas
+-n  : desativa a impressão automática
 -e : Permite especificar múltiplos comandos (cada -e é uma instrução separada)
 '1'p : Quando chegar na linha 1, execute o comando p → imprima essa linha
 '10'p : Quando chegar na linha 10, imprima essa linha
@@ -264,6 +265,73 @@ sed  : Editor de fluxo (stream editor) muito usado para filtrar e transformar te
 - ```sed -n /:1000:[A-Z]/p /etc/passwd```
 
 
+```
+Explicação
+sed : processa e edita texto, linha a linha.
+-n : desatia a impressão automática.
+/.../ : expressão regular
+-p : print linha
 
----
-# Parei no final da página 222
+A expressão regular: :1000:[A-Z] significa: um caracter ":" número "1000", outro ":" e [A-Z] uma letra maiúscula de A a Z.
+```
+
+## Exercícios exploratórios:
+
+### Usando novamente o arquivo mypasswd dos exercícios anteriores, imagine um comando Bash que selecione um indivíduo do Main Office para ganhar uma rifa. Use o comando sed para imprimir apenas as linhas do Main Office e, em seguida, uma sequência de comando cut para recuperar o primeiro nome de cada usuário a partir dessas linhas. Depois, classifique esses nomes aleatoriamente e imprima apenas o nome principal da lista.Primeiro, explore como o parâmetro -R manipula a saída do comando sort. Repita esse comando algumas vezes em sua máquina (note que será preciso colocare 'Main Office' entre aspas simples para que o sed o trate como uma única string):
+
+```
+$ sed -n /'Main Office'/p mypasswd | cut -d: -f5 | cut -d, -f1 | sort -R
+
+Eis uma solução:
+
+$ sed -n /'Main Office'/p mypasswd | cut -d: -f5 | cut -d, -f1 | sort -R | head -1
+```
+Explicação:
+
+```
+sed → processa texto linha a linha
+-n → não imprime tudo automaticamente
+/'Main Office'/p → imprime apenas as linhas que contêm Main Office
+mypasswd → arquivo de entrada
+
+cut  → extrai parts especificas de cada de texto, geralmente colunas ou campos.
+-d: → delimitador é :
+-f5 → pega o 5º campo
+
+Com isso temos: "Nome,Local" direcionamos outro cut (cut -d, -f1)
+
+sort: Comando para ordenar linhas
+-R: (random sort) embaralha as linhas
+
+head: mostra apenas as primeiras linhas
+-1 : mostra apenas a primeira linha
+
+Ps: esse procedimento também pode ser feito com o AWK
+
+```
+
+### O que faz o comando uniq -c? ex: $ uniq -c dados.txt
+```
+uniq: mostra apenas as linhas unicas ADJASCENTES (uma abaixo da outra)
+-c: (count) conta as linhas iguais
+```
+Arquivo dados.txt:
+```
+apple
+apple
+banana
+banana
+banana
+orange
+```
+Retornaria:
+```
+2 apple
+3 banana
+1 orange
+```
+
+
+
+----
+# Parei na questão 3 (final da página 224)
