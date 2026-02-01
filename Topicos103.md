@@ -332,6 +332,11 @@ Retornaria:
 ```
 
 
+### O que faz o comando "$  paste firstname lastname department | tr '\t' , > names.csv"? considerando que os arquivos "firstname" possuem o primeiro nome "lastname" o sobrenome e o "department" o setor. 
 
-----
-# Parei na questão 3 (final da página 224)
+```
+paste : junta arquivos linha a linha (por padrão utiliza o TAB como separador (\t))
+| : direciona a saída para o próximo comando
+tr '\t' ,  : substitui o tab (\t) por (significa translate or delete characters) ,
+> names.csv : direciona para o arquivo names.csv
+```
