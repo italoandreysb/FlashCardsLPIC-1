@@ -32,7 +32,7 @@ do sistema, o comando foi adicionado a uma tabela de hash para ficar mais acess�
 ## Usando o histórico de comandos
 
 ### Como poderia pesquisar por um comando que já foi executado?
-- history | grep <comando>
+- history | grep {comando}
 
 ### O que é o arquivo .bash_history e o que tem nele?
 - Arquivo oculto, localizado no diretório de cada usuário e contém os comandos utilizado pelo usuário. Porém não contém todos os comandos pois os arquivo só é gravado após a finalização da sessão atual.
@@ -332,7 +332,7 @@ Retornaria:
 ```
 
 
-### O que faz o comando "$  paste firstname lastname department | tr '\t' , > names.csv"? considerando que os arquivos "firstname" possuem o primeiro nome "lastname" o sobrenome e o "department" o setor. 
+### O que faz o comando "$  paste firstname lastname department | tr '\t' , > names.csv"? considerando que os arquivos "firstname" possuem o primeiro nome, "lastname" o sobrenome e o "department" o setor. 
 
 ```
 paste : junta arquivos linha a linha (por padrão utiliza o TAB como separador (\t))
@@ -340,3 +340,14 @@ paste : junta arquivos linha a linha (por padrão utiliza o TAB como separador (
 tr '\t' ,  : substitui o tab (\t) por (significa translate or delete characters) ,
 > names.csv : direciona para o arquivo names.csv
 ```
+
+### Suponha que a planilha names.csv criada no exercício anterior seja um arquivo importante e queremos ter certeza de que ninguém vai adulterá-lo desde o momento do envio até a recepção pelo destinatário. Como podemos garantir a integridade desse arquivo usando md5sum?
+
+```
+$ md5sum names.csv
+
+Que retorna:
+61f0251fcab61d9575b1d0cbf0195e25 names.csv
+```
+- Após isso, pode enviar o arquivo por uma fonte segura, ex: FTP. E o resumo de mensagens geradas, envie por outra via também segura. Se o arquivo tiver sido ligeiramente alterado, o resumo será totalmente diferente.
+- Sempre que você disponibilizar arquivos para download, é aconselhável distribuir também um resumo de mensagens correspondente para que as pessoas que baixarem aquele arquivo possam produzir um novo resumo de mensagens e comparar com o original.
