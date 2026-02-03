@@ -351,3 +351,17 @@ Que retorna:
 ```
 - Após isso, pode enviar o arquivo por uma fonte segura, ex: FTP. E o resumo de mensagens geradas, envie por outra via também segura. Se o arquivo tiver sido ligeiramente alterado, o resumo será totalmente diferente.
 - Sempre que você disponibilizar arquivos para download, é aconselhável distribuir também um resumo de mensagens correspondente para que as pessoas que baixarem aquele arquivo possam produzir um novo resumo de mensagens e comparar com o original.
+
+
+### Considere que temos um arquivo de um livro, contendo apenas texto. Utilizando o "split" Como poderíamos separar em vários arquivos de 100 linhas e definir um prefixo para os nomes dos arquivos? 
+
+```split -l 100 -d livro.txt parte```
+
+Explicação:
+
+```
+split: separa arquivos em pedaços
+-l 100: (lines) coloca um número no nome do arquivo a cada saída de 100 linhas;
+-d :(utiliza sufixos numéricos)
+livro.txt: nome do arquivo
+parte: prefixo que trará o resultado "parte01, parte02..."
