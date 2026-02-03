@@ -340,6 +340,7 @@ paste : junta arquivos linha a linha (por padrão utiliza o TAB como separador (
 tr '\t' ,  : substitui o tab (\t) por (significa translate or delete characters) ,
 > names.csv : direciona para o arquivo names.csv
 ```
+- para o tr, existe uma opção ```-s``` (squeeze) que reduz as repetições consecutivas, ex:"isso   tem     muitos   espaços", com o ```tr -s ' ' ```, seria: "isso tem muitos espaços".
 
 ### Suponha que a planilha names.csv criada no exercício anterior seja um arquivo importante e queremos ter certeza de que ninguém vai adulterá-lo desde o momento do envio até a recepção pelo destinatário. Como podemos garantir a integridade desse arquivo usando md5sum?
 
@@ -365,3 +366,10 @@ split: separa arquivos em pedaços
 -d :(utiliza sufixos numéricos)
 livro.txt: nome do arquivo
 parte: prefixo que trará o resultado "parte01, parte02..."
+
+
+### O que faz a função squeeze do tr? ex: cat file.txt | tr -s ' '?
+
+```
+Para o tr, existe uma opção ```-s``` (squeeze) que reduz as repetições consecutivas, ex:"isso   tem     muitos   espaços", com o ```tr -s ' ' ```, seria: "isso tem muitos espaços".
+```
