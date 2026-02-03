@@ -110,7 +110,7 @@ ap/bin
 ## 103.2 Processar fluxos de texto usando filtros
 
 
-### o que significa cat e o que acontece se não designarmos nada para o cat ler, apenas executando "cat"?
+### O que significa cat e o que acontece se não designarmos nada para o cat ler, apenas executando "cat"?
 - Vem do "concatenar"
 - se você não especificar de onde cat deve ler, ele lerá a entrada padrão (o que você digitar) e produzirá o que for lido na janela do terminal (a saída padrão).
 
@@ -194,7 +194,7 @@ $ od -x ftu.txt
 0000151
 ```
 
-### Cite um exemplo útil para o uso do comando od.
+### Para que serve o comando od? Cite um exemplo útil para o uso.
 - Depurar scripts, ele mostra caracteres que não são normalmente visíveis e que existem em um arquivo
 ```
 $ od -c ftu.txt 
@@ -411,4 +411,4 @@ grep -i : (ignore case) Não se sabe se é maiúscula ou minúscula.
 \|  : É o operador lógico "OU/OR"
 ```
 
-# 103.3 Gerenciamento básico de arquivos
+# 103.3 Gerenciamento básico de arquivos (Página 230)
