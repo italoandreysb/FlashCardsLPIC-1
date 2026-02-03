@@ -195,11 +195,11 @@ $ od -x ftu.txt
 ```
 
 ### Para que serve o comando od? Cite um exemplo útil para o uso.
-- Depurar scripts, ele mostra caracteres que não são normalmente visíveis e que existem em um arquivo
+- Octal dump, Ele mostra o conteúdo bruto de um arquivo, o "-c" manda o od exibir os bytes como caracteres ASCII, na prática mostra o arquivo byte por byte
 ```
 $ od -c ftu.txt 
 ```
-- Caso não qeuira ver o o deslocamento de bytes (primeira coluna), utilize:  
+- Caso não queira ver o o deslocamento de bytes (primeira coluna), utilize:  
 ```
 $ od -An -c ftu.txt
 ```
