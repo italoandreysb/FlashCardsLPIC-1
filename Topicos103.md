@@ -366,10 +366,49 @@ split: separa arquivos em pedaços
 -d :(utiliza sufixos numéricos)
 livro.txt: nome do arquivo
 parte: prefixo que trará o resultado "parte01, parte02..."
-
+```
 
 ### O que faz a função squeeze do tr? ex: cat file.txt | tr -s ' '?
 
 ```
 Para o tr, existe uma opção ```-s``` (squeeze) que reduz as repetições consecutivas, ex:"isso   tem     muitos   espaços", com o ```tr -s ' ' ```, seria: "isso tem muitos espaços".
 ```
+
+### [Prática] Como pode listar apenas o nome do proprietário e dos diretórios do /etc?
+
+```
+ ls -l /etc | grep ^d | tr -s ' ' | cut -d" " -f9,3
+```
+Explicação:
+- `ls -l /etc`  
+  Lista o conteúdo do diretório `/etc` em formato longo (permissões, dono, grupo, tamanho, data, nome).
+
+- `grep ^d`  
+  Filtra apenas as linhas que começam com `d`, ou seja, **somente diretórios**.
+
+- `tr -s ' '`  
+  Substitui múltiplos espaços consecutivos por um único espaço, facilitando o corte por campos.
+
+- `cut -d" " -f9,3`  
+  Usa o espaço como delimitador e exibe:
+  - campo 9 → nome do diretório
+  - campo 3 → grupo proprietário
+
+### Alguém plugou um pendrive no servidor linux, acompanhe a saída em tempo real do arquivo /var/log/syslog e obtenha o produto (product) o fabricante (manufacturer) e a quantidade total de memória (Blocks) do seu pendrive.
+
+```
+$ tail -f /var/log/syslog | grep -i 'product\:\|blocks\|manufacturer'
+
+Nov 8 06:01:35 brod-avell kernel: [124954.369361] usb 1-4.3: Product: Cruzer Blade
+Nov 8 06:01:35 brod-avell kernel: [124954.369364] usb 1-4.3: Manufacturer: SanDisk
+Nov 8 06:01:37 brod-avell kernel: [124955.419267] sd 2:0:0:0: [sdc] 61056064 512-byte
+logical blocks: (31.3 GB/29.1 GiB)
+```
+Explicação:
+```
+tail -f :(follow) acompanha os logs em tempo real
+grep -i : (ignore case) Não se sabe se é maiúscula ou minúscula.
+\|  : É o operador lógico "OU/OR"
+```
+
+# 103.3 Gerenciamento básico de arquivos
