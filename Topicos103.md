@@ -412,3 +412,52 @@ grep -i : (ignore case) Não se sabe se é maiúscula ou minúscula.
 ```
 
 # 103.3 Gerenciamento básico de arquivos (Página 230)
+
+### Podemos dizer que no linux tudo é arquivo?
+- sim, mas o material não diz que são arquivos de texto.
+
+### De que é composto um arquivo?
+- Normalmente de conteúdo e metadados (tamanho do arquivo, proprietário, data de criação, permissões). Os arquivos são organizados em diretórios. Um diretório é um arquivo que armazena outros arquivos.
+
+### Utilizando o ls como podemos incluir a listagem longa, de arquivos ocultos e legível por humanos?
+- ls -lha
+
+### Para que serve o comando touch? como utilizar?
+- Para criar arquivos: touch file1 file2 file3 (Cria 3 arquivos)
+- Para mudar os carimbos de tempo (timestamp):  touch -am file3 (altera a hora de acesso e hora de modificação para a atual)
+
+Explicação
+```
+-a : access time
+-m : modification time
+```
+
+### Como copiar o arquivo file2 de "/home/frank/Documents/" para "/home/frank/Documents/Backup"? e como mover?
+- Copiar: cp /home/frank/Documents/file2 /home/frank/Documents/Backup
+- Mover: mv /home/frank/Documents/file2 /home/frank/Documents/Backup
+
+### Como diferencia um caminho absoluto de um caminho relativo?
+- Os caminhos absolutos iniciam com /, caso contrário, é relativo.
+
+### Como posso renomear um arquivo utilizando o mv e o que faz o -i e o -f?
+
+- $  mv old_file_name new_file_name
+
+Utilizando o -f o arquivo é sobrescrito forçadamente, já o -i ele pede a interação do cliente.
+
+### Como podemos remover um arquivo solicitando a confirmação ao usuário antes de remover?
+
+- rm -i file.txt
+
+### Como criar um diretório junto aos seus subdiretórios(parents)? E como deletar?
+- mkdir -p nome_diretorio/nome_subdiretorio
+
+Deletando:
+- rmdir -p nome_diretorio/nome_subdiretorio
+
+Se o diretório não estiver vazio, não será removido.
+
+## Manipulação recursiva de arquivos e diretórios
+
+### O que vem a ser uma manipulação recursiva?
+- Manipulação de diretórios ou conteúdos que se propagam por toda a árvore de diretórios.
