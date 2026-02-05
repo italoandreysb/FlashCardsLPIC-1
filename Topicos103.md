@@ -461,3 +461,38 @@ Se o diretório não estiver vazio, não será removido.
 
 ### O que vem a ser uma manipulação recursiva?
 - Manipulação de diretórios ou conteúdos que se propagam por toda a árvore de diretórios.
+
+### Ao fazer uma cópia recursiva de um arquivo, qual a diferença de utilizar -r ou -R ou --recursive?
+- Nenhuma
+
+### O que acontece se tentarmos excluir um diretório sem usar -r?
+
+```
+$ rm newcopy/
+rm: cannot remove 'newcopy/': Is a directory
+$ rm -r newcopy/
+```
+Precisa do -r
+
+
+### Com o intuito de apagar os diretórios, qual a diferença dos comandos rmdir e rm -r?
+- o rmdir serve apenas para diretórios
+
+## Globbing de arquivos e caracteres curinga (pag 242)
+
+### O que seria o globbig de arquivos? cite exemplos
+- O globbing de arquivos é um recurso fornecido pelo shell do Unix/Linux para representar múltiplos nomes de arquivo usando caracteres especiais chamados caracteres curinga.
+
+- ``` * ```  Remove todos os arquivos do diretório atual.
+- ``` ? ```  representa uma única ocorrência de qualquer caractere
+- ```[ ]```  Remover todos os diretórios cujo o nome começa com uma letra.
+
+Exemplo:
+
+``` rm * ```   >> Remove todos os arquivos no diretório de trabalho atual.  
+``` ls l?st ```  >> Lista todos os arquivos cujo nome começa com l, seguido por qualquer caractere único e
+terminando com st.  
+``` rmdir [a-z]* ```  >> Remove todos os diretórios cujo nome começa com uma letra.
+
+### Sobre globbing de arquivos, o que significa: ``` ls [plf]?st* ```?
+- Lista qualquer caractere que inicie com p,l,f + um outro caractere + "st" e finalize com quaisquer outros caracteres.
