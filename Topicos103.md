@@ -99,7 +99,7 @@ ap/bin
 
 ### Como podemos criar um arquivo com o nome "my big file"?
 - touch "my big file"
-- Touch 'my big file"
+- Touch 'my big file'
 - touch my\ big\ file\
 
 ### Ao executar comandos utilizando strings, qual a diferença entre " (áspas duplas) e ' (áspas simples) ?
@@ -496,3 +496,7 @@ terminando com st.
 
 ### Sobre globbing de arquivos, o que significa: ``` ls [plf]?st* ```?
 - Lista qualquer caractere que inicie com p,l,f + um outro caractere + "st" e finalize com quaisquer outros caracteres.
+
+# 103.3 Gerenciamento básico de arquivos PARTE 2
+
+### Como encontrar arquivos:
