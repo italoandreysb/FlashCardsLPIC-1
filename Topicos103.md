@@ -499,4 +499,58 @@ terminando com st.
 
 # 103.3 Gerenciamento básico de arquivos PARTE 2
 
-### Como encontrar arquivos:
+### Como podemos utilizar o find para buscar arquivos de extensão PDF no diretorio atual?
+- find . -name "*.pdf"
+
+### Para acelerar uma busca de arquivo no find, podemos definir um tipo a ser buscado, quais os parametros são utilizados para buscar por arquivos, diretórios e links simbólicos?
+
+```
+-type f: busca por arquivos.
+-type d: busca por diretórios.
+-type l: busca por links simbólicos.
+```
+
+Ex:  ``` find . -type d -name "example" ```
+- Este comando procura por todos os diretórios, no diretório atual e abaixo dele, que tenham o
+nome example
+
+
+### Utilizando o find para buscar aquivos, cite alguns dos outros paramentros que podemos utilizar.
+
+```
+-name: pesquisa com base no nome fornecido.
+-iname: pesquisa com base no nome, desconsiderando maiúsculas e minúsculas (ou seja, o caso de teste
+myFile é semelhante a MYFILE).
+-not: retorna os resultados que não correspondem ao caso de teste.
+-maxdepth N: pesquisa no diretório atual, além dos subdiretórios até N níveis de profundidade.
+```
+
+### Utilizando o find, como podemos fazer uma busca na raiz de um arquivo .conf baseado em quando o arquivo foi modificado, ex: nos últimos 7 dias?
+
+```
+$ sudo find / -name "*.conf" -mtime 7
+/etc/logrotate.conf
+```
+
+### Utilizando o find, como podemos localizar arquivos maiores de 2GB?
+```
+$ sudo find /var -size +2G
+/var/lib/libvirt/images/debian10.qcow2
+/var/lib/libvirt/images/rhel8.qcow2
+```
+outras opções:
+```
+-size 100c  -> arquivos com exatamente 100 bytes.
+-size +100k  -> arquivos maiores que 100 kilobytes.
+-size -20M  -> arquivos menores que 20 megabytes.
+-size +2G -> arquivos maiores que 2 gigabytes.
+Para encontrar arquivos vazios, podemos usar: find . -size 0c ou find . -empty.
+```
+
+### Quando utilizamos o find, é possível executar uma ação ao resultado, como podemos fazer isso?
+- Com o -exec
+```
+$ find . -name "*.conf" -exec chmod 644 '{}' \;
+```
+
+# Parei na pagina 258
