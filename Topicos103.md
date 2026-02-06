@@ -260,6 +260,8 @@ sed  : Editor de fluxo (stream editor) muito usado para filtrar e transformar te
 /etc/passwd: Arquivo de entrada
 ```
 
+Obs: a ordem da saída é a ordem em que as linhas aparecem no arquivo, não a ordem em que você escreveu os comandos.
+
 ### Liste todos os usuários do arquivo /etc/passwd no grupo 1000 (use sed para selecionar apenas o campo apropriado) do arquivo mypasswd. sabendo que após o GID o campo seguinte começa com uma caractere maiúsculo. ex: ```carol:x:1000:2000:Carol Smith,Finance,,,Main Office:/home/carol:/bin/bash```
 
 - ```sed -n /:1000:[A-Z]/p /etc/passwd```
