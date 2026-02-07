@@ -602,3 +602,5 @@ Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arq
 -f  -> file (nome do arquivo)
 -x  -> (extract) extrai o  arquivo
 ```
+
+# parei na página 260
