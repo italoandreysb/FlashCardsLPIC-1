@@ -549,10 +549,56 @@ outras opções:
 Para encontrar arquivos vazios, podemos usar: find . -size 0c ou find . -empty.
 ```
 
-### Quando utilizamos o find, é possível executar uma ação ao resultado, como podemos fazer isso?
+### Quando utilizamos o find, é possível executar uma ação ao resultado, como podemos executar uma alteração de permissões para 644 para os arquivos filtrados?
 - Com o -exec
 ```
 $ find . -name "*.conf" -exec chmod 644 '{}' \;
 ```
+- os símbolos {} e \; fazem parte da sintaxe do -exec do find. Onde o {} faz as substituições e o \; indica a finalização dos comandos.
 
-# Parei na pagina 258
+### Como podemos listar apenas arquivos no dietório atual, baseado no nome e executar uma varredura baseado em um conteúdo contido no arquivo e printar na tela? utilize o find combinado ao grep. Caso queiramos deletar estes arquivos, como proceder?
+```
+$ find . -type f -exec grep "lpi" '{}' \; -print
+```
+Explicação:
+```
+find .  -> busca no diretório atual
+-type f  -> seleciona o tipo (file)
+-exec  -> Executa um comando ao que foi filtrado com o find 
+"lpi"  -> é o valor da busca
+'{}' \;  ->  É a sintaxe padrão do find
+-print  -> exibe na tela
+```
+
+- Obs: Utilize o ```-delete```ao final para excluir os arquivos correspondentes. Muito cuidado.
+- Ex: ```$ find . -name "*.bak" -delete```
+
+## Arquivos de pacote
+
+### O que é e para que serve o comando ```tar```? cite alguns exemplos de comandos.
+- Abreviação de tape archiver, São úteis para mover um grupo de arquivos facilmente.
+- Pode extrair arquivos .tar, inserir mais arquivos.
+
+- juntando arquivos
+```$ tar -cvf archive.tar arquivo01.txt```
+
+```
+-c  -> create file
+-v  -> verbose
+-f  -> file (nome do arquivo)
+```
+### Se o .tar não é um compactador, mas um empacotador, mas o gzip é um compactador e utilizamos eles juntos (.tar.gz), porque não utilizar apenas o gzip?
+- Por que o .tar preserva metadados, permissões, timestamp, links simbólicos
+
+### utilizando o tar, como podemos empacotar 2 ou mais arquivos e depois extrair??
+- $ tar -cvf file.tar arquivo1.txt arquivo2.txt
+
+Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arquivo 2.
+
+- $ tar -xvf file.tar
+```
+-c  -> create file
+-v  -> verbose, mostra os arquivos sendo processados na tela.
+-f  -> file (nome do arquivo)
+-x  -> (extract) extrai o  arquivo
+```
