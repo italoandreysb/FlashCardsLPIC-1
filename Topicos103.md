@@ -631,5 +631,19 @@ Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arq
 -x  -> extrair
 ```
 
-### Quais as principais diferenças de compressão gzip e bzip2?
+### Quais as principais diferenças de compressão gzip e bzip2? e como podemos utiliza-los diretamente sem o tar?
 - Enquanto o gzip compacta mais rápido porém é menos eficiente em compactação, o bzip2 é mais lento porém é mais eficiente em compactação. 
+- Compactar com gzip: ``` $ gzip arquivo.txt``` e para descompactar ``` $ gunzip arquivo.txt ```
+- Compactar com o bzip2:  ``` $ bzip arquivo.txt``` e para descompactar ``` $ bunzip arquivo.txt ```
+
+- ATENÇÃO: Ao usar gzip ou bzip2 diretamente, o arquivo original é substituído pelo arquivo compactado (.gz ou .bz2). Se você compactar vários arquivos, cada um será transformado em um arquivo compactado individual, e os arquivos originais não permanecerão.
+ *.tar.
+### O que é, para que serve e como utilizar o comando cpio?
+- cpio significa “copy in, copy out”. É usado para processar arquivos de pacotes como os arquivos *.cpio ou *.tar. Podendo inserir ou extrair arquivos de um pacote a partir de uma lista que pode ser gerada pelo comando ls.
+- ex: ls | cpio -o > file.cpio
+
+```
+-o  -> Cria um arquivo de saída.
+-i  -> Cria uma extração.
+-d  -> Cria pasta de testino.
+```
