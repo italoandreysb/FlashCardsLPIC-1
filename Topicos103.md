@@ -647,3 +647,4 @@ Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arq
 -i  -> Cria uma extração.
 -d  -> Cria pasta de testino.
 ```
+## Parei na página 263 - não entendi o CPIO
