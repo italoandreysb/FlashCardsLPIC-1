@@ -587,15 +587,15 @@ find .  -> busca no diretório atual
 -v  -> verbose
 -f  -> file (nome do arquivo)
 ```
-### Se o .tar não é um compactador, mas um empacotador, mas o gzip é um compactador e utilizamos eles juntos (.tar.gz), porque não utilizar apenas o gzip?
-- Por que o .tar preserva metadados, permissões, timestamp, links simbólicos
+### O Tar (Tap ARchive) não é um COMPACTADOR, mas um EMPACOTADOR, já o gzip é um COMPACTADOR. Frequentemente utilizamos eles juntos (ex: arquivo.tar.gz), porque não utilizar apenas o gzip?
+- Eles não são concorrentes, são complementares. Enquanto o Tar junta os arquivos (empacota) preservando metadados, permissões, timestamp, links simbólicos enquanto o GZIP comprime arquivos.
 
-### utilizando o tar, como podemos empacotar 2 ou mais arquivos e depois extrair??
-- $ tar -cvf file.tar arquivo1.txt arquivo2.txt
+### Utilizando o tar, como podemos empacotar 2 ou mais arquivos e depois desempacotar??
+- $ tar -cvf file.tar arquivo1.txt arquivo2.txt    -> ex
 
 Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arquivo 2.
 
-- $ tar -xvf file.tar
+- $ tar -xvf file.tar    -> extrai um arquivo .tar
 ```
 -c  -> create file
 -v  -> verbose, mostra os arquivos sendo processados na tela.
@@ -603,4 +603,33 @@ Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arq
 -x  -> (extract) extrai o  arquivo
 ```
 
-# parei na página 260
+- PS: o parâmetro -C pode ser utilizado para definir o diretório onde será extraído, ex: ```$ tar -xvf archive.tar -C /tmp```  
+
+
+### Já sabemos que o Tar (Tap ARchive) não é um COMPACTADOR, mas um EMPACOTADOR, já o gzip é um COMPACTADOR e a diferença entre eles, mas como podemos empacotar com o tar e compactar com gzip em apenas uma linha utilizando o TAR?
+
+- $ tar -czvf new_file.tar.gz Arquivo.txt 
+
+```
+-c  -> create file
+-v  -> verbose, mostra os arquivos sendo processados na tela.
+-f  -> file (nome do arquivo)
+-z  -> compactar com gzip.
+```
+
+### Embora utilizando o tar, a compressão gzip seja mais freqüentemente usada para criar arquivos .tar.gz ou .tgz,o que seriam os arquvios .tar.bz2 ou .tar.bz ou .tbz? como utilizar?
+- Estes arquivos são referentes à compactação bzip2, para utilizar, utilize o -j.
+- Ex: ``` tar -cjvf name-of-archive.tar.bz arquivo.txt```
+- Para descompactar, assim como no gzip, utilize o -x.
+- Ex: ``` tar -xjvf ```
+
+```
+-c  -> create file
+-v  -> verbose, mostra os arquivos sendo processados na tela.
+-f  -> file (nome do arquivo)
+-j  -> compactar com bzip2.
+-x  -> extrair
+```
+
+### Quais as principais diferenças de compressão gzip e bzip2?
+- Enquanto o gzip compacta mais rápido porém é menos eficiente em compactação, o bzip2 é mais lento porém é mais eficiente em compactação. 
