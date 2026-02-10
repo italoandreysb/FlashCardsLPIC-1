@@ -639,12 +639,17 @@ Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arq
 - ATENÇÃO: Ao usar gzip ou bzip2 diretamente, o arquivo original é substituído pelo arquivo compactado (.gz ou .bz2). Se você compactar vários arquivos, cada um será transformado em um arquivo compactado individual, e os arquivos originais não permanecerão.
  *.tar.
 ### O que é, para que serve e como utilizar o comando cpio?
-- cpio significa “copy in, copy out”. É usado para processar arquivos de pacotes como os arquivos *.cpio ou *.tar. Podendo inserir ou extrair arquivos de um pacote a partir de uma lista que pode ser gerada pelo comando ls.
-- ex: ls | cpio -o > file.cpio
+- cpio significa “copy in, copy out”. É usado para processar arquivos de pacotes como os arquivos *.cpio ou *.tar. Podendo inserir ou extrair arquivos de um pacote a partir de uma lista que pode ser gerada pelo comando ls. Se assemelha ao tar, porém não recebe os arquivos a partir de argumentos e sim de uma entrada padrão (stdi) vinda do ls ou find.
+
+- Exemplo criar: ``` $ ls | cpio -o > file.cpio ```
+- Exemplo extrair: ``` $ cpio -id < archive.cpio ```
 
 ```
 -o  -> Cria um arquivo de saída.
 -i  -> Cria uma extração.
 -d  -> Cria pasta de testino.
 ```
+
+Ps: NÃO UTILIZE COMO BACKUP, permissões podem se perder, pode ter problemas com arquivos com espaços no nome, ou subdiretórios.
+
 ## Parei na página 263 - não entendi o CPIO
