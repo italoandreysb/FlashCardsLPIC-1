@@ -652,4 +652,50 @@ Isso cria um arquivo chamado file.tar com 2 arquivos dentro, o arquivo 1 e o arq
 
 Ps: NÃO UTILIZE COMO BACKUP, permissões podem se perder, pode ter problemas com arquivos com espaços no nome, ou subdiretórios.
 
-## Parei na página 263 - não entendi o CPIO
+### Para que serve o comando dd, e como utiliza-lo?
+- O comando dd é usado para copiar e converter dados em baixo nível, geralmente trabalhando diretamente com dispositivos, discos e imagens binárias
+- O dd copia dados de um local para outro. Possui sintaxe incomum.
+- Ex: ```dd in=oldfile of=newfile```  (Copiará o conteúdo de oldfile para newfile (IF= entrada, OF=SAIDA))
+- Pode ser usado o parametro ```status=progress``` para ver o status da cópia. Ex: ```dd status=progress if=oldfile of=newfile```
+
+Mais parametros:
+```
+status=progress  -> mostra o status da cópia
+conv=ucase    -> converte o conteúdo para maíúscula.
+```
+
+### É verdade que o comando dd além de fazer cópias, pode alterar o conteúdo para minúsculo/maiúsculo?
+- Sim, ex: ``` dd if=oldfile of=newfile conv=ucase ```
+
+### É verdade que o comando dd é perigoso? ou ele apenas altera texto? cite exemplos
+- Sim, muito perigoso, também conhecido como "Disk Destroyer", não pede confirmação, pode sobrescrever discos inteiros, não tem "lixeira"
+- Gravar ISO em pendrive (bootável):   
+``` dd if=linux.iso of=/dev/sdb bs=4M status=progress```
+
+- Clonar um HD para outro:  
+```dd if=/dev/sda of=/dev/sdb bs=64K conv=noerror,sync```
+
+- Apagar um disco completamente
+ ```dd if=/dev/zero of=/dev/sdb```
+
+ - Criar arquivo de tamanho específico
+ ```dd if=/dev/zero of=arquivo.bin bs=1M count=1024```
+
+ ## Exercicios guiados
+
+ ###  Um usuário deseja compactar sua pasta de backup. Ele usa o seguinte comando: ```$ tar cvf /home/frank/backup.tar.gz /home/frank/dir1```. Qual opção está faltando para compactar o backup usando o algoritmo gzip?
+ - A opção -z.
+
+ ###  O administrador do sistema precisa realizar verificações regulares para remover arquivos volumosos. Esses arquivos volumosos estão localizados em /var e terminam com uma extensão .backup. Escreva o comando, usando find, para localizar esses arquivos:
+ - ```$ find /var -name *.backup```
+
+
+ ### utiliznado o find, como localizar arquivos dentro de /var terminados com .backup com tamanho entre 100MG e 1GB? e depois como delata-los?
+ - ```$ find /var -name *.backup -size +100M -size -1000M```
+ - Para deletar, acrescente "-delete"
+
+### Utilizando o tar crie um comando para criar um arquivo de backup com nome "database.backup" contendo os arquivos file1 file2 e file3 e depois compacte-o com gzip.
+- ``` tar -zcvf database.backup file1 file2 file3```
+
+
+# Parei na página 271, "103.4 - Fluxos, pipes..."
