@@ -675,10 +675,10 @@ conv=ucase    -> converte o conteúdo para maíúscula.
 - Clonar um HD para outro:  
 ```dd if=/dev/sda of=/dev/sdb bs=64K conv=noerror,sync```
 
-- Apagar um disco completamente
+- Apagar um disco completamente  
  ```dd if=/dev/zero of=/dev/sdb```
 
- - Criar arquivo de tamanho específico
+ - Criar arquivo de tamanho específico  
  ```dd if=/dev/zero of=arquivo.bin bs=1M count=1024```
 
  ## Exercicios guiados
@@ -690,7 +690,7 @@ conv=ucase    -> converte o conteúdo para maíúscula.
  - ```$ find /var -name *.backup```
 
 
- ### utiliznado o find, como localizar arquivos dentro de /var terminados com .backup com tamanho entre 100MG e 1GB? e depois como delata-los?
+ ### Utiliznado o find, como localizar arquivos dentro de /var terminados com .backup com tamanho entre 100MG e 1GB? e depois como delata-los?
  - ```$ find /var -name *.backup -size +100M -size -1000M```
  - Para deletar, acrescente "-delete"
 
