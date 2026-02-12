@@ -697,5 +697,9 @@ conv=ucase    -> converte o conteúdo para maíúscula.
 ### Utilizando o tar crie um comando para criar um arquivo de backup com nome "database.backup" contendo os arquivos file1 file2 e file3 e depois compacte-o com gzip.
 - ``` tar -zcvf database.backup file1 file2 file3```
 
+# 103.4 Usando fluxos, pipes e redirecionamentos
 
-# Parei na página 271, "103.4 - Fluxos, pipes..."
+### Os processos padrão do Linux têm três canais de comunicação abertos por padrão: o canal de entrada padrão (na maioria das vezes simplesmente chamado de stdin), o canal de saída padrão (stdout) e o canal de erro padrão (stderr). Quais os seus descritores numéricos de arquivo atribuídos a esses canais e seus dispositivos especiais?
+- stdin = 0   ou  /dev/stdin
+- stdout = 1   ou  /dev/stdout
+- stderr = 2   ou  /dev/stderr
