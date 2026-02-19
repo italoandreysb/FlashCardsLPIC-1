@@ -697,9 +697,35 @@ conv=ucase    -> converte o conteúdo para maíúscula.
 ### Utilizando o tar crie um comando para criar um arquivo de backup com nome "database.backup" contendo os arquivos file1 file2 e file3 e depois compacte-o com gzip.
 - ``` tar -zcvf database.backup file1 file2 file3```
 
+
+---
+
+
 # 103.4 Usando fluxos, pipes e redirecionamentos
 
 ### Os processos padrão do Linux têm três canais de comunicação abertos por padrão: o canal de entrada padrão (na maioria das vezes simplesmente chamado de stdin), o canal de saída padrão (stdout) e o canal de erro padrão (stderr). Quais os seus descritores numéricos de arquivo atribuídos a esses canais e seus dispositivos especiais?
 - stdin = 0   ou  /dev/stdin
 - stdout = 1   ou  /dev/stdout
 - stderr = 2   ou  /dev/stderr
+
+
+### Quais as vantagens de se ter canais de comunicação padrão (stdin/stdot/stderr)?
+- Esses três canais de comunicação permitem que os programadores escrevam códigos que lêem e gravam dados sem se preocupar com o tipo de mídia de onde vêm ou para o qual vão. Por exemplo, se um programa precisa de um conjunto de dados como entrada, pode simplesmente solicitar os dados da entrada padrão; será fornecido aquilo que estiver sendo usado como entrada padrão. Da mesma forma, o método mais simples que um programa pode usar para exibir sua saída é escrevê-la na saída padrão. Em uma sessão comum do shell, o teclado é definido como stdin e a tela do monitor como stdout e stderr.
+
+### Como posso utilizar os canais de comunicação (stdin/stdot/stderr), mas com seus descritores numéricos?
+- Para saída padão (stdout): ```$ cat /proc/cpuinfo > /tmp/cpu.txt``` é igual a ```$ cat /proc/cpuinfo 1> /tmp/cpu.txt```
+-  A maioria dos programas de linha de comando enviam informações de depuração e mensagens de erro para o canal de erro padrão (stderr): ```cat /proc/cpu_info 2>/tmp/error.txt```.
+- Para ambas as saídas, utilize o ```&>``` ou ```>&```.
+
+- OBS: no caso do redirecionamento para ambas as saídas(  ```&>``` ou ```>&```):  É importante não colocar nenhum espaço ao lado do '&', caso contrário o Bash o interpretará como uma instrução para executar o processo em segundo plano e não o redirecionamento.
+
+### Como podemos redirecionar stdout para stderr e depois fazer o oposto?
+- Como o destino de um descritor de arquivo é representado por um "&" seguido pelo valor numérico do descritor de arquivo:
+- ``` 1>&2``` e o contrário ```2>&1```
+
+
+###  É possível redirecionar a saída padrão de um programa para a entrada padrão de outro programa. É possível redirecionar diretamente o erro padrão para a entrada padrão de outro programa?
+- Não diretamente, mas o stderr pode ser enviado para o stdout que pode ser reenviado para o stdin de outro programa.  
+Ex:
+- Não possível: stderr >> stdin  
+- Possível: stderr >> stdout >> stdin
