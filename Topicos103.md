@@ -724,7 +724,7 @@ conv=ucase    -> converte o conteúdo para maíúscula.
 - ``` 1>&2``` e o contrário ```2>&1```
 
 
-###  É possível redirecionar a saída padrão de um programa para a entrada padrão de outro programa. É possível redirecionar diretamente o erro padrão para a entrada padrão de outro programa?
+### É possível redirecionar diretamente o erro padrão para a entrada padrão de outro programa?
 - Não diretamente, mas o stderr pode ser enviado para o stdout que pode ser reenviado para o stdin de outro programa.  
 Ex:
 - Não possível: stderr >> stdin  
