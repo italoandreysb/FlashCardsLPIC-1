@@ -729,3 +729,28 @@ conv=ucase    -> converte o conteúdo para maíúscula.
 Ex:
 - Não possível: stderr >> stdin  
 - Possível: stderr >> stdout >> stdin
+
+### O que faz o comando ```>log.txt 2>/dev/null```?
+- O arquivo /dev/null pode ser escrito por qualquer usuário, mas nenhum dado pode ser recuperado dele, pois não é armazenado em lugar nenhum.
+
+### Caso direcionemos uma saída para /dev/null e posteriormente formos ler o que está contido no arquivo, o que encontraremos?
+- Nada, O arquivo /dev/null pode ser escrito por qualquer usuário, mas nenhum dado pode ser recuperado dele, pois não é armazenado em lugar nenhum.
+
+### Explique o que seria a opção noclober e como utilizar.
+- Normalmente, quando usamos: ```echo "texto" > arquivo.txt```, se arquivo.txt já existir, ele será apagado e recriado. Caso ative o noclobber, o shell bloqueia essa sobrescrita. clobber = espancamento
+- Para ativar: ```$ set -o noclobber``` ou ```$ set -C```.
+- Para desabilitar ```$ set +o noclobber``` ou ```$ set +C```. 
+- O funcionamento do >> permanece o mesmo.  
+- Para manter o noclobber persistente, precisa ser gravado no perfil bash do usuário (~/.bashrc e recarregar com o o source .bashrc)  ou no perfil do sistema (/etc/bash.bashrc).
+
+### Explique o que faz o comando ```$ uniq -c </tmp/error.txt```
+- O conteúdo do arquivo é enviado como entrada padrão (stdin) para o comando. (Da direita pra esquerda)
+- -c: exibe quantas vezes uma linha repetida aparece no texto
+
+### Do ponto de vista do programador, o uso de descritores de arquivo evita a obrigação de lidar com a análise de opções (parsing) e com os caminhos do sistema de arquivos. É possível até usar omesmo descritor de arquivo como entrada e saída, como seria?
+-  Nesse caso, o descritor de arquivo é definido na linha de comando com os símbolos menor que e maior que, como em ``` 3<>/tmp/error.txt```
+
+
+## Here Document e Here String - PG 276
+
+
